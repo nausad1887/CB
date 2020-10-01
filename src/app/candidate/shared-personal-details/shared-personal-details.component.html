@@ -1,0 +1,96 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" style="height: 35px; width: 28px;" data-icon="noto-letter-p"
+            data-inline="false"></span>&nbsp;&nbsp;Personal
+        Details <a (click)="openAddEditPersonalDetailsModal()" class="edit-pr-btn float-right cursr"><i
+                class="icofont-pencil-alt-1"></i></a>
+    </h4>
+    <div class="row" *ngIf="employeeData">
+        <div class="col-lg-5">
+            <!-- for date of birth -->
+            <div class="fild-personal" *ngIf="employeeData.employeeDOB">
+                <label>Date of Birth</label>
+                <p>{{employeeData.employeeDOB | date: 'mediumDate'}}</p>
+            </div>
+            <div class="fild-personal" *ngIf="!employeeData.employeeDOB">
+                <label>Date of Birth</label>
+                <p>
+                    <span><a href="">&nbsp; <u>Add</u></a></span>
+                </p>
+            </div>
+            <!-- for martial status -->
+            <div class="fild-personal" *ngIf="employeeData.employeeMartialStatus">
+                <label>Marital Status</label>
+                <p>{{employeeData.employeeMartialStatus | titlecase}}</p>
+            </div>
+            <div class="fild-personal" *ngIf="!employeeData.employeeMartialStatus">
+                <label>Marital Status</label>
+                <p>
+                    <span><a href="">&nbsp; <u>Add</u></a></span>
+                </p>
+            </div>
+            <!-- for employee gender -->
+            <div class="fild-personal" *ngIf="employeeData.employeeGender">
+                <label>Gender</label>
+                <p>{{employeeData.employeeGender | titlecase}}</p>
+            </div>
+            <div class="fild-personal" *ngIf="!employeeData.employeeGender">
+                <label>Gender</label>
+                <p>
+                    <span><a href="">&nbsp; <u>Add</u></a></span>
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <!-- for present address -->
+            <div class="fild-personal" *ngIf="employeeData.employeeCurrentAddress">
+                <label>Present Address</label>
+                <p>{{employeeData.employeeCurrentAddress | titlecase}}</p>
+            </div>
+            <div class="fild-personal" *ngIf="!employeeData.employeeCurrentAddress">
+                <label>Present Address</label>
+                <p>
+                    <span><a href="">&nbsp; <u>Add</u></a></span>
+                </p>
+            </div>
+            <!-- for parmanent address -->
+            <div class="fild-personal" *ngIf="employeeData.employeePermanantAddress">
+                <label>Permanent Address</label>
+                <p>{{employeeData.employeePermanantAddress | titlecase}}</p>
+            </div>
+            <div class="fild-personal" *ngIf="!employeeData.employeePermanantAddress">
+                <label>Permanent Address</label>
+                <p>
+                    <span><a href="">&nbsp; <u>Add</u></a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="language-know">
+        <div class="row fild-personal pb-2">
+            <label class="col">Languages
+                <a data-toggle="modal" (click)="openAddKnownLanguageModal()" href="#" class="edit-pr-btn "
+                    style="margin-left: 0px;"><span class="iconify" style=" width: 16px; height: 15px;"
+                        data-icon="fa-plus-circle" data-inline="false"></span></a>
+            </label>
+
+            <label class="col">Read</label>
+            <label class="col">Write</label>
+            <label class="col">Speak</label>
+        </div>
+        <span *ngIf="knownLanguageLists.length>0">
+            <div class="row fild-personal pb-2" *ngFor="let language of knownLanguageLists">
+                <p class="col">{{language.emplanguageName | titlecase}}</p>
+                <p class="col"><i *ngIf="language.emplanguageRead === 'Yes'" class="icofont-check text-green"></i></p>
+                <p class="col"><i *ngIf="language.emplanguageWrite === 'Yes'" class="icofont-check text-green"></i></p>
+                <p class="col"><i *ngIf="language.emplanguageSpeak === 'Yes'" class="icofont-check text-green"></i><a
+                        data-toggle="modal" (click)="openEditKnownLanguageModal(language)" href="#"
+                        class="edit-pr-btn float-right">
+                        <span style="position: relative; top: -5px;"><i class="icofont-pencil-alt-1"></i></span></a></p>
+            </div>
+        </span>
+        <div class="text-center" *ngIf="knownLanguageLists.length === 0">
+            <span style="color: #d2a32e;"><a class="cursr" (click)="openAddKnownLanguageModal()"><u>Add Language
+                    </u></a> </span>
+        </div>
+    </div>
+</div>

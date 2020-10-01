@@ -1,0 +1,13 @@
+/* ngx-charts-advanced-pie-chart {
+  ::ng-deep {
+    .advanced-pie-legend-wrapper {
+      display: none;
+    }
+  }
+} */
+.cursr{
+  cursor: pointer;
+}
+.activea {
+  color: #d2a32e;
+}

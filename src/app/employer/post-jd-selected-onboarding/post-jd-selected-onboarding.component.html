@@ -1,0 +1,73 @@
+<div class="details-list hover">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="d-flex">
+                <div class="img-candate">
+                    <img [src]="url" onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'"
+                        alt="candidate">
+                </div>
+                <div class="nameCandate">
+                    <h5 class="mt-2 mb-1 blurry-text">{{employeeName | titlecase}}</h5>
+                    <p class="text-dark mb-0">{{employeeWork | titlecase}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-5 pt-2 pt-lg-0">
+            <p class="mb-1 icon-g"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#7fb126"
+                        stroke="none">
+                        <path d="M871 5099 c-152 -39 -300 -136 -397 -257 -58 -73 -128 -217 -149
+-309 -26 -109 -17 -312 18 -412 45 -124 92 -199 191 -296 72 -72 109 -99 176
+-133 117 -58 218 -82 350 -82 132 0 232 23 350 82 69 34 103 60 180 138 78 77
+104 111 138 180 59 119 82 218 82 353 0 136 -17 212 -75 332 -101 207 -272
+349 -490 405 -105 27 -271 27 -374 -1z"></path>
+                        <path d="M2355 4504 c-16 -3 -81 -14 -142 -25 l-113 -21 0 -112 c0 -61 -5
+-131 -11 -155 -5 -24 -8 -46 -5 -48 3 -3 44 4 93 15 145 34 230 43 388 43 537
+-1 1027 -258 1343 -706 71 -99 168 -292 207 -408 23 -67 35 -89 50 -92 11 -2
+51 -8 88 -15 38 -6 103 -22 145 -35 42 -13 78 -23 80 -21 2 2 -6 42 -17 87
+-176 741 -758 1304 -1511 1464 -110 24 -152 27 -345 30 -121 2 -233 1 -250 -1z"></path>
+                        <path d="M254 3540 c-121 -144 -202 -310 -238 -483 -12 -57 -16 -137 -16 -314
+0 -262 2 -272 66 -314 28 -18 65 -19 988 -19 937 0 959 0 991 20 65 40 67 54
+63 355 -4 259 -5 273 -32 359 -32 105 -81 216 -127 283 -49 73 -140 183 -151
+183 -5 0 -46 -29 -91 -65 -98 -78 -249 -156 -372 -190 -311 -88 -666 -15 -922
+190 -45 36 -86 65 -91 65 -5 0 -36 -32 -68 -70z"></path>
+                        <path d="M3871 2690 c-41 -10 -113 -37 -160 -61 -70 -35 -104 -61 -182 -139
+-82 -82 -102 -108 -141 -190 -67 -137 -81 -209 -76 -372 6 -149 26 -223 94
+-347 57 -102 197 -236 304 -289 117 -58 218 -82 350 -82 132 0 232 23 350 82
+69 34 103 60 180 138 78 77 104 111 138 180 59 119 82 218 82 354 0 136 -22
+226 -82 346 -34 69 -61 103 -138 180 -77 78 -111 104 -180 138 -47 23 -121 51
+-164 62 -103 26 -270 26 -375 0z"></path>
+                        <path d="M666 2083 c3 -16 24 -82 45 -148 159 -482 513 -890 974 -1120 168
+-83 308 -133 488 -171 102 -22 157 -27 339 -31 l217 -5 6 38 c5 38 47 215 61
+263 l7 24 -74 -7 c-757 -75 -1462 373 -1719 1092 l-33 92 -159 0 -158 0 6 -27z"></path>
+                        <path d="M3258 1143 c-112 -139 -165 -237 -214 -399 -27 -86 -28 -99 -32 -364
+-4 -307 -2 -320 63 -360 32 -20 54 -20 991 -20 923 0 960 1 988 19 64 42 66
+51 66 319 0 268 -8 330 -62 479 -16 46 -53 122 -82 168 -53 89 -162 225 -178
+225 -5 0 -46 -29 -91 -65 -256 -205 -611 -278 -922 -190 -123 34 -274 112
+-372 190 -45 36 -86 65 -91 65 -5 0 -34 -30 -64 -67z"></path>
+                    </g>
+                </svg>{{'Interview scheduled on ' + (interviewDate | date: 'mediumDate' ) + ', ' + interviewTime + ' ' + (interviewMode === 'Skype' ? 'On ' + interviewMode : interviewMode)}}
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-2 text-md-right">
+            <div class="dropdown dotsmenu">
+                <a class="text-md-right dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Add</a>
+                    <a class="dropdown-item" href="#">Edit</a>
+                    <a class="dropdown-item" href="#">Remove</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex">
+        <p class="mb-0"><i class="fa fa-check-circle text-green"></i>
+            {{'Hired on' + " " + (interviewStatusDateTime | date: 'mediumDate')}}
+        </p>
+    </div>
+</div>

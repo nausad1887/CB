@@ -1,0 +1,61 @@
+<div class="details-list hover">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="d-flex">
+                <div class="img-candate">
+                    <a class="cursr" (click)="navigateToCandidateView(employeeData)"><img [src]="url" onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'"
+                        alt="candidate"></a>
+                    <p class="mb-0 cursr"><a (click)="select(employeeID)" class="btn-select bttn cursr"
+                            *ngIf="notSelected">Select</a>
+                        <a (click)="deSelect(employeeID)" style="color: white; background-color: blue;" class="btn-select bttn cursr" *ngIf="selected">Selected</a>
+                    </p>
+                </div>
+                <div class="nameCandate">
+                    <a class="cursr" (click)="navigateToCandidateView(employeeData)"><h5 class="mt-2 mb-1 blurry-text" *ngIf="employeeName">
+                        {{employeeName | titlecase}}</h5></a>
+                    <p class="text-dark mb-0" *ngIf="empworkprofileName">
+                        {{empworkprofileName | titlecase}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-5 pt-2 pt-lg-0">
+            <p class="mb-1 icon-g"><i class="icofont-location-pin text-green"></i>
+                {{cityName | titlecase}} </p>
+            <p class="mb-1 icon-g" *ngIf="empcertificateName">
+                <i class="fa fa-certificate text-green" aria-hidden="true"></i>
+                <span>{{empcertificateName | titlecase}}</span>
+            </p>
+            <p class="mb-1 icon-g" *ngIf="skills.length>0">
+                <i class="icofont-pen-nib text-green"></i> <span
+                    *ngFor="let skill of skills | slice:0:3; let isLast=last">{{skill.skillName ? skill.skillName : '?'}}{{isLast ? '' : ', '}}</span>
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-5 pt-2 pt-lg-0">
+            <p class="mb-1 icon-g" *ngIf="empkycExpYear !== '0'"><i class="fa fa-briefcase text-green"></i>
+                {{empkycExpYear + " Years"}}
+            </p>
+            <p class="mb-1 icon-g" *ngIf="noticeName">
+                {{"Notice Period: " + (noticeName | titlecase)}}</p>
+        </div>
+        <div class="col-md-2 col-sm-2 text-md-right">
+            <div class="dropdown dotsmenu">
+                <a class="text-md-right dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item cursr" (click)="onClickScheduleInterview(employeeID)">Schedule Interview</a>
+                    <a class="dropdown-item cursr" (click)="onClickAddToFavourite(employeeID)" *ngIf="!employerfavoriteID">Add to Favourites</a>
+                    <a class="dropdown-item cursr" (click)="onClickRemoveFromFavourite(employeeID, employerfavoriteID)" *ngIf="employerfavoriteID">Remove</a>
+                    <a class="dropdown-item cursr" (click)="onClickDownload(employeeID)">Download</a>
+                    <a class="dropdown-item cursr" (click)="onClickSave(employeeID, jobjdID)">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex">
+        <p class="mb-0">Matched with Search 75%</p>
+    </div>
+</div>

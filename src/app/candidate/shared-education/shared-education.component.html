@@ -1,0 +1,20 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" data-icon="fa-graduation-cap" data-inline="false"
+            style="height: 35px; width: 30px;"></span>&nbsp;&nbsp;Education <a href="#" data-toggle="modal"
+            (click)="openAddEducationModal()" class="edit-pr-btn float-right"><span class="iconify"
+                data-icon="fa-plus-circle" data-inline="false"></span></a></h4>
+    <div *ngIf="educationListsData.length>0">
+        <div class="skils-content" *ngFor="let item of educationListsData">
+            <h5>{{item.degreeName + ', ' + item.specialisationName}} <a href="#" data-toggle="modal"
+                    (click)="openEditEducationModal(item)" class="edit-pr-btn float-right"><i
+                        class="icofont-pencil-alt-1"></i></a>
+            </h5>
+            <p class="mb-0">{{item.universityName}}</p>
+            <p class="mb-0">{{item.empeducationPer + ', ' + item.empeducationYear}}</p>
+        </div>
+    </div>
+
+    <div class="text-center" *ngIf="educationListsData.length === 0">
+        <span style="color: #d2a32e;"><u>Incomplete </u> </span>
+    </div>
+</div>

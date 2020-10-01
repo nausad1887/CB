@@ -1,0 +1,62 @@
+<app-shared-global-search (searchItem)="searchJd($event)"></app-shared-global-search>
+<app-quick-search-job-role (quickSearchJobRole)="searchOnJobRole($event)" *ngIf="searched"></app-quick-search-job-role>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-xl-3 col-lg-4" *ngIf="searched">
+        <app-shared-filter (skillsIDs)="changeSkill($event)" (industryIDs)="changeIndustry($event)"
+            (cityIDs)="changeCity($event)" (degreeIDs)="changeDegree($event)" (noticeIDs)="changeNotice($event)"
+            (availableIDs)="changeAvailable($event)" (countryIDs)="changeCountry($event)"
+            (salaryRange)="changeSallary($event)" (experianceRange)="changeExperiance($event)"
+            (languageIDs)="changeCLanguage($event)">
+        </app-shared-filter>
+    </div>
+    <div class="col-xl-9 col-lg-8 pro-details">
+        <div class="scheduald-status" *ngIf="statusShow.length>0">
+            <app-shared-scheduled-status [data]="statusShow.length > 0 ? statusShow : []"
+                [jobJdID]="jobJdID ? jobJdID : '0'"></app-shared-scheduled-status>
+        </div>
+        <br>
+        <div class="tab-content" id="myTabContent">
+            <div class="" *ngIf="data.length>0">
+                <div class="content-details"
+                    *ngFor="let employee of data | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                    <app-post-jd-all [employeeName]="employee.employeeName" [employeeID]="employee.employeeID"
+                        [empworkprofileName]="employee.workprofiles.length>0 ? employee.workprofiles[0].empworkprofileName : ''"
+                        [cityName]="employee.cityName"
+                        [noticeName]="employee.kycinfo[0].noticeID !== '0' ? employee.kycinfo[0].noticeName : ''"
+                        [empcertificateName]="employee.certificates.length>0 ? employee.certificates[0].empcertificateName : ''"
+                        [skills]="employee.employeeskill.length>0 ? employee.employeeskill : []"
+                        [employeeData]="employee"
+                        [empkycExpYear]="employee.kycinfo[0].empkycExpYear !== '0' ? employee.kycinfo[0].empkycExpYear : ''"
+                        [profilePic]="employee.employeeProfilePicture ? employee.employeeProfilePicture : ''"
+                        (save)="onClickSave($event)" (scheduleInterview)="onClickScheduleInterview($event)" (download)="onClickDownload($event)"
+                        (showSharedStatus)="makeStatusVisible($event)">
+                    </app-post-jd-all>
+                </div>
+                <ngb-pagination class="d-flex justify-content-end" *ngIf="data.length>10" [collectionSize]="data.length"
+                    [pageSize]="pageSize" [(page)]="page">
+                </ngb-pagination>
+            </div>
+            <p class="lead text-center" *ngIf="data.length === 0 && loadingWithFilter">Loading...</p>
+            <p class="lead text-center" *ngIf="data.length === 0 && noRecordFoundWithFilter">No Record Found.</p>
+        </div>
+    </div>
+</div>
+<!-- emptydata -->
+<div class="row" *ngIf="emptyData && !noRecordFound">
+    <div class="container" style="min-height:150px;">
+        <p class="text-center"><img class="" style="height: 200px; width: 200px;"
+                src="assets/images/curved-up-arrow-.png" alt=""></p>
+    </div>
+</div>
+<!-- loading -->
+<div class="row" *ngIf="data.length === 0 && loading">
+    <div class="container" style="min-height:150px;">
+        <p class="lead text-center">Loading...</p>
+    </div>
+</div>
+<!-- no record found -->
+<div class="row" *ngIf="data.length === 0 && noRecordFound">
+    <div class="container" style="min-height:150px;">
+        <p class="lead text-center">No Record Found.</p>
+    </div>
+</div>

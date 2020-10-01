@@ -1,0 +1,76 @@
+<div class="modal-content" *ngIf="addCertificate">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Certificate</h5>
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #addCertificate="ngForm"
+            (ngSubmit)="onSubmitAddCertificate(addCertificate)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Certificate Name</label>
+                    <input type="text" id="Mobile1" name="empcertificateName"
+                        [(ngModel)]="addCertificateData.empcertificateName" class="form-control"
+                        placeholder="Enter certificate name">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Issued By</label>
+                    <input type="text" id="Mobile2" name="empcertificateIssuedBy"
+                        [(ngModel)]="addCertificateData.empcertificateIssuedBy" class="form-control"
+                        placeholder="Enter issued by">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Valid till</label>
+                    <input type="Date" id="Mobile3" name="empcertificateValidTill"
+                        [(ngModel)]="addCertificateData.empcertificateValidTill" class="form-control" value="">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #addCertificate class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="editCertificate">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Certificate</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseModal()" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #editCertificate="ngForm"
+            (ngSubmit)="onSubmitEditCertificate(editCertificate)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Certificate Name</label>
+                    <input type="text" id="Mobile4" name="empcertificateName"
+                        [(ngModel)]="addCertificateData.empcertificateName" class="form-control"
+                        placeholder="Enter Certificate Name">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Issued By</label>
+                    <input type="text" id="Mobile5" name="empcertificateIssuedBy"
+                        [(ngModel)]="addCertificateData.empcertificateIssuedBy" class="form-control"
+                        placeholder="Enter Issuer Name">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Valid till</label>
+                    <input type="Date" id="Mobile6" name="empcertificateValidTill"
+                        [(ngModel)]="addCertificateData.empcertificateValidTill" class="form-control"
+                        placeholder="Select Date">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #editCertificate class="btn btn-them btn-md w-100">Save</button>
+                    <a (click)="deleteCertificate(addCertificateData.empcertificateID)" class="text-danger cursr">Delete
+                        Record</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

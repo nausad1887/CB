@@ -1,0 +1,143 @@
+<!--Modal Login-->
+<!-- <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"> -->
+<!-- <div class="modal-dialog" role="document"> -->
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Login</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()" #closebutton>
+      <span aria-hidden="true">×</span></button>
+  </div>
+  <div class="modal-body">
+    <form class="text-left profile-form" #myForm="ngForm">
+      <div>
+        <div class="custom-control custom-radio custom-control-inline" (click)="onChangeLoginCandidate()">
+          <input type="radio" class="custom-control-input" name="customRadio" id="customRadio1" checked>
+          <label class="custom-control-label cursr" for="customRadio1">Candidate</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline" (click)="onChangeLoginEmployee()">
+          <input type="radio" class="custom-control-input" name="customRadio" id="customRadio2">
+          <label class="custom-control-label cursr" for="customRadio2">Employer</label>
+        </div>
+      </div>
+      <br>
+
+      <div class="form-row CandidateForm" [formGroup]="loginForm" *ngIf="isCandidateLogin">
+        <div class="col-md-12 col-sm-12 form-group">
+          <input type="text" id="Email-Mobile3" formControlName="email" class="form-control" name="email"
+            placeholder="Enter Email/ Mobile Number" required>
+          <small class="text-danger"
+            *ngIf="loginForm.controls['email'].hasError('required') && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">This
+            field is required</small>
+          <small class="text-danger"
+            *ngIf="loginForm.controls['email'].hasError('pattern') && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">Please
+            enter valid email address or phone number</small>
+        </div>
+
+        <div class="col-md-12 col-sm-12 form-group inputWithIcon">
+          <input type="password" [type]=" hide ? 'password' : 'text' " id="defaultPassword1" formControlName="password"
+            name="password" class="form-control" placeholder="Enter password" required>
+          <a class="cursr" (click)="myFunction()"><i class="fas "
+              [ngClass]="{'fa-eye': !hide, 'fa-eye-slash': hide}"></i></a>
+          <small class="text-danger"
+            *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">This
+            field is required</small>
+        </div>
+        <div class="col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" formControlName="terms" class="custom-control-input" id="customCheck"
+                  name="example1">
+                <label class="custom-control-label cursr" for="customCheck">Remember me</label>
+              </div>
+            </div>
+            <div class="col text-right"><a id="forgot" data-dismiss="modal" href="#" style="color:#1e2029;"
+                data-toggle="modal" (click)="openForgetPasswordModal()">Forgot
+                Password?</a></div>
+          </div>
+          <div class="row pt-3">
+            <div class="col">
+              <button type="button" class="btn btn-them btn-md w-100" (click)="onClickEmployeeLogin(loginForm.value)"
+                [disabled]="loginForm.invalid" data-toggle="modal">Log In</button>
+            </div>
+          </div>
+          <div class="d-flex pt-3 login-wthsocial">
+            <div class="">
+              <p>Or log in via socials</p>
+            </div>
+            <div class="ml-auto">
+              <a href="#"><img src="assets/images/icon-linkedIn.png" alt="icon"></a>
+              <a href="#" class="ml-2"><img src="assets/images/icon-fb.png" alt="icon"></a>
+              <a href="#" class="ml-2"><img src="assets/images/icon-google.png" alt="icon"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12 mt-3 signupbtn text-center">
+          <span>New User?</span> <a data-dismiss="modal" class="text-green" (click)="openSignModal()" href="#"
+            data-toggle="modal" data-target="#Signup">Sign up</a>
+        </div>
+      </div>
+
+      <div class="form-row EmployerForm" [formGroup]="employerLoginForm" *ngIf="isEmployeeLogin">
+        <div class="col-md-12 col-sm-12 form-group">
+          <input type="text" id="Email-Mobile4" name="employerEmail" formControlName="employerEmail"
+            class="form-control" placeholder="Enter Email/ Mobile Number">
+          <small class="text-danger"
+            *ngIf="employerLoginForm.controls['employerEmail'].hasError('required') && (employerLoginForm.controls['employerEmail'].dirty || employerLoginForm.controls['employerEmail'].touched)">This
+            field is required</small>
+          <small class="text-danger"
+            *ngIf="employerLoginForm.controls['employerEmail'].hasError('pattern') && (employerLoginForm.controls['employerEmail'].dirty || employerLoginForm.controls['employerEmail'].touched)">Please
+            enter valid email address or phone number</small>
+        </div>
+        <div class="col-md-12 col-sm-12 form-group inputWithIcon">
+          <input type="password" [type]=" hidePassword ? 'password' : 'text' " id="defaultPassword2"
+            name="employerPassword" formControlName="employerPassword" class="form-control"
+            placeholder="Enter password">
+          <a class="cursr" (click)="myEmployerFunction()"><i class="fas "
+              [ngClass]="{'fa-eye': !hidePassword, 'fa-eye-slash': hidePassword}"></i></a>
+          <small class="text-danger"
+            *ngIf="employerLoginForm.controls['employerPassword'].hasError('required') && (employerLoginForm.controls['employerPassword'].dirty || employerLoginForm.controls['employerPassword'].touched)">This
+            field is required</small>
+        </div>
+        <div class="col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" formControlName="employerTerms" class="custom-control-input" id="customCheck"
+                  name="employerTerms">
+                <label class="custom-control-label cursr" for="customCheck">Remember me</label>
+              </div>
+            </div>
+            <div class="col text-right"><a href="#" (click)="openEmployerForgetPasswordModal()" data-dismiss="modal"
+                style="color:#1e2029;" data-toggle="modal">Forgot Password?</a>
+            </div>
+          </div>
+          <div class="row pt-3">
+            <div class="col">
+              <button type="button" class="btn btn-them btn-md w-100" data-toggle="modal"
+                [disabled]="employerLoginForm.invalid" (click)="onClickEmployerLogin(employerLoginForm.value)"
+                data-dismiss="modal">Log In</button>
+            </div>
+          </div>
+          <div class="d-flex pt-3 login-wthsocial">
+            <div class="">
+              <p>Or log in via socials</p>
+            </div>
+            <div class="ml-auto">
+              <a href="#"><img src="assets/images/icon-linkedIn.png" alt="icon"></a>
+              <a href="#" class="ml-2"><img src="assets/images/icon-fb.png" alt="icon"></a>
+              <a href="#" class="ml-2"><img src="assets/images/icon-google.png" alt="icon"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12 mt-3 signupbtn text-center">
+          <span>New User?</span> <a class="text-green" data-dismiss="modal" href="#" (click)="openSignModal()"
+            data-toggle="modal" data-target="#Signup">Sign up</a>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->

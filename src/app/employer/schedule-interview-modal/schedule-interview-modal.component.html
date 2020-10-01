@@ -1,0 +1,179 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title w-100 text-center" id="exampleModalLabel" >Schedule Interview</h5>
+		<button type="button" (click)="onClose()" class="close" data-dismiss="modal" aria-label="Close"> <span
+				aria-hidden="true">×</span></button>
+	</div>
+	<div class="modal-body">
+		<form class="text-left profile-form" [formGroup]="scheduleInterviewForm"
+			(ngSubmit)="schedule(scheduleInterviewForm.value)">
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="jdType">Type of JD</label>
+					<ng-select [closeOnSelect]="true" [searchable]="false" appearance="outline" placeholder="Choose type of JD"
+                         formControlName="typeOfJD" class="custom" labelForId="jdType" name="typeOfJD">
+                         <ng-option *ngFor="let job of jobJDlistActive" [value]="job.jobjdID">{{job.jobjdName | titlecase}}</ng-option>
+		            </ng-select>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['typeOfJD'].hasError('required') && (scheduleInterviewForm.controls['typeOfJD'].dirty || scheduleInterviewForm.controls['typeOfJD'].touched)">Please
+						select JD type.</small>
+				</div>
+				<div class="col-md-6 form-group">
+					<label>Date</label>
+					<input type="date" id="Date" [min]=minDate name="dateOfInterview" formControlName="dateOfInterview"
+						class="form-control cursr" placeholder="Choose date">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['dateOfInterview'].hasError('required') && (scheduleInterviewForm.controls['dateOfInterview'].dirty || scheduleInterviewForm.controls['dateOfInterview'].touched)">Please
+						enter Date of Interview.</small>
+				</div>
+				<div class="col-md-6 form-group">
+					<label>Time</label>
+					<input type="time" id="Time" name="timeOfInterview" formControlName="timeOfInterview"
+						class="form-control cursr" placeholder="Choose date">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['timeOfInterview'].hasError('required') && (scheduleInterviewForm.controls['timeOfInterview'].dirty || scheduleInterviewForm.controls['timeOfInterview'].touched)">Please
+						enter Time of Interview.</small>
+				</div>
+				<div class="col-md-6 form-group">
+					<label>Mode of Interview</label>
+					<select class="form-control custom-select cursr" name="interviewMode"
+						(change)="onChangeInterviewMode($event.target.value)" formControlName="interviewMode">
+						<option value="" selected disabled>Choose mode of interview</option>
+						<option *ngFor="let interview of interviewMode" [value]="interview.interviewmodeID">
+							{{interview.interviewmodeName | titlecase}}</option>
+					</select>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['interviewMode'].hasError('required') && (scheduleInterviewForm.controls['interviewMode'].dirty || scheduleInterviewForm.controls['interviewMode'].touched)">Please
+						select mode of interview.</small>
+				</div>
+			</div>
+
+			<hr *ngIf="showMode">
+			<h5 *ngIf="showMode">Contact Details</h5>
+			<!-- this is for personal -->
+			<div class="row" *ngIf="showMode === 'In Personal'">
+				<div class="col-md-12 form-group">
+					<label>Full Name</label>
+					<input type="text" id="contactfullName" name="contactfullName" class="form-control"
+						formControlName="contactfullName" placeholder="Enter contact’s full name">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactfullName'].hasError('required') && (scheduleInterviewForm.controls['contactfullName'].dirty || scheduleInterviewForm.controls['contactfullName'].touched)">Please
+						enter Contact Name.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactfullName'].hasError('minlength')">Required
+						field, must be between 3 and 30 characters.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactfullName'].hasError('maxlength')">Required
+						field, must be between 3 and 30 characters.</small>
+				</div>
+				<div class="col-md-12 form-group">
+					<label>Office Number</label>
+					<input type="text" id="officeNumber" name="officeNumber" class="form-control"
+						formControlName="officeNumber" placeholder="Enter Office Number">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['officeNumber'].hasError('required') && (scheduleInterviewForm.controls['officeNumber'].dirty || scheduleInterviewForm.controls['officeNumber'].touched)">Please
+						enter Office Number.</small>
+				</div>
+				<div class="col-md-12 form-group">
+					<label>Address Line 1</label>
+					<input type="text" id="addressLine1" name="addressLine1" class="form-control"
+						formControlName="addressLine1" placeholder="Enter Address-Line 1">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['addressLine1'].hasError('required') && (scheduleInterviewForm.controls['addressLine1'].dirty || scheduleInterviewForm.controls['addressLine1'].touched)">Please
+						enter Address Line 1.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['addressLine1'].hasError('minlength')">Required
+						field, must be between 3 and 60 characters.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['addressLine1'].hasError('maxlength')">Required
+						field, must be between 3 and 60 characters.</small>
+				</div>
+				<div class="col-md-12 form-group">
+					<label>Address Line 2</label>
+					<input type="text" id="addressLine2" name="addressLine2" class="form-control"
+						formControlName="addressLine2" placeholder="Enter Address-Line 2">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['addressLine2'].hasError('required') && (scheduleInterviewForm.controls['addressLine2'].dirty || scheduleInterviewForm.controls['addressLine2'].touched)">Please
+						enter Address Line 2.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['addressLine2'].hasError('minlength')">Required
+						field, must be between 3 and 60 characters.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['addressLine2'].hasError('maxlength')">Required
+						field, must be between 3 and 60 characters.</small>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="state">State</label>
+          <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline" placeholder="Select State"
+            formControlName="interviewState" class="custom" (change)="onChangeState($event)" labelForId="state" name="interviewState">
+            <ng-option *ngFor="let state of stateLists" [value]="state.stateID">{{state.stateName}}</ng-option>
+          </ng-select>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['interviewState'].hasError('required') && (scheduleInterviewForm.controls['interviewState'].dirty || scheduleInterviewForm.controls['interviewState'].touched)">Please
+						select state of interview.</small>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="city">City<span *ngIf="cityLists.length === 0 && onChangeLoadingGif"><img src="assets/images/loading.gif" alt="gif"></span></label>
+          <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline" placeholder="Select City"
+            formControlName="interviewCity" class="custom" labelForId="city" name="interviewCity">
+            <ng-option *ngFor="let city of cityLists" [value]="city.cityID">{{city.cityName}}</ng-option>
+		  </ng-select>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['interviewCity'].hasError('required') && (scheduleInterviewForm.controls['interviewCity'].dirty || scheduleInterviewForm.controls['interviewCity'].touched)">Please
+						select city of interview.</small>
+				</div>
+				<div class="col-md-12 form-group">
+					<label>Pin Code</label>
+					<input type="text" id="pinCode" name="pinCode" class="form-control" formControlName="pinCode"
+						placeholder="Enter Pin-Code">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['pinCode'].hasError('required') && (scheduleInterviewForm.controls['pinCode'].dirty || scheduleInterviewForm.controls['pinCode'].touched)">Please
+						enter Pin-Code.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['pinCode'].hasError('pattern') && (scheduleInterviewForm.controls['pinCode'].dirty || scheduleInterviewForm.controls['pinCode'].touched)">Accept
+						Only Numeric Value.</small>
+				</div>
+			</div>
+
+			<!-- this is for skype -->
+			<div class="row" *ngIf="showMode === 'Skype'">
+				<div class="col-md-12 form-group">
+					<label>Full Name</label>
+					<input type="text" id="contactfullName" name="contactfullName" class="form-control"
+						formControlName="contactfullName" placeholder="Enter contact’s full name">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactfullName'].hasError('required') && (scheduleInterviewForm.controls['contactfullName'].dirty || scheduleInterviewForm.controls['contactfullName'].touched)">Please
+						enter Contact Name.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactfullName'].hasError('minlength')">Required
+						field, must be between 3 and 30 characters.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactfullName'].hasError('maxlength')">Required
+						field, must be between 3 and 30 characters.</small>
+				</div>
+				<div class="col-md-12 form-group">
+					<label>Connection ID/ Link/ Contact Number</label>
+					<input type="text" id="officeNumberOrLink" name="contactOrLink" class="form-control"
+						formControlName="contactOrLink" placeholder="Enter connection id / link / contact number">
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactOrLink'].hasError('required') && (scheduleInterviewForm.controls['contactOrLink'].dirty || scheduleInterviewForm.controls['contactOrLink'].touched)">Please
+						enter connection id / link / contact number.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactOrLink'].hasError('minlength')">Required
+						field, must be between 3 and 30 characters.</small>
+					<small class="text-danger"
+						*ngIf="scheduleInterviewForm.controls['contactOrLink'].hasError('maxlength')">Required
+						field, must be between 3 and 30 characters.</small>
+				</div>
+			</div>
+
+			<div class="row pt-3 justify-content-center">
+				<div class="col-md-8">
+					<button type="submit" [disabled]="scheduleInterviewForm.invalid"
+						class="btn btn-them btn-md w-100">Schedule</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</div>

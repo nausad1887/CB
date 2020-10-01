@@ -1,0 +1,6 @@
+.green-progress .mat-progress-bar-fill::after {
+  color: #d2a32e !important;
+}
+.cursr {
+  cursor: pointer;
+}

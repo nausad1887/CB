@@ -1,0 +1,111 @@
+<div class="modal-content" *ngIf="addWorkProfile">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Profiles</h5>
+        <button type="button" class="close" (click)="onModalClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #addWorkProfole=ngForm (ngSubmit)="onSaveAddWorkProfile(addWorkProfole)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Resume Title</label>
+                    <input type="text" id="profile1" name="empworkprofileName"
+                        [(ngModel)]="workProfileData.empworkprofileName" class="form-control"
+                        placeholder="Enter resume title">
+                </div>
+                <div class="col-md-12 form-group seerachbox-skill">
+                    <label>Skills</label>
+                    <input type="text" id="profile2" class="form-control" (keyup)='keyUpPrimary.next($event)'
+                        placeholder="Search Skills">
+                    <span class="addons-serch"><i class="icofont-search-1"></i></span>
+                </div>
+                <div class="col-md-12 form-group skill-result" *ngIf="skillsLists.length>0">
+                    <label>Result :</label>
+                    <div class="row m-0">
+                        <div class="skill-items" *ngFor="let item of skillsLists ; let i = index"><a class="cursr"
+                                (click)="selectSkills(item)">{{item.skillName ? item.skillName : '?' }}</a>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12 form-group skill-result" *ngIf="selectedPrimarySkills.length>0">
+                    <label>Selected :</label>
+                    <div class="row m-0">
+                        <div class="skill-items" *ngFor="let item of selectedPrimarySkills; let i = index">
+                            {{item.skillName ? item.skillName : '?' }} <a (click)="popOutPrimary(i)"
+                                class="close-btn cursr">&times;</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #addWorkProfole class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="editWorkProfile">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Profiles</h5>
+        <button type="button" class="close" (click)="onModalClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #editWorkProfile="ngForm"
+            (ngSubmit)="onSaveEditWorkProfile(editWorkProfile)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Resume Title</label>
+                    <input type="text" id="" name="empworkprofileName" [(ngModel)]="workProfileData.empworkprofileName"
+                        class="form-control" placeholder="Enter Tilte">
+                </div>
+                <div class="col-md-12 form-group seerachbox-skill">
+                    <label>Skills</label>
+                    <input type="text" id="profile3" class="form-control" (keyup)='keyUpPrimary.next($event)'
+                        placeholder="Search Skills">
+                    <span class="addons-serch"><i class="icofont-search-1"></i></span>
+                </div>
+                <div class="col-md-12 form-group skill-result" *ngIf="skillsLists.length>0">
+                    <label>Result :</label>
+                    <div class="row m-0">
+                        <div class="skill-items" *ngFor="let item of skillsLists ; let i = index"><a class="cursr"
+                                (click)="selectSkills(item)">{{item.skillName ? item.skillName : '?' }}</a>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12 form-group skill-result" *ngIf="selectedPrimarySkills.length>0">
+                    <label>Selected :</label>
+                    <div class="row m-0">
+                        <div class="skill-items" *ngFor="let item of selectedPrimarySkills; let i = index">
+                            {{item.skillName ? item.skillName : '?' }} <a (click)="popOutPrimary(i)"
+                                class="close-btn cursr">&times;</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12 form-group skill-result">
+                    <div class="row m-0">
+                        <div class="skill-items" *ngFor="let skills of addedListsSkill; let i = index">
+                            {{skills.skillName}} <span class="close-btn cursr"
+                                (click)="deleteSkill(skills); popOutSkill(i)">&times;</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" class="btn btn-them btn-md w-100">Save</button>
+                    <a (click)="onDeleteWorkProfile(workProfileData.empworkprofileID)" class="text-danger cursr">Delete
+                        Record</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

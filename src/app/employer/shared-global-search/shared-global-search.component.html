@@ -1,0 +1,122 @@
+<div class="globsearch-top">
+  <form class="pb-3" action="" [formGroup]="searchInputForm" (ngSubmit)="search(searchInputForm.value)">
+    <div class="d-lg-flex">
+      <div class="row no-gutters serachbox-border">
+        <div class="col-lg-6">
+          <div class="form-group mb-0 form-inline searchcontent serach-blob">
+            <!-- <span class="addons"><i class="icofont-search"></i></span> -->
+            <ng-select
+            [items]="skillslist$ | async"
+            [closeOnSelect]="true" 
+            [multiple]="true" 
+            bindValue="skillID"
+            bindLabel="skillName"
+            [searchable]="true" 
+            appearance="outline" 
+            placeholder="Skills"
+            appendTo="body" 
+            formControlName="skills" 
+            class="custom" 
+            style="width:100%;margin:0;" 
+            name="skillID">
+            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                  <span class="ng-value-label">{{item.skillName}}</span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+              </div>
+              <div class="ng-value" *ngIf="items.length > 2">
+                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+              </div>
+          </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="form-group mb-0">
+            <ng-select 
+            [closeOnSelect]="true" 
+            [searchable]="true" 
+            appearance="outline" 
+            placeholder="Location"
+            appendTo="body" 
+            formControlName="location" 
+            class="custom" 
+            labelForId="city" 
+            name="cityName">
+              <ng-option *ngFor="let city of (cityLists$ | async)" [value]="city.cityID">{{city.cityName}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="form-group mb-0">
+            <ng-select 
+            [closeOnSelect]="true" 
+            [searchable]="true" 
+            appearance="outline" 
+            placeholder="Experience"
+            appendTo="body" 
+            formControlName="experiance" 
+            class="custom" 
+            name="empexp">
+              <ng-option *ngFor="let exp of expYears" [value]="exp.id">{{exp.value}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="form-group mb-0">
+            <ng-select
+            [closeOnSelect]="true" 
+            [searchable]="true" 
+            appearance="outline" 
+            placeholder="Salary"
+            appendTo="body" 
+            formControlName="sallary" 
+            class="custom" 
+            name="sallary">
+              <ng-option *ngFor="let salary of (sallaryRange$ | async)" [value]="salary.salaryrangeID">{{salary.salaryrangeName}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="form-group mb-0">
+            <input type="text" id="Certificate" formControlName="certificate" class="form-control"
+              placeholder="Certificate">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="form-group mb-0">
+            <ng-select
+            [closeOnSelect]="true" 
+            [searchable]="true" 
+            appearance="outline" 
+            placeholder="Notice Period"
+            appendTo="body" 
+            formControlName="notice" 
+            class="custom" 
+            name="notice">
+              <ng-option *ngFor="let notice of (noticeLists$ | async)" [value]="notice.noticeID">{{notice.noticeName}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="form-group mb-0">
+            <ng-select 
+            [closeOnSelect]="true" 
+            [searchable]="true" 
+            appearance="outline" 
+            placeholder="Language"
+            appendTo="body" 
+            formControlName="language" 
+            class="custom" 
+            name="language">
+              <ng-option *ngFor="let lan of languageLists" [value]="lan.value">{{lan.value}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="ml-lg-3 align-self-end">
+        <button type="submit" class="btn btn-them btn-md">Search</button>
+      </div>
+    </div>
+  </form>
+</div>

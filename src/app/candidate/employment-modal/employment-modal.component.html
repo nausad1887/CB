@@ -1,0 +1,233 @@
+
+<div class="modal-content" *ngIf="addEmployment">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Employment</h5>
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #addEmployment="ngForm" (ngSubmit)="onSubmitAddEmployment()">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Designation</label>
+                    <input type="text" id="Designation" name="empworkDesignation"
+                        [(ngModel)]="addAndEditEmployeeEmploymentData.empworkDesignation" class="form-control"
+                        placeholder="Enter designation">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Company Name</label>
+                    <select class="form-control custom-select" (change)="onChangeCompany($event.target.value)">
+                        <option value="" selected disabled>Select Company</option>
+                        <option *ngFor="let item of companiesLists" [value]="item.companyID">{{item.companyName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Company Industry</label>
+                    <select class="form-control custom-select" (change)="onChangeIndustry($event.target.value)">
+                        <option value="" selected disabled>Select Industry</option>
+                        <option *ngFor="let item of industriesLists" [value]="item.industryID">{{item.industryName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="mb-0"><label>Current Company</label></p>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" [checked]="currentCompany" (click)="isTrue()" class="custom-control-input"
+                        name="customRadio" id="customRadio1">
+                    <label class="custom-control-label" for="customRadio1">Yes</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" [checked]="currentCompanyNot" (click)="isFalse()" class="custom-control-input"
+                        name="customRadio" id="customRadio2">
+                    <label class="custom-control-label" for="customRadio2">No</label>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 form-group" *ngIf="!currentCompanyNot">
+                    <label>From</label>
+                    <select class="form-control custom-select" (change)="onChangeFromMonth($event.target.value)">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let item of months" [value]="item.val">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group" *ngIf="!currentCompanyNot">
+                    <label>&nbsp;</label>
+                    <select class="form-control custom-select" (change)="onChangeFromYear($event.target.value)">
+                        <option value="" selected disabled>Select years</option>
+                        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>From</label>
+                    <select class="form-control custom-select" (change)="onChangeFromMonth($event.target.value)">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let item of months" [value]="item.val">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>&nbsp;</label>
+                    <select class="form-control custom-select" (change)="onChangeFromYear($event.target.value)">
+                        <option value="" selected disabled>Select years</option>
+                        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>To</label>
+                    <select class="form-control custom-select" (change)="onChangeToMonth($event.target.value)">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let item of months" [value]="item.val">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>&nbsp;</label>
+                    <select class="form-control custom-select" (change)="onChangeToYear($event.target.value)">
+                        <option value="" selected disabled>Select years</option>
+                        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Job Description</label>
+                    <textarea type="text" id="" class="form-control" name="empworkDetails"
+                        [(ngModel)]="addAndEditEmployeeEmploymentData.empworkDetails"
+                        placeholder="Enter description"></textarea>
+                </div>
+            </div>
+
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #addEmployment class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="editEmployment">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Employment</h5>
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #EditEmployment="ngForm"
+            (ngSubmit)="onSubmitEditEmployment(EditEmployment)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Designation</label>
+                    <input type="text" id="Designation" name="empworkDesignation"
+                        [(ngModel)]="addAndEditEmployeeEmploymentData.empworkDesignation" class="form-control"
+                        placeholder="Enter designation">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Company Name</label>
+                    <select class="form-control custom-select" (change)="onChangeCompany($event.target.value)"
+                        name="companyID" [(ngModel)]="addAndEditEmployeeEmploymentData.companyID">
+                        <option value="" selected disabled>Select Company</option>
+                        <option *ngFor="let item of companiesLists" [value]="item.companyID">{{item.companyName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Company Industry</label>
+                    <select class="form-control custom-select" (change)="onChangeIndustry($event.target.value)"
+                        name="industryID" [(ngModel)]="addAndEditEmployeeEmploymentData.industryID">
+                        <option value="" selected disabled>Select Industry</option>
+                        <option *ngFor="let item of industriesLists" [value]="item.industryID">{{item.industryName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="mb-0"><label>Current Company</label></p>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" [checked]="currentCompany" (click)="isTrue()" class="custom-control-input"
+                        name="customRadio" id="customRadio1">
+                    <label class="custom-control-label" for="customRadio1">Yes</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" [checked]="currentCompanyNot" (click)="isFalse()" class="custom-control-input"
+                        name="customRadio" id="customRadio2">
+                    <label class="custom-control-label" for="customRadio2">No</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 form-group" *ngIf="!currentCompanyNot">
+                    <label>From</label>
+                    <select class="form-control custom-select" (change)="onChangeEditFromMonth($event.target.value)"
+                        name="selectedFromMonth" [(ngModel)]="selectedFromMonth">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let item of months" [value]="item.name">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group" *ngIf="!currentCompanyNot">
+                    <label>&nbsp;</label>
+                    <select class="form-control custom-select" (change)="onChangeFromYear($event.target.value)"
+                        name="selectedFromYear" [(ngModel)]="selectedFromYear">
+                        <option value="" selected disabled>Select years</option>
+                        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>From</label>
+                    <select class="form-control custom-select" (change)="onChangeEditFromMonth($event.target.value)"
+                        name="selectedFromMonth" [(ngModel)]="selectedFromMonth">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let item of months" [value]="item.name">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>&nbsp;</label>
+                    <select class="form-control custom-select" (change)="onChangeFromYear($event.target.value)"
+                        name="selectedFromYear" [(ngModel)]="selectedFromYear">
+                        <option value="" selected disabled>Select years</option>
+                        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>To</label>
+                    <select class="form-control custom-select" (change)="onChangeEditToMonth($event.target.value)"
+                        name="selectedToMonth" [(ngModel)]="selectedToMonth">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let item of months" [value]="item.name">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group" *ngIf="currentCompanyNot">
+                    <label>&nbsp;</label>
+                    <select class="form-control custom-select" (change)="onChangeToYear($event.target.value)"
+                        name="selectedToYear" [(ngModel)]="selectedToYear">
+                        <option value="" selected disabled>Select years</option>
+                        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Job Description</label>
+                    <textarea type="text" id="" class="form-control" name="empworkDetails"
+                        [(ngModel)]="addAndEditEmployeeEmploymentData.empworkDetails"
+                        placeholder="Enter description"></textarea>
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #addEmployment class="btn btn-them btn-md w-100">Save</button>
+                    <a (click)="onDeleteEmployment(addAndEditEmployeeEmploymentData.empworkID)"
+                        class="text-danger cursr">Delete Record</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

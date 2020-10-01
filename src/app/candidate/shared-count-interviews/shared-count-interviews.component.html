@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-xl-3 col-md-4 col-6">
+        <div class="d-flex item-statu align-items-center">
+            <div class="count-statu blue-bg" *ngIf="total">{{total}}</div>
+            <div class="count-statu blue-bg" *ngIf="!total"><img src="assets/images/loading.gif" alt="gif">
+            </div>
+            <div class="sname">Total Interviews</div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-4 col-6">
+        <div class="d-flex item-statu align-items-center">
+            <div class="count-statu green-bg" *ngIf="selected">{{selected}}</div>
+            <div class="count-statu green-bg" *ngIf="!selected"><img src="assets/images/loading.gif" alt="gif">
+            </div>
+            <div class="sname">Selected for Job</div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-4 col-6">
+        <div class="d-flex item-statu align-items-center">
+            <div class="count-statu red-bg" *ngIf="rejected">{{rejected}}</div>
+            <div class="count-statu red-bg" *ngIf="!rejected"><img src="assets/images/loading.gif" alt="gif">
+            </div>
+            <div class="sname">Rejected</div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-4 col-6">
+        <div class="d-flex item-statu align-items-center">
+            <div class="count-statu orange-bg" *ngIf="declined">{{declined}}</div>
+            <div class="count-statu orange-bg" *ngIf="!declined"><img src="assets/images/loading.gif" alt="gif">
+            </div>
+            <div class="sname">Job Declined</div>
+        </div>
+    </div>
+</div>

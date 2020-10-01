@@ -1,0 +1,58 @@
+<div class="modal-content" *ngIf="addAward">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Award</h5>
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #award="ngForm" (ngSubmit)="onSaveAward(award)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Award Name</label>
+                    <input type="text" id="Mobile1" name="empawardName" [(ngModel)]="addAwardData.empawardName"
+                        class="form-control" placeholder="Enter award name">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Issued By</label>
+                    <input type="text" id="Mobile2" name="empawardIssuedBy" [(ngModel)]="addAwardData.empawardIssuedBy"
+                        class="form-control" placeholder="Enter issued by">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #award class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="editAward">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Award</h5>
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #editForm="ngForm" (ngSubmit)="onEditSubmit(editForm)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Award Name</label>
+                    <input type="text" id="Mobile3" name="empawardName" [(ngModel)]="addAwardData.empawardName"
+                        class="form-control" value="Star Employee of The Month">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Issued By</label>
+                    <input type="text" id="Mobile4" name="empawardIssuedBy" [(ngModel)]="addAwardData.empawardIssuedBy"
+                        class="form-control" value="Fusion Informatics Ltd">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #editForm class="btn btn-them btn-md w-100">Save</button>
+                    <a (click)="onDeleteAward(addAwardData.empaward)" class="text-danger cursr">Delete Record</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

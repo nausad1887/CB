@@ -1,0 +1,132 @@
+<main id="main" class="bg-gray">
+	<!--  Breadcrumbs  -->
+	<section id="breadcrumbs" class="breadcrumbs detail-page" style="background: url(assets/images/cms-banner-bg.png)">
+		<div class="container">
+			<h1 class="text-center text-white mb-0">&nbsp;</h1>
+			<ol>
+				<li><a (click)="backToPrevieous()" class="text-white cursr">{{routerUrl | titlecase}}</a></li>
+				<li class="text-white">Job Details </li>
+			</ol>
+		</div>
+	</section><!-- End Breadcrumbs -->
+
+	<!--  Section -->
+	<section id="" class="job-detals pb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-9 col-lg-8 pro-details">
+					<div class="">
+						<div class="content-details">
+							<div class="details-list hover">
+								<div class="row">
+									<div class="col-md-4 col-6">
+										<img [src]="url" style="height: 60px; width: 60px; border-radius: 50%;"
+											onerror="this.src='assets/images/nopic.png'" alt="company">
+										<h5 class="mt-2 mb-1">{{companyName | titlecase}}</h5>
+										<p class="mb-1 icon-g"><img src="assets/images/global.png" alt="icon">
+											www.fusioninfo.com</p>
+										<p class="mb-1 icon-g"><img src="assets/images/maps-pin.png" alt="icon">
+											{{companyCity | titlecase}}</p>
+									</div>
+									<div class="col-md-5 col-6 pt-3">
+										<h5 class="mt-2 mb-1">Interview Details</h5>
+										<p class="mb-1 icon-g"><img src="assets/images/user-icon.png" alt="icon">
+											{{jobJDname | titlecase}}</p>
+										<p class="mb-1 icon-g"><img src="assets/images/timetable.png" alt="icon">
+											{{ (interviewDate | date: 'mediumDate' ) + " - " + interviewTime}}</p>
+										<p class="mb-1 icon-g" *ngIf="interviewMode === 'Skype'"><img
+												src="assets/images/teamwork.png" alt="icon">
+											{{'On ' + interviewMode | titlecase}}</p>
+										<p class="mb-1 icon-g" *ngIf="interviewMode === 'In Personal'"><img
+												src="assets/images/teamwork.png" alt="icon">
+											{{interviewMode | titlecase}}</p>
+									</div>
+									<div class="col-md-3 text-center text-md-right">
+										<div class="button-content">
+											<button (click)="onAcceptClick()" type="button"
+												class="btn btn-them btn-sm rounded mb-2"
+												*ngIf="(interviewStatusID === '14' || interviewStatusID === '12') && acceptBoolean">Accept</button>
+											<button (click)="onRescheduleClick()" type="button"
+												class="btn btn-blue btn-sm rounded mb-2"
+												*ngIf="interviewStatusID === '14' || interviewStatusID === '1'">Reschedule</button>
+											<button (click)="onDeclineClick()" type="button"
+												class="btn btn-red btn-sm rounded mb-2"
+												*ngIf="(interviewStatusID === '14' || interviewStatusID === '12' || interviewStatusID === '1') && declineBoolean">Decline</button>
+										</div>
+									</div>
+								</div>
+								<div class="bottom-statu">
+									<p class="text-blue mb-0"><b>Recent Activity:</b> First round was scheduled on Jan
+										06, 2019 - 03:00 PM</p>
+								</div>
+							</div>
+
+							<div class="details-list hover">
+								<div class="row" *ngIf="jobJD">
+									<div class="col-md-12 col-12">
+										<h5 class="mt-2 mb-1">Interview Details</h5>
+										<p class="mb-1 icon-g" *ngIf="jobJD.cityName"><img
+												src="assets/images/maps-pin.png" alt="icon">
+											{{jobJD.cityName | titlecase}}</p>
+										<p class="mb-1 icon-g" *ngIf="jobJD.jobjdJobType"><img
+												src="assets/images/time-icon.png" alt="icon">
+											{{jobJD.jobjdJobType | titlecase}}</p>
+										<p class="mb-1 icon-g" *ngIf="jobJD.jobjdexperiance"><img
+												src="assets/images/brifcas-icon.png" alt="icon">
+											{{(jobJD.jobjdexperiance | number : '1.0-0') + ' Years'}} </p>
+										<p class="mb-1 icon-g" *ngIf="jobJD.jdskills.length > 0"><img
+												src="assets/images/pen-icon.png" alt="icon"><span
+												*ngFor="let skill of jobJD.jdskills;; let isLast=last">
+												{{skill.skillName | titlecase}}{{isLast ? '' : ', '}}</span>
+										</p>
+										<p class="mb-1 icon-g" *ngIf="jobJD.jobjdCertificatation"><img
+												src="assets/images/star-badge.png"
+												alt="icon">{{jobJD.jobjdCertificatation + ' Certificate'}}</p>
+									</div>
+								</div>
+								<div class="bottom-statu job-discrip">
+									<h5 class="mt-2 mb-1">Job Description</h5>
+									<ul class="list-discrpt">
+										<li>The person should have a deep understanding of all the latest designing
+											tools, specifically Adobe Photoshop, Image Ready, Fireworks, Illustrator and
+											Flash</li>
+										<li>He/She should be very fluent in flash, flash-script and HTML</li>
+										<li>Knowledge of Storyboard writing, Editing and Streaming audio/ video.</li>
+										<li>Should possess high levels of creative and imaginative skills to work on
+											graphics and animation.</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-3 col-lg-4">
+					<div class="aside-left">
+						<div class="card recently-update pt-3">
+							<h5 class="card-title text-center mb-0">More Interview Updates</h5>
+							<div class="recently-items">
+								<p class="mb-0">You received interview request from Fusion Info Corp.</p>
+								<a href="#" class="text-blue">Know More</a>
+							</div>
+							<div class="recently-items">
+								<p class="mb-0">Job status has been updated for xyz position at Meta Design Inc.</p>
+								<a href="#" class="text-blue">Know More</a>
+							</div>
+							<div class="recently-items">
+								<p class="mb-0">You have declined interview request for abc position at Nirvana Global
+									Multicomm.</p>
+								<a href="#" class="text-blue">Know More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<app-candidate-footer></app-candidate-footer>
+<app-scroll-to-top></app-scroll-to-top>

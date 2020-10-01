@@ -1,0 +1,674 @@
+{
+  "/employee/employee-signup/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-login-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/cmspage/get-cmspage/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/language/get-language-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/country/get-country-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/state/get-state-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/city/get-city-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/notice/get-notice-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-update-profile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/avialablefrom/get-avialablefrom-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/degree/get-degree-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/proofadd/get-proofadd-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/proofid/get-proofid-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/salaryrange/get-salaryrange-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/skill/get-skill-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/specialisation/get-specialisation-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/university/get-university-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviewmode/get-interviewmode-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeeducation/add-employee-education/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeeducation/edit-employee-education/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeeducation/delete-employee-education/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeeducation/list-employee-education/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeawards/add-employee-awards/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeawards/edit-employee-awards/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeawards/list-employee-awards/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeawards/delete-employee-awards/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeskill/add-employee-skill/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeskill/edit-employee-skill/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeskill/list-employee-skill/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeskill/delete-employee-skill/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeecertificates/add-employee-certificates/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeecertificates/edit-employee-certificates/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeecertificates/list-employee-certificates/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeecertificates/delete-employee-certificates/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeworkprofile/add-employee-workprofile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeworkprofile/edit-employee-workprofile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeworkprofile/list-employee-workprofile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeeworkprofile/delete-employee-workprofile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeework/add-employeework/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeework/edit-employeework/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeework/list-employeework/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeework/delete-employeework/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeelanguage/add-employeelanguage/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeelanguage/edit-employeelanguage/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeelanguage/list-employeelanguage/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employeelanguage/delete-employeelanguage/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-kyc-add-edit/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/file-upload/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-update-profile-picture/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/company/get-company-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/region/get-region-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/industry/get-industry-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/ownership/get-ownership-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-update-resume/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/otp-verification/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/otp-resend/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/change-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-forgot-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/reset-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/check-employee-duplication/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-send-approval/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-profile-visible-from/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employee/employee-update-notification-settings/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-signup/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-login-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/otp-verification/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/otp-resend/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-forgot-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/reset-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/change-password/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/email-otp-verification/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/email-otp-resend/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/check-employer-duplication/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/create-jd/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/edit-jd/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/jd-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/deactivate-jd/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/search/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/view-profile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobjd/download-profile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/schedule-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/list-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/accept-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/reject-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/change-interview-status/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/send-offer/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/delete-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/jobrole/get-jobrole-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/employee-list-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/get-interviewstatus-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/reason/get-reason-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/list-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/create-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/delete-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/update-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/employee-add-edit-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/list-view-resumes/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-update-profile/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-update-profile-picture/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/empsize/get-empsize-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerdownload/create-download/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerdownload/update-download/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerdownload/list-download/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerdownload/employee-add-edit-download/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-update-notification-settings/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/plans/plans-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/plans/purchase-plan-list/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/plans/purchase-plan/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employer/employer-home/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/interviews/re-schedule-interview/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/view-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/employerfavorite/remove-from-favorite/*": {
+    "target": "http://betaapplication.com/candidatebazar/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  }
+}

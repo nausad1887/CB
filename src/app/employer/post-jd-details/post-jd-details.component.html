@@ -1,0 +1,336 @@
+<main id="main" class="bg-gray">
+    <!--  Breadcrumbs  -->
+    <section id="breadcrumbs" class="breadcrumbs detail-page" style="background: url(assets/images/cms-banner-bg.png)">
+        <div class="container">
+            <h1 class="text-center text-white mb-0">&nbsp;</h1>
+            <ol>
+                <li><a routerLink="/post-jd" class="text-white cursr">Post JD</a></li>
+                <li><a routerLink="/post-jd" class="text-white cursr">{{data.jobjdStatus + ' JD'}}</a></li>
+                <li class="text-white cursr" (click)="onClickAll()"><b>{{data.jobjdName | titlecase}}</b> </li>
+                <li class="text-white" *ngIf="url"><b>{{url | titlecase}}</b> </li>
+            </ol>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- customer Dashbord Section -->
+    <section id="dashbord" class="dashbord-section pb-5 mt-0">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="aside-left">
+                        <div class="card recently-update pt-3">
+                            <h5 class="card-title text-center">{{data.jobjdName | titlecase}}</h5>
+                            <div class="developer-count">
+                                <a class="d-flex cursr" (click)="getFavourites('Favourites')">Favourites <span
+                                        class="ml-auto text-green">{{data.employerfavoriteIDcount < 10 ? '0' + data.employerfavoriteIDcount : data.employerfavoriteIDcount}}</span></a>
+                                <a class="d-flex cursr">Viewed Profiles <span
+                                        class="ml-auto text-green">{{data.jobjdViewCount < 10 ? '0' + data.jobjdViewCount : data.jobjdViewCount}}</span></a>
+                                <a (click)="getInterviewed('Interviewed')" class="d-flex cursr">Interviewed <span
+                                        class="ml-auto text-green">{{data.jobjdInterviewCount < 10 ? '0' + data.jobjdInterviewCount : data.jobjdInterviewCount}}</span></a>
+                                <a (click)="getSelected('Selected & Onboarding')" class="d-flex cursr">Selected & Onboarding <span
+                                        class="ml-auto text-green">{{data.jobjdOnboardedCount < 10 ? '0' + data.jobjdOnboardedCount : data.jobjdOnboardedCount}}</span></a>
+                                <a (click)="getOnboarded('Onboarded Candidates')" class="d-flex cursr">Onboarded Candidates <span
+                                        class="ml-auto text-green">{{data.jobjdSelectedCount < 10 ? '0' + data.jobjdSelectedCount : data.jobjdSelectedCount}}</span></a>
+                                <a (click)="getRejected('Rejected Candidates')" class="d-flex cursr">Rejected Candidates <span
+                                        class="ml-auto text-green">{{data.jobjdRejectedCount < 10 ? '0' + data.jobjdRejectedCount : data.jobjdRejectedCount}}</span></a>
+                                <a (click)="getInterviewDeclined('Interview Declined by Candidate')" class="d-flex cursr">Interview Declined by Candidate
+                                    <span
+                                        class="ml-auto text-green">{{data.jobjdInterviewDeclinedCount < 10 ? '0' + data.jobjdInterviewDeclinedCount : data.jobjdInterviewDeclinedCount}}</span></a>
+                                <a (click)="getJOBdeclined('Job Declined by Candidate')" class="d-flex cursr">Job Declined by Candidate <span
+                                        class="ml-auto text-green">{{data.jobjdDeclinedCount < 10 ? '0' + data.jobjdDeclinedCount : data.jobjdDeclinedCount}}</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- favourites -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === 'favourites'">
+                    <div class="scheduald-status" *ngIf="interviewStatusLists.length > 0 && statusShow.length > 0">
+                        <app-shared-scheduled-status [data]="statusShow.length > 0 ? statusShow : []"
+                            [jobJdID]="jobJdID ? jobJdID : '0'">
+                        </app-shared-scheduled-status>
+                    </div>
+                    <br>
+                    <div class="tab-content" id="myTabContent" *ngIf="getListsFavourites$ | async as favouritesLists">
+                        <div class="">
+                            <div class="content-details"
+                                *ngFor="let interview of favouritesLists | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                <app-post-jd-all [employeeName]="interview.employee[0].employeeName"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [empworkprofileName]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [cityName]="interview.employee[0].cityName"
+                                    [employeeData]="interview.employee.length > 0 ? interview.employee[0] : []"
+                                    [jobjdID]="data.jobjdID ? data.jobjdID : '0'"
+                                    [employerfavoriteID]="interview.employerfavoriteID ? interview.employerfavoriteID : ''"
+                                    [noticeName]="interview.employee[0].kycinfo[0].noticeID !== '0' ? interview.employee[0].kycinfo[0].noticeName : ''"
+                                    [empcertificateName]="interview.employee[0].certificates.length>0 ? interview.employee[0].certificates[0].empcertificateName : ''"
+                                    [skills]="interview.employee[0].employeeskill.length>0 ? interview.employee[0].employeeskill : []"
+                                    [empkycExpYear]="interview.employee[0].kycinfo[0].empkycExpYear !== '0' ? interview.employee[0].kycinfo[0].empkycExpYear : ''"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''"
+                                    (save)="onClickSave($event)" (scheduleInterview)="onClickScheduleInterview($event)" (download)="onClickDownload($event)"
+                                    (removeFromFavourite)="onClickRemoveFromFavourite($event)"
+                                    (showSharedStatus)="makeStatusVisible($event)">
+                                </app-post-jd-all>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="getListsFavourites$ | async as favouritesLists">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="favouritesLists.length>4"
+                            [collectionSize]="favouritesLists.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <!-- skeleton -->
+                    <app-shared-todays-skeleton *ngIf="(getListsFavourites$ | async) === null">
+                    </app-shared-todays-skeleton>
+                     <!-- skeleton -->
+                    <p class="lead text-center" *ngIf="(getListsFavourites$ | async) === undefined">No Record
+                            Found.</p>
+                </div>
+                <!-- interviewed -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === '5'">
+                    <div *ngIf="getListsInterviewed$ | async as interviewed">
+                    <h5 class="text-dark mb-0" *ngIf="interviewed.length > 0">Interviewed Candidates </h5>
+                    <app-shared-post-jd-details-search (filterCandidate)="filterCandidateByName($event)" *ngIf="interviewed.length > 0 && interviewsStatusID === '5'">
+                    </app-shared-post-jd-details-search>
+                    </div>
+
+                    <div class="tab-content" id="myTabContent" *ngIf="getListsInterviewed$ | async as interviewed">
+                        <div class="">
+                            <div class=" content-details"
+                                *ngFor="let interview of interviewed | candidate | search:'employeeName':searchText | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; trackBy: interviewedTrackBy">
+                                <app-post-jd-interviewed [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" 
+                                    [interviewDate]="interview.interviewDate"
+                                    [jobjdID]="interview.jobjdID"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [interviewStatusDateTime]="interview.interviewStatusDateTime ? interview.interviewStatusDateTime : ''"
+                                    [navItems]="allNavItems.length > 0 ? allNavItems : []"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''"
+                                    (scheduleNextRound)="scheduleNextRound($event)"
+                                    (updateStatusData)="updateStatus($event)">
+                                </app-post-jd-interviewed>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- skeleton -->
+                    <app-jobjd-details-skeleton *ngIf="(getListsInterviewed$ | async) === null"></app-jobjd-details-skeleton>
+                    <!-- skeleton -->
+                    <div *ngIf="getListsInterviewed$ | async as interviewed">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="interviewed.length>4"
+                            [collectionSize]="interviewed.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <p class="lead text-center" *ngIf="(getListsInterviewed$ | async)?.length === 0">No Record
+                        Found.</p>
+                </div>
+                <!-- rejected candidates -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === '7'">
+                    <div *ngIf="getListsRejected$ | async as rejected">
+                        <h5 class="text-dark mb-0" *ngIf="rejected.length > 0">Rejected Candidates</h5>
+                        <app-shared-post-jd-details-search (filterCandidate)="filterCandidateByName($event)" *ngIf="rejected.length > 0 && interviewsStatusID === '7'">
+                        </app-shared-post-jd-details-search>
+                    </div>
+
+                    <div class=" tab-content" id="myTabContent" *ngIf="getListsRejected$ | async as rejected">
+                        <div class="">
+                            <div class=" content-details"
+                                *ngFor="let interview of rejected | candidate | search:'employeeName':searchText | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; trackBy: rejectedTrackBy">
+                                <app-post-jd-rejected-candidates [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
+                                    [interviewStatusDateTime]="interview.interviewStatusDateTime"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''">
+                                </app-post-jd-rejected-candidates>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- skeleton -->
+                    <app-jobjd-details-skeleton *ngIf="(getListsRejected$ | async) === null"></app-jobjd-details-skeleton>
+                    <!-- skeleton -->
+                    <div *ngIf="getListsRejected$ | async as rejected">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="rejected.length>4"
+                            [collectionSize]="rejected.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <p class="lead text-center" *ngIf="(getListsRejected$ | async)?.length === 0">No Record
+                        Found.</p>
+                </div>
+                <!-- selected-onboarding -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === '6'">
+                    <div *ngIf="getListsSelected$ | async as selected">
+                    <h5 class="text-dark mb-0" *ngIf="selected.length > 0">Selected & Onboarding Candidates</h5>
+                    <app-shared-post-jd-details-search (filterCandidate)="filterCandidateByName($event)"
+                        *ngIf="selected.length > 0 ">
+                    </app-shared-post-jd-details-search>
+
+                    </div>
+                    <div class=" tab-content" id="myTabContent" *ngIf="getListsSelected$ | async as selected">
+                        <div class="">
+                            <div class=" content-details"
+                                *ngFor="let interview of selected | candidate | search:'employeeName':searchText | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; trackBy: selectedOnboardingTrackBy">
+                                <app-post-jd-selected-onboarding [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [interviewStatusDateTime]="interview.interviewStatusDateTime ? interview.interviewStatusDateTime : ''"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''">
+                                </app-post-jd-selected-onboarding>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- skeleton -->
+                    <app-jobjd-details-skeleton *ngIf="(getListsSelected$ | async) === null"></app-jobjd-details-skeleton>
+                    <!-- skeleton -->
+                    <div *ngIf="getListsSelected$ | async as selected">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="selected.length>4"
+                            [collectionSize]="selected.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <p class="lead text-center" *ngIf="(getListsSelected$ | async)?.length === 0">No Record
+                        Found.</p>
+                </div>
+                <!-- interview declined by candidate -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === '8'">
+                    <div *ngIf="getListsInterviewDeclined$ | async as interviewDeclined">
+                    <h5 class="text-dark mb-0" *ngIf="interviewDeclined.length > 0">Interview declined by candidate</h5>
+                    <app-shared-post-jd-details-search (filterCandidate)="filterCandidateByName($event)"
+                        *ngIf="interviewDeclined.length > 0">
+                    </app-shared-post-jd-details-search>
+                    </div>
+
+                    <div class=" tab-content" id="myTabContent" *ngIf="getListsInterviewDeclined$ | async as interviewDeclined">
+                        <div class="">
+                            <div class=" content-details"
+                                *ngFor="let interview of interviewDeclined | candidate | search:'employeeName':searchText | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; trackBy: interviewDeclinedTrackBy">
+                                <app-post-jd-interview-declined-candidate
+                                    [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [interviewStatusDateTime]="interview.interviewStatusDateTime ? interview.interviewStatusDateTime : ''"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''">
+                                </app-post-jd-interview-declined-candidate>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- skeleton -->
+                    <app-jobjd-details-skeleton *ngIf="(getListsInterviewDeclined$ | async) === null"></app-jobjd-details-skeleton>
+                    <!-- skeleton -->
+                    <div *ngIf="getListsInterviewDeclined$ | async as interviewDeclined">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="interviewDeclined.length>4"
+                            [collectionSize]="interviewDeclined.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <p class="lead text-center" *ngIf="(getListsInterviewDeclined$ | async)?.length === 0">No Record
+                        Found.</p>
+                </div>
+                <!-- job declined by candidate -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === '9'">
+                    <div *ngIf="getListsJobDeclined$ | async as jobDeclined">
+                        <h5 class="text-dark mb-0" *ngIf="jobDeclined.length > 0">Job Declined by Candidate </h5>
+                        <app-shared-post-jd-details-search (filterCandidate)="filterCandidateByName($event)"
+                            *ngIf="jobDeclined.length > 0">
+                        </app-shared-post-jd-details-search>    
+                    </div>
+                    <div class=" tab-content" id="myTabContent" *ngIf="getListsJobDeclined$ | async as jobDeclined">
+                        <div class="">
+                            <div class=" content-details"
+                                *ngFor="let interview of jobDeclined | candidate | search:'employeeName':searchText | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; trackBy: jobDeclinedTrackBy">
+                                <app-post-jd-job-declined-candidate [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [interviewStatusDateTime]="interview.interviewStatusDateTime ? interview.interviewStatusDateTime : ''"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''">
+                                </app-post-jd-job-declined-candidate>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- skeleton -->
+                    <app-jobjd-details-skeleton *ngIf="(getListsJobDeclined$ | async) === null"></app-jobjd-details-skeleton>
+                    <!-- skeleton -->
+                    <div *ngIf="getListsJobDeclined$ | async as jobDeclined">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="jobDeclined.length>4"
+                            [collectionSize]="jobDeclined.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <p class="lead text-center" *ngIf="(getListsJobDeclined$ | async)?.length === 0">No Record
+                        Found.</p>
+                </div>
+                <!-- hired candidate -->
+                <div class="col-xl-9 col-lg-8 pro-details" *ngIf="interviewsStatusID === '12'">
+                    <div *ngIf="getListsOnboarding$ | async as selectedOnBoarding">
+                    <h5 class="text-dark mb-0" *ngIf="selectedOnBoarding.length > 0">Hired Candidates</h5>
+                    <app-shared-post-jd-details-search (filterCandidate)="filterCandidateByName($event)"
+                        *ngIf="selectedOnBoarding.length > 0">
+                    </app-shared-post-jd-details-search>
+                    </div>
+
+                    <div class=" tab-content" id="myTabContent" *ngIf="getListsOnboarding$ | async as selectedOnBoarding">
+                        <div class="">
+                            <div class=" content-details"
+                                *ngFor="let interview of selectedOnBoarding | candidate | search:'employeeName':searchText | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; trackBy: selectedTrackBy">
+                                <app-post-jd-hired [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [interviewStatusDateTime]="interview.interviewStatusDateTime ? interview.interviewStatusDateTime : ''"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''">
+                                </app-post-jd-hired>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- skeleton -->
+                    <app-jobjd-details-skeleton *ngIf="(getListsOnboarding$ | async) === null"></app-jobjd-details-skeleton>
+                    <!-- skeleton -->
+                    <div *ngIf="getListsOnboarding$ | async as selectedOnBoarding">
+                        <ngb-pagination class="d-flex justify-content-end" *ngIf="selectedOnBoarding.length>4"
+                            [collectionSize]="selectedOnBoarding.length" [pageSize]="pageSize" [(page)]="page">
+                        </ngb-pagination>
+                    </div>
+                    <p class="lead text-center" *ngIf="(getListsOnboarding$ | async)?.length === 0">No
+                        Record
+                        Found.</p>
+                </div>
+            </div>
+        </div>
+        <!-- loading -->
+        <!-- <div class="row" style="min-height:330px;" *ngIf="all.length === 0 && loading">
+            <div class="container">
+                <p class="lead text-center">Loading...</p>
+            </div>
+        </div> -->
+        <!-- no record found -->
+        <!-- <div class="row" style="min-height:300px;" *ngIf="all.length === 0 && noRecordFound">
+            <div class="container">
+                <p class="lead text-center">No Record Found.</p>
+            </div>
+        </div> -->
+
+        <!-- some error occured -->
+        <!-- <div class="row" style="min-height:300px;" *ngIf="all.length === 0 && errorOccured">
+            <div class="container">
+                <p class="lead text-center">Some Error Occured.</p>
+            </div>
+        </div> -->
+    </section>
+
+</main><!-- End #main -->
+
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

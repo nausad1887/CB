@@ -1,0 +1,66 @@
+<!--Modal Decline-->
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title w-100 text-center" id="exampleModalLabel" *ngIf="!jobjdID">Request For Reschedule</h5>
+    <h5 class="modal-title w-100 text-center" id="exampleModalLabel" *ngIf="jobjdID">Schedule Next Round</h5>
+    <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close"> <span
+        aria-hidden="true">×</span></button>
+  </div>
+  <div class="modal-body">
+    <form class="text-left profile-form" [formGroup]="reschecduleForm"
+      (ngSubmit)="onClickSendRequest(reschecduleForm.value)">
+      <div class="form-row">
+        <div class="col-md-6 form-group" *ngIf="jobjdID">
+					<label for="jdType">Type of JD</label>
+					<ng-select [closeOnSelect]="true" [searchable]="false" appearance="outline" placeholder="Choose type of JD"
+          formControlName="typeOfJD" class="custom" labelForId="jdType" name="typeOfJD">
+          <ng-option *ngFor="let job of jobJDlistActive" [value]="job.jobjdID">{{job.jobjdName | titlecase}}</ng-option>
+		      </ng-select>
+        </div>
+        <div class="col-md-6 form-group" *ngIf="jobjdID">
+          <label for="mode">Mode of Interview</label>
+          <ng-select [closeOnSelect]="true" [searchable]="false" appearance="outline" placeholder="Choose mode of interview"
+            formControlName="interviewMode" class="custom" labelForId="mode" name="interviewMode">
+            <ng-option *ngFor="let interview of (interviewModeLists$ | async)" [value]="interview.interviewmodeID">{{interview.interviewmodeName | titlecase}}</ng-option>
+		      </ng-select>
+				</div>
+        <div class="col-md-6 form-group">
+          <label>Date</label>
+          <input type="date" id="Date" [min]=minDate name="dateOfReschedule" formControlName="dateOfReschedule"
+            class="form-control cursr" placeholder="Choose date">
+          <small class="text-danger"
+            *ngIf="reschecduleForm.controls['dateOfReschedule'].hasError('required') && (reschecduleForm.controls['dateOfReschedule'].dirty || reschecduleForm.controls['dateOfReschedule'].touched)">Please
+            enter Date of Reschedule.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Time</label>
+          <input type="time" id="Time" name="timeOfReschedule" formControlName="timeOfReschedule"
+            class="form-control cursr" placeholder="Choose date">
+          <small class="text-danger"
+            *ngIf="reschecduleForm.controls['timeOfReschedule'].hasError('required') && (reschecduleForm.controls['timeOfReschedule'].dirty || reschecduleForm.controls['timeOfReschedule'].touched)">Please
+            enter Time of Reschedule.</small>
+        </div>
+        <div class="col-md-12 form-group" *ngIf="!jobjdID">
+          <p><span class="iconify text-green" data-icon="mdi-google-maps" style="height: 18px; width: 20px;"
+              data-inline="false"></span>
+            <span>
+              {{rescheduleData.interviewmodeName === 'Skype' ? ' On ' + rescheduleData.interviewmodeName : " " + rescheduleData.interviewmodeName}}</span>
+          </p>
+        </div>
+        <div class="col-md-12 form-group" [ngClass]="{'margn': !jobjdID}">
+          <label>Comment</label>
+          <textarea type="password" formControlName="reasonsRemark" class="form-control"
+            placeholder="Write details here..." required></textarea>
+          <p class="text-right pt-2">Character limit 2000 letters</p>
+          <small class="text-danger"
+            *ngIf="reschecduleForm.controls['reasonsRemark'].hasError('required') && (reschecduleForm.controls['reasonsRemark'].dirty || reschecduleForm.controls['reasonsRemark'].touched)">Please
+            enter Reason of Reschedule.</small>
+        </div>
+        <div class="col-md-12">
+          <button type="submit" [disabled]="reschecduleForm.invalid" class="btn btn-them btn-md" *ngIf="!jobjdID">Send Request</button>
+          <button type="submit" [disabled]="reschecduleForm.invalid" class="btn btn-them btn-md" *ngIf="jobjdID">Schedule</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

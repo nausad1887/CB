@@ -1,0 +1,70 @@
+<!-- Top Bar -->
+<section id="topbar" class="">
+  <div class="container d-flex">
+    <div class="contact-info mr-auto">
+      <span class="mr-2"> <a href="telto:+97145784578"><i class="icofont-phone"></i> <span>+971
+            45784578</span></a></span>
+      <span><a href="mailto:info@baariz.com"><i class="icofont-envelope"></i> <span>info@baariz.com </span></a></span>
+    </div>
+    <div class="right-links d-flex">
+      <a href="#" class="notifi"><i class="icofont-alarm"></i></a>
+      <a href="#" class="notifi"><i class="icofont-ui-text-chat"></i></a>
+      <form>
+        <div class="form-group language-dropdown mb-0 ml-1">
+          <select class="form-control custom-select" (change)="onChangeLanguage($event.target.value)">
+            <option *ngFor="let language of languageList" [value]="language.languageID">{{language.languageName}}
+            </option>
+            <!-- <option>Arebic</option>
+            <option>Hindi</option> -->
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!--  Header -->
+<header id="header">
+  <div class="container d-flex">
+    <div class="logo mr-auto">
+      <a routerLink="/home"><img src="assets/images/logo.png" alt="Candidate Bazzar" class="img-fluid"></a>
+    </div>
+    <div class="loginbrn-mobile d-md-block d-lg-none">
+      <div class="dropdown prdropdwn-mobile">
+        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="profile-img"><img
+              [src]="url" onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'" alt="profile"></span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="cursr" routerLink="/setting">Setting</a>
+          <a href="#">Support</a>
+          <a href="#">Feedback</a>
+          <hr>
+          <a href="#">Sign Out</a>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li><a routerLink="/home" routerLinkActive="activea">Home</a></li>
+        <li><a routerLink="/dashboard" routerLinkActive="activea">Interviews </a></li>
+        <li><a routerLink="/job-status" routerLinkActive="activea">Job Status</a></li>
+        <li><a routerLink="/referal" routerLinkActive="activea">Referal</a></li>
+        <li class="drop-down d-none d-lg-block"><a class="cursr"><span class="profile-img"><img [src]="url"
+                onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'" alt="profile"></span>
+            {{employeeName | titlecase}}</a>
+          <ul>
+            <li><a routerLink="/setting">Setting</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Feedback</a></li>
+            <hr>
+            <li><a class="cursr" (click)="signOut()">Sign Out</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav><!-- .nav-menu -->
+  </div>
+</header><!-- End Header -->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

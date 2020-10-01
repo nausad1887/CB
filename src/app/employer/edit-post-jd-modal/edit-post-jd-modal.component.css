@@ -1,0 +1,48 @@
+.cursr {
+  cursor: pointer;
+}
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+.ng-select.custom::ng-deep .ng-arrow-wrapper {
+  width: 25px;
+  padding-right: 5px
+}
+
+[dir="rtl"] .ng-select.custom::ng-deep .ng-arrow-wrapper {
+  padding-left: 5px;
+  padding-right: 0
+}
+
+.ng-select.custom::ng-deep .ng-arrow-wrapper:hover .ng-arrow {
+  border-top-color: #666
+}
+
+.ng-select.custom::ng-deep .ng-arrow-wrapper .ng-arrow {
+  border-color: #495057 transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 2.5px
+}
+.ng-select.custom::ng-deep .ng-dropdown-panel {
+  border: 1px solid #ccc;
+}
+.ng-select.custom::ng-deep .ng-select-container  {            
+border-radius: .25rem;
+}
+.ng-select.customSkills ::ng-deep .ng-select-container {
+  border: 1px solid rgb(226, 223, 223);
+  min-height: 45px;
+  align-items: center;
+  height: auto;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s;
+}
+.ng-select.customSkills ::ng-deep .ng-clear-wrapper {
+width: 0px;
+display: none;
+}

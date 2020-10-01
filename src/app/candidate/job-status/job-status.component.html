@@ -1,0 +1,86 @@
+<main id="main" class="bg-gray">
+	<!--  Breadcrumbs  -->
+	<section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+		<div class="container">
+			<h1 class="text-center text-white mb-0">Job Status</h1>
+		</div>
+	</section><!-- End Breadcrumbs -->
+
+	<!-- customer Dashbord Section -->
+	<section id="dashbord" class="dashbord-section pb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-3 col-lg-4">
+					<app-shared-profile></app-shared-profile>
+				</div>
+				<div class="col-xl-9 col-lg-8 pro-details">
+					<div class="">
+						<div class="job-status-count">
+							<app-shared-count-interviews
+								[selected]="selectedJobs.length === 0 ? '0' : selectedJobs.length"
+								[rejected]="interviewsDeclined.length === 0 ? '0' : interviewsDeclined.length"
+								[declined]="jobDeclinedByCandidate.length === 0 ? '0' : jobDeclinedByCandidate.length"
+								[total]="(selectedJobs.length + jobDeclinedByCandidate.length + interviewsDeclined.length) === 0 ? '0' : selectedJobs.length + jobDeclinedByCandidate.length + interviewsDeclined.length">
+							</app-shared-count-interviews>
+						</div>
+						<div class="content-details">
+							<div *ngIf="interviewed.length > 0 || selectedJobs.length > 0">
+								<div *ngFor="let interview of interviewed; trackBy: interviewedTrackBy">
+									<app-shared-interviewed [companyName]="interview.employer[0].employerCompany"
+										[companyCity]="interview.employer[0].cityName"
+										[employerID]="interview.employer[0].employerID"
+										[companyLogo]="interview.employer[0].employerLogo"
+										[jobJDname]="interview.jobjdName"
+										[jobJD]="interview.jobjd.length > 0 ? interview.jobjd[0] : ''"
+										[interviewDate]="interview.interviewDate"
+										[interviewMode]="interview.interviewmodeName"
+										[interviewID]="interview.interviewID"
+										[interviewStatusID]="interview.interviewstatusID"
+										[interviewTime]="interview.interviewTime"></app-shared-interviewed>
+								</div>
+								<div *ngFor="let interview of selectedJobs; trackBy: selectedTrackBy">
+									<app-shared-selected [companyName]="interview.employer[0].employerCompany"
+										[companyCity]="interview.employer[0].cityName"
+										[employerID]="interview.employer[0].employerID"
+										[companyLogo]="interview.employer[0].employerLogo"
+										[jobJDname]="interview.jobjdName"
+										[jobJD]="interview.jobjd.length > 0 ? interview.jobjd[0] : ''"
+										[interviewDate]="interview.interviewDate"
+										[interviewMode]="interview.interviewmodeName"
+										[interviewID]="interview.interviewID"
+										[interviewStatusID]="interview.interviewstatusID"
+										[interviewTime]="interview.interviewTime"
+										(declineSelectedJob)="onDeclineSelectedJob($event)"
+										(acceptSelectedJob)="onAcceptSelectedJob($event)"></app-shared-selected>
+								</div>
+							</div>
+							<!-- loading -->
+							<div class="row" *ngIf="(interviewed.length === 0 || selectedJobs.length === 0) && loading">
+								<div class="container" style="min-height:180px; margin-top: 30px;">
+									<p class="lead text-center"><img src="assets/images/loading.gif" alt="gif"></p>
+								</div>
+							</div>
+							<!-- no record found -->
+							<div class="row"
+								*ngIf="(interviewed.length === 0 || selectedJobs.length === 0) && noRecordFound">
+								<div class="container" style="min-height:180px; margin-top: 30px;">
+									<p class="lead text-center">No Record To Show.</p>
+								</div>
+							</div>
+							<!-- error occured -->
+							<div class="row"
+								*ngIf="(interviewed.length === 0 || selectedJobs.length === 0) && errorOccured">
+								<div class="container" style="min-height:180px; margin-top: 30px;">
+									<p class="lead text-center">Some Error Occured.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<app-candidate-footer></app-candidate-footer>
+<app-scroll-to-top></app-scroll-to-top>

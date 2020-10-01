@@ -1,0 +1,18 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" style="height: 35px; width: 28px;" data-icon="fa-solid:award"
+            data-inline="false"></span>&nbsp;&nbsp;Awards <a href="#" data-toggle="modal" (click)="openAddAwardModal()"
+            class="edit-pr-btn float-right"><span class="iconify" data-icon="fa-plus-circle"
+                data-inline="false"></span></a>
+    </h4>
+    <div *ngIf="awardLists.length > 0">
+        <div class="skils-content" *ngFor="let award of awardLists">
+            <h5>{{award.empawardName | titlecase}} <a data-toggle="modal" (click)="openEditAwardModal(award)" href="#"
+                    class="edit-pr-btn float-right"><i class="icofont-pencil-alt-1"></i></a>
+            </h5>
+            <p class="mb-0">{{award.empawardIssuedBy | titlecase}}</p>
+        </div>
+    </div>
+    <div class="text-center" *ngIf="awardLists.length === 0">
+        <span style="color: #d2a32e;"><u>Incomplete </u> </span>
+    </div>
+</div>

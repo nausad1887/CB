@@ -1,0 +1,37 @@
+<main id="main" class="bg-gray">
+  <!--  Breadcrumbs  -->
+  <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+    <div class="container">
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- customer Dashbord Section -->
+  <section id="dashbord" class="dashbord-section pb-5">
+    <div class="container">
+      <ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" id="GlobalSearch-tab" routerLink="global" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" aria-controls="GlobalSearch" aria-selected="false">Global Search
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="search-by-jd" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" id="profile-tab" aria-controls="profile"
+            aria-selected="false">Search by JD</a>
+        </li>
+      </ul>
+
+      <div class="">
+        <div class="tab-content" id="myTabContent">
+          <router-outlet></router-outlet>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

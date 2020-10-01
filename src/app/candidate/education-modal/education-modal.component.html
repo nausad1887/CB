@@ -1,0 +1,121 @@
+
+<div class="modal-content" *ngIf="addEducation">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Education</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseModal()" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #addEdu="ngForm" (ngSubmit)="onSaveEducation(addEdu)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Education</label>
+                    <select class="form-control custom-select" (change)="onChangeDegree($event.target.value)">
+                        <option value="" selected disabled>Select education</option>
+                        <option *ngFor="let degree of degreeLists" [value]="degree.degreeID">{{degree.degreeName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Specialization</label>
+                    <select class="form-control custom-select" (change)="onChangeSpecialisation($event.target.value)">
+                        <option value="" selected disabled>Select specialization</option>
+                        <option *ngFor="let specialisation of specialisationLists"
+                            [value]="specialisation.specialisationID">{{specialisation.specialisationName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Board/ University</label>
+                    <select class="form-control custom-select" (change)="onChangeUniversity($event.target.value)">
+                        <option value="" selected disabled>Select university</option>
+                        <option *ngFor="let university of universityLists" [value]="university.universityID">
+                            {{university.universityName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Passing Year</label>
+                    <select class="form-control custom-select" (change)="onYearChange($event.target.value)">
+                        <option value="" selected disabled>Select years</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2016">2016</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Percentage / Pointers</label>
+                    <input type="text" id="Mobile" name="empeducationPer"
+                        [(ngModel)]="addAndEditEducationData.empeducationPer" class="form-control"
+                        placeholder="Enter percentage / points">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #addEdu class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-content" *ngIf="editEducation">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Education</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onCloseModal()" aria-label="Close"> <span aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #editEdu="ngForm" (ngSubmit)="onEditEducation(editEdu)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Education</label>
+                    <select class="form-control custom-select" (change)="onChangeDegree($event.target.value)"
+                        name="degreeID" [(ngModel)]='addAndEditEducationData.degreeID'>
+                        <option value="">Select education</option>
+                        <option *ngFor="let degree of degreeLists" [value]="degree.degreeID">{{degree.degreeName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Specialization</label>
+                    <select class="form-control custom-select" name="specialisationID"
+                        [(ngModel)]="addAndEditEducationData.specialisationID"
+                        (change)="onChangeSpecialisation($event.target.value)">
+                        <option value="">Select specialization</option>
+                        <option *ngFor="let specialisation of specialisationLists"
+                            [value]="specialisation.specialisationID">{{specialisation.specialisationName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Board/ University</label>
+                    <select class="form-control custom-select" name="universityID"
+                        [(ngModel)]="addAndEditEducationData.universityID"
+                        (change)="onChangeUniversity($event.target.value)">
+                        <option value="">Select university</option>
+                        <option *ngFor="let university of universityLists" [value]="university.universityID">
+                            {{university.universityName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Passing Year</label>
+                    <select class="form-control custom-select" name="empeducationYear"
+                        [(ngModel)]="addAndEditEducationData.empeducationYear"
+                        (change)="onYearChange($event.target.value)">
+                        <option value="" selected disabled>Select years</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2016">2016</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Percentage / Pointers</label>
+                    <input type="text" id="Mobile" name="empeducationPer"
+                        [(ngModel)]="addAndEditEducationData.empeducationPer" class="form-control"
+                        placeholder="Enter percentage / points">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #editEdu class="btn btn-them btn-md w-100">Save</button>
+                    <a (click)="deleteEducation(addAndEditEducationData.empeducationID)" class="text-danger cursr">Delete Record</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

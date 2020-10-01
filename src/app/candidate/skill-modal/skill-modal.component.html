@@ -1,0 +1,106 @@
+
+<div class="modal-content" *ngIf="primary">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add/ Edit Skills</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onModalClose()" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="priskillsForm" (ngSubmit)="onSavePrimary(priskillsForm.value)">
+            <div class="row">
+                <div class="col-md-12 form-group seerachbox-skill">
+                    <label for="primary">Primary Skills</label>
+                    <ng-select
+                    [items]="skillslist$ | async"
+                    [closeOnSelect]="false" 
+                    [multiple]="true" 
+                    bindLabel="skillName"
+                    [searchable]="true" 
+                    class="custom"
+                    (remove)="onRemovePrimary($event)"
+                    placeholder="Search Skills"
+                    formControlName="primarySkills" 
+                    name="skillID">
+                    </ng-select>
+                    <!-- <span class="addons-serch"><i class="icofont-search-1"></i></span> -->
+                </div>
+            </div>
+
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="secondary">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add/ Edit Skills</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onModalClose()" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="secskillsForm" (ngSubmit)="onSaveSecondary(secskillsForm.value)">
+            <div class="row">
+                <div class="col-md-12 form-group seerachbox-skill">
+                    <label for="secondary">Secondary Skills</label>
+                    <ng-select
+                    [items]="skillslist$ | async"
+                    [closeOnSelect]="false" 
+                    [multiple]="true" 
+                    bindLabel="skillName"
+                    [searchable]="true" 
+                    class="custom"
+                    (remove)="onRemoveSecondary($event)"
+                    placeholder="Search Skills"
+                    formControlName="secondarySkills" 
+                    name="skillID">
+                    </ng-select>
+                    <!-- <span class="addons-serch"><i class="icofont-search-1"></i></span> -->
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="other">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add/ Edit Skills</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onModalClose()" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" (ngSubmit)="onSaveOther(othskillsForm.value)" [formGroup]="othskillsForm">
+            <div class="row">
+                <div class="col-md-12 form-group seerachbox-skill">
+                    <label for="other">Other Skills</label>
+                    <ng-select
+                    [items]="skillslist$ | async"
+                    [closeOnSelect]="false" 
+                    [multiple]="true" 
+                    bindLabel="skillName"
+                    [searchable]="true" 
+                    class="custom"
+                    (remove)="onRemoveOther($event)"
+                    placeholder="Search Skills"
+                    formControlName="othersSkills" 
+                    name="skillID">
+                    </ng-select>
+                    <!-- <span class="addons-serch"><i class="icofont-search-1"></i></span> -->
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

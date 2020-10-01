@@ -1,0 +1,97 @@
+<main id="main" class="bg-gray">
+	<!--  Breadcrumbs  -->
+	<section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+		<div class="container">
+			<!--<h1 class="text-center text-white mb-0">Contact Us</h1>-->
+		</div>
+	</section><!-- End Breadcrumbs -->
+
+	<!-- customer Dashbord Section -->
+	<section id="dashbord" class="dashbord-section pb-5">
+		<div class="container">
+			<div class="candidate-profile-detail">
+				<div class="details-list hover">
+					<!-- data-target="#BasicProfile"   				 -->
+					<app-shared-basic-details></app-shared-basic-details>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xl-3 col-lg-4">
+					<div class="aside-left">
+						<div class="card recently-update pt-3">
+							<h5 class="card-title text-center mb-0">Quick Links</h5>
+							<hr>
+							<div class="quick-menu">
+								<a class="cursr" (click)="moveToResume()">Attach Resume</a>
+								<a class="cursr" (click)="moveToResumeSummary()">Resume Summary</a>
+								<a class="cursr" (click)="moveToSkills()">Key Skills</a>
+								<a class="cursr" (click)="moveToEducation()">Education</a>
+								<a class="cursr" (click)="moveToEmployment()">Employment</a>
+								<a class="cursr" (click)="moveToCertificate()">Certificates</a>
+								<!-- <a class="cursr" (click)="moveToAward()">Awards</a> -->
+								<a class="cursr" (click)="moveToProfile()">Profiles</a>
+								<a class="cursr" (click)="moveToPersonalDetails()">Personal Details</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-9 col-lg-8 pro-details">
+					<div class="tab-content" id="myTabContent">
+						<div class="content-details">
+							<!-- for resume -->
+							<div #AttachResume id="AttachResume">
+								<app-shared-resume></app-shared-resume>
+							</div>
+							<!-- for summary -->
+							<div class="details-list hover" #summary id="summary">
+								<h4 class="mt-2 card-title">Resume Summary <a href="#"
+										class="edit-pr-btn float-right"><span class="iconify" data-icon="fa-plus-circle"
+											data-inline="false"></span></a></h4>
+								<p>Adept at Photoshop, Illustrator, CorelDraw and InDesign. Great at developing unique
+									design solutions as per current trends.
+									Ability to design concepts as per requirements. Can work well under tight deadline.
+								</p>
+							</div>
+							<!-- key skills -->
+							<div #skills id="skills">
+								<app-shared-skills></app-shared-skills>
+							</div>
+							<!-- education -->
+							<div #education id="education">
+								<app-shared-education></app-shared-education>
+							</div>
+							<!-- for employment -->
+							<div #employment id="employment">
+								<app-shared-employment></app-shared-employment>
+							</div>
+							<!-- for certificate -->
+							<div #certificate id="certificate">
+								<app-shared-certification></app-shared-certification>
+							</div>
+							<!-- for awards -->
+							<!-- <div #award id="award">
+								<app-shared-awards></app-shared-awards>
+							</div> -->
+							<!-- profile section -->
+							<div #profile id="profile">
+								<app-shared-work-profile></app-shared-work-profile>
+							</div>
+							<!-- personal details -->
+							<div #pdetails id="pdetails">
+								<app-shared-personal-details></app-shared-personal-details>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+<app-candidate-footer></app-candidate-footer>
+<app-scroll-to-top></app-scroll-to-top>

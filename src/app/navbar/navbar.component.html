@@ -1,0 +1,49 @@
+<!-- Top Bar -->
+<section id="topbar" class="">
+	<div class="container d-flex">
+		<div class="contact-info mr-auto">
+			<span class="mr-2"> <a href="telto:+97145784578"><i class="icofont-phone"></i> <span>+971
+						45784578</span></a></span>
+			<span><a href="mailto:info@baariz.com"><i class="icofont-envelope"></i> <span>info@baariz.com
+					</span></a></span>
+		</div>
+		<div class="right-links d-flex">
+			<a href="#" class="download-brochure"><i class="icofont-download"></i> <span>Brochure</span></a>
+			<form>
+				<div class="form-group language-dropdown mb-0 ml-1">
+					<select class="form-control custom-select" (change)="onChangeLanguage($event.target.value)">
+						<option *ngFor="let language of languageList" [value]="language.languageID">
+							{{language.languageName}}</option>
+						<!-- <option>Arebic</option>
+						<option>Hindi</option> -->
+					</select>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<!-- Header -->
+<header id="header">
+	<div class="container d-flex">
+		<div class="logo mr-auto">
+			<a href="index.html"><img src="assets/images/logo.png" alt="Candidate Bazzar" class="img-fluid"></a>
+		</div>
+		<div class="loginbrn-mobile d-md-block d-lg-none">
+			<a href="#" class="btn" data-toggle="modal" data-target="#Login"><i class="icofont-ui-user"></i></a>
+		</div>
+		<nav class="nav-menu d-none d-lg-block">
+			<ul>
+				<li class="active"><a href="index.html">Home</a></li>
+				<li><a href="contact.html">Contact</a></li>
+				<li><a href="#DownloadApp" id="getapp">Get Our App</a></li>
+				<li><a class="btn btn-them signmeu-btn" data-toggle="modal" (click)="openLoginModal()">Log in/ Sign
+						up</a></li>
+			</ul>
+		</nav><!-- .nav-menu -->
+	</div>
+</header><!-- End Header -->
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+	<p style="color: white"> Loading... </p>
+</ngx-spinner>

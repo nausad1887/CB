@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+    <div class="col-xl-12">
+        <div class="searchby-jd">
+            <div class="form-group form-inline searchcontent" *ngIf="jobJDlist.length>0">
+                <span class="addons" style="top:40px;"><i class="icofont-search"></i></span>
+                <input type="text" id="Mobile10" [(ngModel)]="searchText" class="form-control" placeholder="Search JD">
+                <button type="button" class="btn btn-them btn-md">Search</button>
+            </div>
+
+            <br>
+            <div class="title-scheduld" *ngIf="jobJDlist.length>0">
+                <h4 class="mt-2 card-title">Active JD(s) </h4>
+            </div>
+            <div class="row" *ngIf="jobJDlist.length>0">
+                <div class="col-sm-6" *ngFor="let job of jobJDlist | search:'jobjdName, jobjdType': searchText">
+                    <a class="details-list d-block active-list cursr" (click)="jobJDdetails(job)">
+                        <div class="d-flex">
+                            <h5 class="mb-0">{{job.jobjdName | titlecase}}</h5>
+                            <i class="ml-auto icofont-simple-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- margin-top -->
+            <div class="row" style="margin-top: 40px;" *ngIf="jobJDlist.length > 0 && jobJDlist.length <= 2">
+                <div>
+                    <p></p>
+                </div>
+            </div>
+            <!-- loading -->
+            <div class="row" *ngIf="jobJDlist.length === 0 && loadingJDlist">
+                <div class="container" style="min-height:270px;">
+                    <p class="lead text-center">Loading...</p>
+                </div>
+            </div>
+            <!-- no record found -->
+            <div class="row" *ngIf="jobJDlist.length === 0 && noRecordFoundJDlist">
+                <div class="container" style="min-height:270px;">
+                    <p class="lead text-center">No JD Record Are Found.</p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-xl-3 col-lg-4" *ngIf="searched">
+                    <app-shared-filter (skillsIDs)="changeSkill($event)" (industryIDs)="changeIndustry($event)"
+                        (cityIDs)="changeCity($event)" (degreeIDs)="changeDegree($event)"
+                        (noticeIDs)="changeNotice($event)" (availableIDs)="changeAvailable($event)"
+                        (countryIDs)="changeCountry($event)" (salaryRange)="changeSallary($event)"
+                        (experianceRange)="changeExperiance($event)" (languageIDs)="changeCLanguage($event)">
+                    </app-shared-filter>
+                </div>
+                <div class="col-xl-9 col-lg-8 pro-details">
+                    <div class="scheduald-status" *ngIf="data.length>0">
+                        <app-shared-scheduled-status></app-shared-scheduled-status>
+                    </div>
+
+                    <br>
+                    <div class="tab-content" id="myTabContent" *ngIf="data.length>0">
+                        <div class="">
+                            <div class="content-details"
+                                *ngFor="let employee of data | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                <app-post-jd-all [employeeName]="employee.employeeName"
+                                    [employeeID]="employee.employeeID"
+                                    [empworkprofileName]="employee.workprofiles.length>0 ? employee.workprofiles[0].empworkprofileName : ''"
+                                    [cityName]="employee.cityName"
+                                    [noticeName]="employee.kycinfo[0].noticeID !== '0' ? employee.kycinfo[0].noticeName : ''"
+                                    [empcertificateName]="employee.certificates.length>0 ? employee.certificates[0].empcertificateName : ''"
+                                    [skills]="employee.employeeskill.length>0 ? employee.employeeskill : []"
+                                    [empkycExpYear]="employee.kycinfo[0].empkycExpYear !== '0' ? employee.kycinfo[0].empkycExpYear : ''"
+                                    [profilePic]="employee.employeeProfilePicture ? employee.employeeProfilePicture : ''">
+                                </app-post-jd-all>
+                            </div>
+                            <ngb-pagination class="d-flex justify-content-end" *ngIf="data.length>4"
+                                [collectionSize]="data.length" [pageSize]="pageSize" [(page)]="page">
+                            </ngb-pagination>
+
+                            <p class="lead text-center" *ngIf="data.length === 0 && loadingWithFilter">Loading...</p>
+                            <p class="lead text-center" *ngIf="data.length === 0 && noRecordFoundWithFilter">No Record
+                                Found.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- loading -->
+            <div class="row" *ngIf="data.length === 0 && loading">
+                <div class="container" style="min-height:90px;">
+                    <p class="lead text-center">Loading...</p>
+                </div>
+            </div>
+            <!-- no record found -->
+            <div class="row" *ngIf="data.length === 0 && noRecordFound">
+                <div class="container" style="min-height:90px;">
+                    <p class="lead text-center">No Record Found.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

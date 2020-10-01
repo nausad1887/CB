@@ -1,0 +1,94 @@
+<main id="main" class="bg-gray">
+  <!-- Breadcrumbs -->
+  <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+    <div class="container">
+      <h1 class="text-center text-white mb-0">Settings</h1>
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact pb-5">
+    <div class="container">
+      <div class="card" style="min-height:300px;">
+        <ul class="nav nav-tabs custom-tab" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="Notifications-tab" data-toggle="tab" href="#Notifications" role="tab"
+              aria-controls="Notifications" aria-selected="true">Notifications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="ChangePassword-tab" data-toggle="tab" href="#ChangePassword" role="tab"
+              aria-controls="ChangePassword" aria-selected="false">Change Password</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="Notifications" role="tabpanel" aria-labelledby="Notifications-tab">
+            <div class="notifi-setting">
+              <div class="d-flex">
+                <label class="toggleclabel" for="customSwitch1">On Change In Job Status</label>
+                <div class="custom-control custom-switch mb-3">
+                  <input type="checkbox" (change)="onChangeemployeeNotifyJobStatus($event.target.value)"
+                    [checked]="employeeData.employeeNotifyJobStatus === 'Yes'" class="custom-control-input"
+                    [value]="employeeData.employeeNotifyJobStatus" id="customSwitch1">
+                  <label class="custom-control-label cursr" for="customSwitch1"></label>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <label class="toggleclabel" for="customSwitch2">New Interview Request</label>
+                <div class="custom-control custom-switch mb-3">
+                  <input type="checkbox" (change)="onChangeemployeeNotifyNewInterview($event.target.value)"
+                    [checked]="employeeData.employeeNotifyNewInterview === 'Yes'" class="custom-control-input"
+                    [value]="employeeData.employeeNotifyNewInterview" id="customSwitch2">
+                  <label class="custom-control-label cursr" for="customSwitch2"></label>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <label class="toggleclabel" for="customSwitch3">Response From Admin</label>
+                <div class="custom-control custom-switch mb-3">
+                  <input type="checkbox" (change)="onChangeemployeeNotifyAdminResponse($event.target.value)"
+                    [checked]="employeeData.employeeNotifyAdminResponse === 'Yes'" class="custom-control-input"
+                    [value]="employeeData.employeeNotifyAdminResponse" id="customSwitch3">
+                  <label class="custom-control-label cursr" for="customSwitch3"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="ChangePassword" role="tabpanel" aria-labelledby="ChangePassword-tab">
+            <form class="text-left profile-form pt-4" [formGroup]="passwordChangeForm"
+              (ngSubmit)="changePasswordClick(passwordChangeForm.value)">
+              <div class="row m-0">
+                <div class="col-md-5 form-group inputWithIcon">
+                  <input type="password" [type]=" hide ? 'password' : 'text' " id="Mobile1" class="form-control" name="employeeCurrentPassword"
+                  formControlName="employeeCurrentPassword" placeholder="Enter Current Password" required>
+                  <a class="cursr" (click)="myFunction()"><i class="fas "
+                    [ngClass]="{'fa-eye': !hide, 'fa-eye-slash': hide}"></i></a>
+                </div>
+                <div class="col-md-12"></div>
+                <div class="col-md-5 form-group">
+                  <input type="password" id="Mobile2" class="form-control" name="employeeNewPassword"
+                  formControlName="employeeNewPassword" placeholder="Enter New Password" required>
+                </div>
+                <div class="col-md-12"></div>
+                <div class="col-md-5 form-group">
+                  <input type="password" id="Mobile3" class="form-control" name="employeeReEnterNewPassword"
+                  formControlName="reEnterEmployeeNewPassword" placeholder="Re-enter New Password" required>
+                  <small class="text-danger small"
+                    *ngIf="passwordChangeForm.controls['reEnterEmployeeNewPassword'].hasError('confirmedValidator')">Re_enter_new_password_is_not_match</small>
+                </div>
+                <div class="col-md-12"></div>
+                <div class="col-md-5 pb-3">
+                  <button type="submit" [disabled]="passwordChangeForm.invalid" class="btn btn-them btn-md">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<app-candidate-footer></app-candidate-footer>
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>

@@ -1,0 +1,111 @@
+<main id="main" class="bg-gray">
+    <!--  Breadcrumbs  -->
+    <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+        <div class="container">
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- customer Dashbord Section -->
+    <section id="dashbord" class="dashbord-section pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="aside-left">
+                        <div class="card profile-customer text-center mb-3 partner-profile">
+                            <div class="imguser"><img [src]="url"
+                                    onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'" alt="user">
+                            </div>
+                            <h4>{{employerData.employerCompany | titlecase}}</h4>
+                            <p
+                                *ngIf="employerData.employerMobileVerified === 'Yes' && employerData.employerEmailVerified === 'Yes'">
+                                <span class="text-success"><i class="icofont-check-circled"></i></span> Verified</p>
+                            <p
+                                *ngIf="employerData.employerMobileVerified === 'No' || employerData.employerEmailVerified === 'No'">
+                                <span class="text-success"><i class="fas fa-exclamation"></i></span> Not Verified</p>
+                        </div>
+                        <div class="card recently-update pt-3">
+                            <h5 class="card-title text-center mb-0">Trending Skills</h5>
+                            <div class="row m-0 p-3" *ngIf="skillsLists.length>0">
+                                <div *ngFor="let skill of skillsLists | slice:0:10">
+                                    <app-shared-skills [skillName]="skill.skillName ? skill.skillName : 'Unknown'">
+                                    </app-shared-skills>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card recently-update pt-3 mt-3">
+                            <h5 class="card-title text-center mb-0">Recent Updates</h5>
+                            <div class="recently-items">
+                                <p class="mb-0">You received interview request from Fusion Info Corp.</p>
+                                <a href="#" class="text-blue">Know More</a>
+                            </div>
+                            <div class="recently-items">
+                                <p class="mb-0">Job status has been updated for xyz position at Meta Design Inc.</p>
+                                <a href="#" class="text-blue">Know More</a>
+                            </div>
+                            <div class="recently-items">
+                                <p class="mb-0">You have declined interview request for abc position at Nirvana Global
+                                    Multicomm.</p>
+                                <a href="#" class="text-blue">Know More</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="col-xl-9 col-lg-8 pro-details">
+                    <div class="candidate-profile-detail">
+                        <div class="details-list hover mt-0">
+                            <div class="row align-items-center">
+                                <div class="col-xl-4 col-lg-4 position-relative">
+                                    <div id="doughnutChart" class="chart">
+                                    </div>
+                                </div>
+                                <div class="col-xl-8 col-lg-8 pro-cr-details">
+                                    <app-shared-doungnut-details>
+                                    </app-shared-doungnut-details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="title-scheduld" *ngIf="todaysInterviews.length>0">
+                        <h4 class="mt-2 card-title">
+                            {{'Interviews' + '('+(todaysInterviews.length < 10 ? '0' + todaysInterviews.length : todaysInterviews.length)+')' }}<a
+                                routerLink="/interviews" routerLinkActive="activea" style="color: #4169e1;"
+                                class="float-right text-blue cursr"><small>View
+                                    All</small></a></h4>
+                        <h6 class="text-muted">Today Scheduled</h6>
+                    </div>
+
+                    <div class="tab-content" id="myTabContent" *ngIf="todaysInterviews.length>0">
+                        <div class="" *ngIf="todaysInterviews.length>0">
+                            <div class="content-details"
+                                *ngFor="let interview of todaysInterviews | slice:0:5; trackBy: todaysTrackBy">
+                                <app-shared-today-scheduled [employeeName]="interview.employee[0].employeeName"
+                                    [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
+                                    [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
+                                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                                    [employeeID]="interview.employee[0].employeeID"
+                                    [interviewTime]="interview.interviewTime"
+                                    [profilePic]="interview.employee[0].employeeProfilePicture ? interview.employee[0].employeeProfilePicture : ''">
+                                </app-shared-today-scheduled>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;" *ngIf="todaysInterviews.length === 0 && noRecordFound">
+                        <div>
+                            <p class="text-center">No Record Found.</p>
+                        </div>
+                    </div>
+                    <app-shared-todays-skeleton *ngIf="todaysInterviews.length === 0 && loading">
+                    </app-shared-todays-skeleton>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

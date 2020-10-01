@@ -1,0 +1,48 @@
+<div class="modal-content" *ngIf="addFolder">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Folder</h5>
+        <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="addFolderForm" (ngSubmit)="onAddFolder(addFolderForm.value)">
+            <div class="form-group">
+                <label for="folderText">Folder Name</label>
+                <input type="text" id="folderText" formControlName="employerdownloadName" name="employerdownloadName"
+                    class="form-control" placeholder="Enter Folder Name" required>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-md-12">
+                    <button type="submit" [disabled]="addFolderForm.invalid" class="btn btn-them btn-sm">Add</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="editFolder">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Folder</h5>
+        <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="editFolderForm"
+            (ngSubmit)="onEditFolder(editFolderForm.value)">
+            <div class="form-group">
+                <label for="folderText">Folder Name</label>
+                <input type="text" id="folderText" formControlName="employerdownloadName" name="employerdownloadName"
+                    class="form-control" placeholder="Enter Folder Name" required>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-md-12">
+                    <button type="submit" [disabled]="editFolderForm.invalid" class="btn btn-them btn-sm">Add</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

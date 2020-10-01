@@ -1,0 +1,21 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" data-icon="fa-certificate" style="height: 35px; width: 28px;"
+            data-inline="false"></span>&nbsp;&nbsp;Certificates <a data-toggle="modal"
+            (click)="openAddCertificateModal()" href="#" class="edit-pr-btn float-right"><span class="iconify"
+                data-icon="fa-plus-circle" data-inline="false"></span></a>
+    </h4>
+    <div *ngIf="certificateLists.length > 0">
+        <div class="skils-content" *ngFor="let certificate of certificateLists">
+            <h5>{{certificate.empcertificateName | titlecase}} <a data-toggle="modal"
+                    (click)="openEditCertificateModal(certificate)" href="#" class="edit-pr-btn float-right"><i
+                        class="icofont-pencil-alt-1"></i></a>
+            </h5>
+            <p class="mb-0">
+                {{certificate.empcertificateIssuedBy + " | " +  " Valid till " + (certificate.empcertificateValidTill | date:'mediumDate')}}
+            </p>
+        </div>
+    </div>
+    <div class="text-center" *ngIf="certificateLists.length === 0">
+        <span style="color: #d2a32e;"><u>Incomplete </u> </span>
+    </div>
+</div>

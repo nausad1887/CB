@@ -1,0 +1,269 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Sign up</h5>
+    <button type="button" class="close" data-dismiss="modal" (click)="onClose()" aria-label="Close"> <span
+        aria-hidden="true">×</span></button>
+  </div>
+  <div class="modal-body">
+    <form class="text-left profile-form" #myForm="ngForm">
+      <div>
+        <div class="custom-control custom-radio custom-control-inline" (click)="onChangeRegisterCandidate()">
+          <input type="radio" class="custom-control-input" name="customRadio2" id="customRadio3" checked>
+          <label class="custom-control-label cursr" for="customRadio3">Candidate</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline" (click)="onChangeRegisterEmployee()">
+          <input type="radio" class="custom-control-input" name="customRadio2" id="customRadio4">
+          <label class="custom-control-label cursr" for="customRadio4">Employer</label>
+        </div>
+      </div>
+      <br>
+      <!-- for candidate	 -->
+      <div class="CandidateRegister" [formGroup]="signForm" *ngIf="isCandidateRegistration">
+        <div class="form-row">
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="uname" name="candidateUserName" formControlName="candidateUserName"
+              class="form-control" placeholder="Username" required>
+            <small class="text-danger"
+              *ngIf="signForm.controls['candidateUserName'].hasError('required') && (signForm.controls['candidateUserName'].dirty || signForm.controls['candidateUserName'].touched)">This
+              field is required</small>
+            <small class="text-danger" *ngIf="signForm.controls['candidateUserName'].hasError('minlength')">Required
+              field, must be between 3 and 30 characters.</small>
+            <small class="text-danger" *ngIf="signForm.controls['candidateUserName'].hasError('maxlength')">Required
+              field, must be between 3 and 30 characters.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="email" id="Email" class="form-control" name="candidateEmail" formControlName="candidateEmail"
+              placeholder="Email" required>
+            <small class="text-danger"
+              *ngIf="signForm.controls['candidateEmail'].hasError('required') && (signForm.controls['candidateEmail'].dirty || signForm.controls['candidateEmail'].touched)">This
+              field is required.</small>
+            <small class="text-danger"
+              *ngIf="signForm.controls['candidateEmail'].hasError('pattern') && (signForm.controls['candidateEmail'].dirty || signForm.controls['candidateEmail'].touched)">Please
+              enter valid email address.</small>
+            <small class="text-danger" *ngIf="signForm.controls['candidateEmail'].hasError('emailAlreadyExist')">Email
+              already
+              exist.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="phone" class="form-control" name="candidateMobileNumber"
+              formControlName="candidateMobileNumber" placeholder="Mobile Number" required>
+            <small class="text-danger"
+              *ngIf="signForm.controls['candidateMobileNumber'].hasError('required') && (signForm.controls['candidateMobileNumber'].dirty || signForm.controls['candidateMobileNumber'].touched)">This
+              field is required.</small>
+            <small class="text-danger"
+              *ngIf="signForm.controls['candidateMobileNumber'].hasError('pattern') && (signForm.controls['candidateMobileNumber'].dirty || signForm.controls['candidateMobileNumber'].touched)">Please
+              enter valid phone number.</small>
+            <small class="text-danger" *ngIf="signForm.controls['candidateMobileNumber'].hasError('mobileExist')">Mobile
+              already
+              exist.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group inputWithIcon">
+            <input type="password" [type]=" hide ? 'password' : 'text' " id="defaultPassword3" name="candidatePassword"
+              formControlName="candidatePassword" class="form-control" placeholder="Password" required>
+            <a class="cursr" (click)="myFunction()"><i class="fas "
+                [ngClass]="{'fa-eye': !hide, 'fa-eye-slash': hide}"></i></a>
+            <small class="text-danger"
+              *ngIf="signForm.controls['candidatePassword'].hasError('required') && (signForm.controls['candidatePassword'].dirty || signForm.controls['candidatePassword'].touched)">This
+              field is required.</small>
+            <small class="text-danger" *ngIf="signForm.controls['candidatePassword'].hasError('minlength')">Password
+              must contain 4
+              to 16 character.</small>
+            <small class="text-danger" *ngIf="signForm.controls['candidatePassword'].hasError('maxlength')">Password
+              must contain 4
+              to 16 character.</small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12 col-sm-12">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="accept" formControlName="terms" name="example1"
+                required>
+              <label class="custom-control-label cursr" for="accept">I accept <a
+                  routerLink="/terms-and-conditions">Terms &
+                  Conditions </a>
+              </label>
+            </div>
+            <small class="text-danger"
+              *ngIf="signForm.controls['terms'].hasError('required') && (signForm.controls['terms'].dirty)">Select
+              Terms And Conditions.</small>
+          </div>
+        </div>
+        <div class="form-row pt-3">
+          <div class="col">
+            <button type="button" data-dismiss="modal" class="btn btn-them btn-md w-100"
+              (click)="checkEmployeeDuplication(signForm.value)" [disabled]="signForm.invalid" data-toggle="modal">Sign
+              Up</button>
+          </div>
+        </div>
+        <div class="d-flex pt-3 login-wthsocial">
+          <div class="">
+            <p>Or log in via socials</p>
+          </div>
+          <div class="ml-auto">
+            <a href="#"><img src="assets/images/icon-linkedIn.png" alt="icon"></a>
+            <a href="#" class="ml-2"><img src="assets/images/icon-fb.png" alt="icon"></a>
+            <a href="#" class="ml-2"><img src="assets/images/icon-google.png" alt="icon"></a>
+          </div>
+        </div>
+        <div class="pt-3 signupbtn text-center">
+          <span>Existing User?</span> <a class="text-green" href="#" (click)="openLoginModal()" data-toggle="modal"
+            data-dismiss="modal" data-target="#Login">Log In</a>
+        </div>
+      </div>
+
+      <!-- for employer -->
+      <div class="EmloyerRegister" [formGroup]="employerSignUpForm" *ngIf="isEmployeeRegistration">
+        <div class="form-row">
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="companyname" class="form-control" name="employerCompany"
+              formControlName="employerCompany" placeholder="Company Name">
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerCompany'].hasError('required') && (employerSignUpForm.controls['employerCompany'].dirty || employerSignUpForm.controls['employerCompany'].touched)">This
+              field is required</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerCompany'].hasError('minlength')">Required
+              field, must be between 3 and 30 characters.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerCompany'].hasError('maxlength')">Required
+              field, must be between 3 and 30 characters.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="Email" class="form-control" name="employerEmail" formControlName="employerEmail"
+              placeholder="Email">
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerEmail'].hasError('required') && (employerSignUpForm.controls['employerEmail'].dirty || employerSignUpForm.controls['employerEmail'].touched)">This
+              field is required.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerEmail'].hasError('pattern') && (employerSignUpForm.controls['employerEmail'].dirty || employerSignUpForm.controls['employerEmail'].touched)">Please
+              enter valid email address.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerEmail'].hasError('emailAlreadyExist')">Email
+              already
+              exist.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="phone" class="form-control" name="employerMobile" formControlName="employerMobile"
+              placeholder="Mobile Number">
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerMobile'].hasError('required') && (employerSignUpForm.controls['employerMobile'].dirty || employerSignUpForm.controls['employerMobile'].touched)">This
+              field is required.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerMobile'].hasError('pattern') && (employerSignUpForm.controls['employerMobile'].dirty || employerSignUpForm.controls['employerMobile'].touched)">Please
+              enter valid phone number.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerMobile'].hasError('mobileExist')">Mobile already
+              exist.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group inputWithIcon">
+            <input type="password" [type]=" hideEmplyerPass ? 'password' : 'text' " name="employerPassword"
+              id="defaultPassword4" (keydown.space)="$event.preventDefault()" formControlName="employerPassword"
+              class="form-control" placeholder="Password">
+            <a class="cursr" (click)="myFunctionPassOpen()"><i class="fas "
+                [ngClass]="{'fa-eye': !hideEmplyerPass, 'fa-eye-slash': hideEmplyerPass}"></i></a>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerPassword'].hasError('required') && (employerSignUpForm.controls['employerPassword'].dirty || employerSignUpForm.controls['employerPassword'].touched)">This
+              field is required.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerPassword'].hasError('minlength')">Password must
+              contain 4 to 16 character.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerPassword'].hasError('maxlength')">Password must
+              contain 4 to 16 character.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="password" id="re-enterPassword" (keydown.space)="$event.preventDefault()"
+              name="confirmedEmployerPassword" formControlName="confirmedEmployerPassword" class="form-control"
+              placeholder="Re-enter Password">
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['confirmedEmployerPassword'].hasError('required') && (employerSignUpForm.controls['confirmedEmployerPassword'].dirty || employerSignUpForm.controls['confirmedEmployerPassword'].touched)">please
+              enter Re-Enter New-Password.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['confirmedEmployerPassword'].hasError('confirmedValidator')">Re-Enter
+              New-Password
+              not matched with New Password.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="spokname" class="form-control" name="employerContactName"
+              formControlName="employerContactName" placeholder="Spokesperson Name">
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerContactName'].hasError('required') && (employerSignUpForm.controls['employerContactName'].dirty || employerSignUpForm.controls['employerContactName'].touched)">This
+              field is required</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerContactName'].hasError('minlength')">Required
+              field, must be between 3 and 30 characters.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerContactName'].hasError('maxlength')">Required
+              field, must be between 3 and 30 characters.</small>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group">
+            <input type="text" id="Designation" class="form-control" name="employerDesignation"
+              formControlName="employerDesignation" placeholder="Designation">
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerDesignation'].hasError('required') && (employerSignUpForm.controls['employerDesignation'].dirty || employerSignUpForm.controls['employerDesignation'].touched)">This
+              field is required</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerDesignation'].hasError('minlength')">Required
+              field, must be between 3 and 30 characters.</small>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerDesignation'].hasError('maxlength')">Required
+              field, must be between 3 and 30 characters.</small>
+          </div>
+          <div class="form-group col-md-12 position-relative formgr-phone">
+            <div class="btn-group input-group-btn country_code">
+              <a href="javascript:voild(0)" class="dropdown-toggle btn-search" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"> <img src="assets/images/flag_india_1.png">
+                &nbsp; +91 </a>
+
+              <ul class="dropdown-menu">
+                <li><a href="javascript:voild(0)" title="Select this card"><img src="assets/images/flag_india_1.png">
+                    &nbsp; +91</a></li>
+                <li><a href="javascript:voild(0)" title="Select this card"><img src="assets/images/flag_usa_1.png">
+                    &nbsp; +1</a></li>
+                <li><a href="javascript:voild(0)" title="Select this card"><img src="assets/images/flag_uae_1.png">
+                    &nbsp; +971</a></li>
+              </ul>
+            </div>
+            <input type="text" class="form-control" name="employerContactMobile" formControlName="employerContactMobile"
+              placeholder="9924488033" id="phone2" />
+            <span>
+              <small class="text-danger"
+                *ngIf="employerSignUpForm.controls['employerContactMobile'].hasError('required') && (employerSignUpForm.controls['employerContactMobile'].dirty || employerSignUpForm.controls['employerContactMobile'].touched)">This
+                field is required.</small>
+              <small class="text-danger"
+                *ngIf="employerSignUpForm.controls['employerContactMobile'].hasError('pattern') && (employerSignUpForm.controls['employerContactMobile'].dirty || employerSignUpForm.controls['employerContactMobile'].touched)">Please
+                enter valid phone number.</small>
+            </span>
+          </div>
+
+        </div>
+        <div class="form-row">
+          <div class="col-md-12 col-sm-12">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="accept2" formControlName="employerTerms"
+                name="example1" required>
+              <label class="custom-control-label cursr" for="accept2">I accept <a
+                  routerLink="/terms-and-conditions">Terms &
+                  Conditions </a></label>
+            </div>
+            <small class="text-danger"
+              *ngIf="employerSignUpForm.controls['employerTerms'].hasError('required') && (employerSignUpForm.controls['employerTerms'].dirty)">Select
+              Terms And Conditions.</small>
+          </div>
+        </div>
+        <div class="form-row pt-3">
+          <div class="col">
+            <button type="button" data-dismiss="modal" [disabled]="employerSignUpForm.invalid"
+              (click)="checkEmployerDuplication(employerSignUpForm.value)" class="btn btn-them btn-md w-100"
+              data-toggle="modal">Sign Up</button>
+          </div>
+        </div>
+        <div class="pt-3 signupbtn text-center">
+          <span>Existing User?</span> <a data-dismiss="modal" (click)="openLoginModal()" class="text-green" href="#"
+            data-toggle="modal" data-target="#Login">Log In</a>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</div>

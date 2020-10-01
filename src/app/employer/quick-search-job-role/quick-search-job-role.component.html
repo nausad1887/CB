@@ -1,0 +1,6 @@
+<div class="row quick-search m-0 align-items-center">
+    <p class="mb-0">Quick Search by Job Role:</p>
+    <a class="quickbtns cursr" [class.active]="role.jobroleName === selectedJobRole"
+        *ngFor="let role of jobRoleLists; let ind = index"><span
+            (click)="onQuickSearchJobRole(role.jobroleName)">{{role.jobroleName | titlecase}}</span></a>
+</div>

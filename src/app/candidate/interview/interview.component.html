@@ -1,0 +1,198 @@
+<main id="main" class="bg-gray">
+  <!--  Breadcrumbs  -->
+  <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+    <div class="container">
+      <!--<h1 class="text-center text-white mb-0">Contact Us</h1>-->
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- customer Dashbord Section -->
+  <section id="dashbord" class="dashbord-section pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4">
+          <app-shared-profile></app-shared-profile>
+        </div>
+
+        <div class="col-xl-9 col-lg-8 pro-details">
+          <ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="Interview-tab" data-toggle="tab" href="#Interview" role="tab"
+                aria-controls="Interview" aria-selected="true">Interview Requests <span class="count"
+                  *ngIf="interviewsRequests.length > 0">{{interviewsRequests.length}}</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Scheduled-tab" data-toggle="tab" href="#Scheduled" role="tab"
+                aria-controls="Scheduled" aria-selected="false">Scheduled Interviews <span class="count"
+                  *ngIf="interviewsScheduled.length > 0">{{interviewsScheduled.length}}</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Rescheduled-tab" data-toggle="tab" href="#Rescheduled" role="tab"
+                aria-controls="Rescheduled" aria-selected="false">Rescheduled <span class="count"
+                  *ngIf="interviewsReScheduled.length > 0">{{interviewsReScheduled.length}}</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Declined-tab" data-toggle="tab" href="#Declined" role="tab"
+                aria-controls="Declined" aria-selected="false">Declined</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="Interview" role="tabpanel" aria-labelledby="Interview-tab">
+              <div class="" *ngIf="interviewsRequests.length>0">
+                <div class="content-details"
+                  *ngFor="let interview of interviewsRequests | slice: (pageRequests-1) * pageSize : (pageRequests-1) * pageSize + pageSize; trackBy: requestTrackBy">
+                  <app-interview-requests [companyName]="bariz"
+                    [companyCity]="interview.employer[0].cityName" [employerID]="interview.employer[0].employerID"
+                    [companyLogo]="interview.employer[0].employerLogo" [jobJDname]="interview.jobjdName"
+                    [jobJD]="interview.jobjd.length > 0 ? interview.jobjd[0] : ''"
+                    [interviewDate]="interview.interviewDate" [interviewMode]="interview.interviewmodeName"
+                    [interviewID]="interview.interviewID" [interviewStatusID]="interview.interviewstatusID"
+                    [interviewTime]="interview.interviewTime" (declineInterview)="onDeclineClickInterview($event)"
+                    (acceptInterview)="onAcceptClickInterview($event)"
+                    (rescheduleInterview)="onRescheduleClickInterview($event)">
+                  </app-interview-requests>
+                </div>
+              </div>
+              <ngb-pagination class="d-flex justify-content-end" *ngIf="interviewsRequests.length>4"
+                [collectionSize]="interviewsRequests.length" [pageSize]="pageSize" [(page)]="pageRequests">
+              </ngb-pagination>
+              <!-- loading -->
+              <div class="row" *ngIf="interviewsRequests.length === 0 && loadingRequests">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Loading...</p>
+                </div>
+              </div>
+              <!-- no record found -->
+              <div class="row" *ngIf="interviewsRequests.length === 0 && noRecordFoundRequests">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+              <!-- error occured -->
+              <div class="row" *ngIf="interviewsRequests.length === 0 && errorOccuredRequests">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Some Error Occured.</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Scheduled" role="tabpanel" aria-labelledby="Scheduled-tab">
+              <div class="" *ngIf="interviewsScheduled.length>0">
+                <div class="content-details"
+                  *ngFor="let interview of interviewsScheduled | slice: (pageSchedule-1) * pageSize : (pageSchedule-1) * pageSize + pageSize; trackBy: scheduleTrackBy">
+                  <app-scheduled-interviews [companyName]="bariz"
+                    [companyLogo]="interview.employer[0].employerLogo" [companyCity]="interview.employer[0].cityName"
+                    [employerID]="interview.employer[0].employerID"
+                    [jobJD]="interview.jobjd.length > 0 ? interview.jobjd[0] : ''" [jobJDname]="interview.jobjdName"
+                    [interviewDate]="interview.interviewDate" [interviewStatusID]="interview.interviewstatusID"
+                    [interviewMode]="interview.interviewmodeName" [interviewID]="interview.interviewID"
+                    [interviewTime]="interview.interviewTime"
+                    (declineScheduledInterview)="onDeclineClickSchedule($event)"
+                    (makeReScheduledInterview)="onRescheduleClickSchedule($event)">
+                  </app-scheduled-interviews>
+                </div>
+              </div>
+              <ngb-pagination class="d-flex justify-content-end" *ngIf="interviewsScheduled.length>4"
+                [collectionSize]="interviewsScheduled.length" [pageSize]="pageSize" [(page)]="pageSchedule">
+              </ngb-pagination>
+              <!-- loading -->
+              <div class="row" *ngIf="interviewsScheduled.length === 0 && loadingScheduled">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Loading...</p>
+                </div>
+              </div>
+              <!-- no record found -->
+              <div class="row" *ngIf="interviewsScheduled.length === 0 && noRecordFoundScheduled">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+              <!-- error occured -->
+              <div class="row" *ngIf="interviewsScheduled.length === 0 && errorOccuredScheduled">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Some Error Occured.</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Rescheduled" role="tabpanel" aria-labelledby="Rescheduled-tab">
+              <div class="" *ngIf="interviewsReScheduled.length>0">
+                <div class="content-details"
+                  *ngFor="let interview of interviewsReScheduled | slice: (pageReschedule-1) * pageSize : (pageReschedule-1) * pageSize + pageSize; trackBy: reScheduledTrackBy">
+                  <app-re-scheduled [companyName]="bariz"
+                    [employerID]="interview.employer[0].employerID" [companyLogo]="interview.employer[0].employerLogo"
+                    [companyCity]="interview.employer[0].cityName"
+                    [jobJD]="interview.jobjd.length > 0 ? interview.jobjd[0] : ''" [jobJDname]="interview.jobjdName"
+                    [interviewDate]="interview.interviewDate" [interviewMode]="interview.interviewmodeName"
+                    [interviewID]="interview.interviewID" [interviewStatusID]="interview.interviewstatusID"
+                    [interviewTime]="interview.interviewTime"
+                    [reScheduledInterviewDate]="interview.reschedule.length > 0 ? interview.reschedule[0].rescheduleDate : []"
+                    [reScheduledInterviewTime]="interview.reschedule.length > 0 ? interview.reschedule[0].rescheduleTime : []">
+                  </app-re-scheduled>
+                </div>
+              </div>
+              <ngb-pagination class="d-flex justify-content-end" *ngIf="interviewsReScheduled.length>4"
+                [collectionSize]="interviewsReScheduled.length" [pageSize]="pageSize" [(page)]="pageReschedule">
+              </ngb-pagination>
+              <!-- loading -->
+              <div class="row" *ngIf="interviewsReScheduled.length === 0 && loadingReScheduled">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Loading...</p>
+                </div>
+              </div>
+              <!-- no record found -->
+              <div class="row" *ngIf="interviewsReScheduled.length === 0 && noRecordFoundReScheduled">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+              <!-- error occured -->
+              <div class="row" *ngIf="interviewsReScheduled.length === 0 && errorOccuredReScheduled">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Some Error Occured.</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Declined" role="tabpanel" aria-labelledby="Declined-tab">
+              <div class="" *ngIf="interviewsDeclined.length>0">
+                <div class="content-details"
+                  *ngFor="let interview of interviewsDeclined | slice: (pageDeclined-1) * pageSize : (pageDeclined-1) * pageSize + pageSize; trackBy: declineTrackBy">
+                  <app-declined [companyName]="bariz"
+                    [companyLogo]="interview.employer[0].employerLogo" [employerID]="interview.employer[0].employerID"
+                    [companyCity]="interview.employer[0].cityName" [jobJDname]="interview.jobjdName"
+                    [interviewDate]="interview.interviewDate" [interviewMode]="interview.interviewmodeName"
+                    [interviewID]="interview.interviewID" [interviewTime]="interview.interviewTime"></app-declined>
+                </div>
+              </div>
+              <ngb-pagination class="d-flex justify-content-end" *ngIf="interviewsDeclined.length>4"
+                [collectionSize]="interviewsDeclined.length" [pageSize]="pageSize" [(page)]="pageDeclined">
+              </ngb-pagination>
+              <!-- loading -->
+              <div class="row" *ngIf="interviewsDeclined.length === 0 && loadingDeclined">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Loading...</p>
+                </div>
+              </div>
+              <!-- no record found -->
+              <div class="row" *ngIf="interviewsDeclined.length === 0 && noRecordFoundDeclined">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+              <!-- error occured -->
+              <div class="row" *ngIf="interviewsDeclined.length === 0 && errorOccuredDeclined">
+                <div class="container" style="min-height:295px; margin-top: 30px;">
+                  <p class="lead text-center">Some Error Occured.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<app-candidate-footer></app-candidate-footer>
+<app-scroll-to-top></app-scroll-to-top>

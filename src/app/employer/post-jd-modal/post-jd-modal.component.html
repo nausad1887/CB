@@ -1,0 +1,152 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Post JD</h5>
+    <button type="button" class="close" data-dismiss="modal" (click)="onClose()" aria-label="Close"> <span
+        aria-hidden="true">×</span></button>
+  </div>
+  <div class="modal-body">
+    <form class="text-left profile-form" [formGroup]="postJDform" (ngSubmit)="onPostJD(postJDform.value)">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Job Title</label>
+          <input type="text" id="fname1" name="jobjdName" formControlName="jobjdName" class="form-control"
+            placeholder="Enter job title">
+          <small class="text-danger"
+            *ngIf="postJDform.controls['jobjdName'].hasError('required') && (postJDform.controls['jobjdName'].dirty || postJDform.controls['jobjdName'].touched)">This
+            field is required</small>
+          <small class="text-danger" *ngIf="postJDform.controls['jobjdName'].hasError('minlength')">Required
+            field, must be between 3 and 30 characters.</small>
+          <small class="text-danger" *ngIf="postJDform.controls['jobjdName'].hasError('maxlength')">Required
+            field, must be between 3 and 30 characters.</small>
+        </div>
+        <div class="col-md-12 form-group">
+          <label>Required Key Skills</label>
+          <ng-select
+          [items]="skillslist$ | async"
+          [closeOnSelect]="false" 
+          [multiple]="true" 
+          bindLabel="skillName"
+          [searchable]="true" 
+          class="customSkills"
+          placeholder="Enter required key skills"
+          formControlName="skills" 
+          name="skillID">
+          </ng-select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['skills'].hasError('required') && (postJDform.controls['skills'].dirty || postJDform.controls['skills'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="loc">Location</label>
+          <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline" placeholder="Select Location"
+            formControlName="cityID" class="custom" labelForId="loc" name="cityName">
+            <ng-option *ngFor="let city of cityLists" [value]="city.cityID">{{city.cityName}}</ng-option>
+          </ng-select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['cityID'].hasError('required') && (postJDform.controls['cityID'].dirty || postJDform.controls['cityID'].touched)">This
+            Field Is Required.</small>
+          <small class="text-danger" *ngIf="postJDform.controls['cityID'].hasError('notCorrectCity')">Select
+            Correct Location.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Salary Range</label>
+          <select class="form-control custom-select cursr" name="salaryrangeID" formControlName="salaryrangeID">
+            <option value="" disabled selected>Choose salary range</option>
+            <option *ngFor="let item of sallaryRangeList" [value]="item.salaryrangeID">
+              {{item.salaryrangeName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['salaryrangeID'].hasError('required') && (postJDform.controls['salaryrangeID'].dirty || postJDform.controls['salaryrangeID'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Experience</label>
+          <select class="form-control custom-select cursr" name="jobjdexperiance" formControlName="jobjdexperiance">
+            <option value="" disabled selected>Choose experience</option>
+            <option *ngFor="let item of expYears" [value]="item.id">{{item.value | titlecase}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['jobjdexperiance'].hasError('required') && (postJDform.controls['jobjdexperiance'].dirty || postJDform.controls['jobjdexperiance'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Notice Period</label>
+          <select class="form-control custom-select cursr" name="noticeID" formControlName="noticeID">
+            <option value="" disabled selected>Choose notice period</option>
+            <option *ngFor="let item of noticeLists" [value]="item.noticeID">{{item.noticeName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['noticeID'].hasError('required') && (postJDform.controls['noticeID'].dirty || postJDform.controls['noticeID'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>No. of Vacancies</label>
+          <input type="text" id="lname2" name="jobjdOpenings" formControlName="jobjdOpenings" class="form-control"
+            placeholder="Enter No. of Vacancies">
+          <small class="text-danger small" *ngIf="postJDform.controls['jobjdOpenings'].hasError('pattern')">Accept only
+            numeric
+            value.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Highest Education</label>
+          <select class="form-control custom-select cursr" name="degreeID" formControlName="degreeID">
+            <option value="" disabled selected>Choose highest education</option>
+            <option *ngFor="let degree of degreeLists" [value]="degree.degreeID">{{degree.degreeName}}
+            </option>
+          </select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['degreeID'].hasError('required') && (postJDform.controls['degreeID'].dirty || postJDform.controls['degreeID'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Type of Job</label>
+          <select class="form-control custom-select cursr" name="jobjdJobType" formControlName="jobjdJobType">
+            <option value="" disabled selected>Choose type of job</option>
+            <option *ngFor="let item of postJDjobType" [value]="item">{{item | titlecase}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="postJDform.controls['jobjdJobType'].hasError('required') && (postJDform.controls['jobjdJobType'].dirty || postJDform.controls['jobjdJobType'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Certification</label>
+          <input type="text" id="lname3" name="jobjdCertificatation" formControlName="jobjdCertificatation"
+            class="form-control" placeholder="Enter certification">
+        </div>
+        <div class="col-md-12 form-group">
+          <label>Job Description</label>
+          <textarea type="text" name="jobjdDescription" formControlName="jobjdDescription" class="form-control"
+            placeholder="Enter job description"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label class="mb-0">JD Format</label>
+          <small class="d-block mb-3">Download Sample JD Format from <a href="#">here</a> and upload
+            it again</small>
+          <div class="profileupload">
+            <label for="photoupload" class="fi-custom-upladfile cursr" *ngIf="makeItFalse">
+              <input [src]="jobjdFileUrl" multiple="" (change)="onSelectFile($event)" id="photoupload"
+                name="photoupload" type="file" value="" required>
+              <span class="imagebox"><img id="blah-c" src="assets/images/upload-doc.png" alt=""></span>
+            </label>
+            <span *ngIf="jobjdFileUrl">
+              <div class="fi-custom-upladfile">
+                <div class="imagebox"><img [src]="jobjdFileUrl" alt="">
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-3 justify-content-center">
+        <div class="col-md-8">
+          <button type="submit" [disabled]="postJDform.invalid" class="btn btn-them btn-md w-100">Save</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->

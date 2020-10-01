@@ -1,0 +1,31 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title">Attach Resume</h4>
+    <div class="d-flex" *ngIf="employeeData.employeeResume">
+        <h6>{{employeeData.employeeResume}} &nbsp; <small
+                class="text-muted">{{"Uploaded on " + (employeeData.employeeResumeUpdated | date: 'mediumDate')}}</small>
+        </h6>
+        <div class="uplodify ml-auto" *ngIf="resumeUrl">
+            <div class="upload-btn-wrapper">
+                <button class="btn" (click)="downloadResume(resumeUrl)" download="resumeUrl"><i
+                        class="icofont-download text-blue" style="font-size:18px;"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="upload-btn-wrapper" *ngIf="employeeData.employeeResume">
+            <button type="button" class="btn btn-them btn-sm w-100 cursr"><i class="icofont-upload-alt cursr"></i>
+                &nbsp; &nbsp;Update
+                Resume</button>
+            <input type="file" class="cursr" (change)="uploadResume($event)" name="myfile" />
+        </div>
+
+        <div class="upload-btn-wrapper" *ngIf="!employeeData.employeeResume">
+            <button type="button" class="btn btn-them btn-sm w-100 cursr"><i class="icofont-upload-alt cursr"></i>
+                &nbsp; &nbsp;Upload
+                Resume</button>
+            <input type="file" (change)="uploadResume($event)" name="myfile" />
+        </div>
+        <!-- <p class="ml-auto"><a href="#" class="text-blue">Delete
+                Resume</a></p> -->
+    </div>
+</div>

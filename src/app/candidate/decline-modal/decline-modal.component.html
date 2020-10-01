@@ -1,0 +1,31 @@
+<!--Modal Decline-->
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Reason for declining</h5>
+        <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="declineForm" (ngSubmit)="onClickDecline(declineForm.value)">
+            <div class="form-row">
+                <div class="col-md-12 form-group">
+                    <label>Reason</label>
+                    <select class="form-control custom-select" formControlName="reasonsID" required>
+                        <option value="" disabled selected>Select reason</option>
+                        <option *ngFor="let item of reasonsLists" [value]="item.reasonID">
+                            {{item.reasonName | titlecase}}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Details</label>
+                    <textarea type="password" formControlName="reasonsRemark" class="form-control"
+                        placeholder="Write details here..." required></textarea>
+                    <p class="text-right pt-2">Character limit 2000 letters</p>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" [disabled]="declineForm.invalid" class="btn btn-them btn-md">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,408 @@
+<div class="modal-content">
+  <div class="content-header" style="padding-top: 20; ">
+    <br>
+    <div class="col-sm-11 float-left" style="padding-right: 0%;">
+      <h5 class="modal-title w-100 text-center " id="exampleModalLabel">Basic Details</h5>
+    </div>
+    <div class="col-sm-1 float-right">
+      <button type="button" class="close " data-dismiss="modal" aria-label="Close"> <span (click)="dismiss()"
+          aria-hidden="true">×</span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <br>
+  </div>
+  <div class="modal-body">
+    <form class="text-left profile-form" [formGroup]="kycEmployeeForm"
+      (ngSubmit)="createKycDetails(kycEmployeeForm.value)">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>First Name</label>
+          <input type="text" id="fname" formControlName="employeeFirstname" name="employeeFirstname"
+            class="form-control" placeholder="Enter First Name" required>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeFirstname'].hasError('required') && (kycEmployeeForm.controls['employeeFirstname'].dirty || kycEmployeeForm.controls['employeeFirstname'].touched)">This
+            field is required</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeFirstname'].hasError('minlength')">Required
+            field, must be between 3 and 30 characters.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeFirstname'].hasError('maxlength')">Required
+            field, must be between 3 and 30 characters.</small>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label>Last Name</label>
+          <input type="text" id="lname" formControlName="employeeLastname" name="employeeLastname" class="form-control"
+            placeholder="Enter Last Name" required>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeLastname'].hasError('required') && (kycEmployeeForm.controls['employeeLastname'].dirty || kycEmployeeForm.controls['employeeLastname'].touched)">This
+            field is required</small>
+          <small class="text-danger" *ngIf="kycEmployeeForm.controls['employeeLastname'].hasError('minlength')">Required
+            field, must be between 3 and 30 characters.</small>
+          <small class="text-danger" *ngIf="kycEmployeeForm.controls['employeeLastname'].hasError('maxlength')">Required
+            field, must be between 3 and 30 characters.</small>
+        </div>
+
+        <div class="col-md-12 form-group">
+          <label for="country">Country</label>
+          <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline" placeholder="Select Country"
+            formControlName="employeeCountryID" (change)="onSelectCountry($event)" class="custom" labelForId="country"
+            name="employeeCountryID">
+            <ng-option *ngFor="let country of countryLists" [value]="country.countryID">{{country.countryName}}
+            </ng-option>
+          </ng-select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeCountryID'].hasError('required') && (kycEmployeeForm.controls['employeeCountryID'].dirty || kycEmployeeForm.controls['employeeCountryID'].touched)">Please
+            Select Country.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="state">State</label>
+          <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline" placeholder="Select State"
+            formControlName="employeeStateID" class="custom" (change)="onSelectState($event)" labelForId="state"
+            name="employeeStateID">
+            <ng-option *ngFor="let state of stateLists" [value]="state.stateID">{{state.stateName}}</ng-option>
+          </ng-select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeStateID'].hasError('required') && (kycEmployeeForm.controls['employeeStateID'].dirty || kycEmployeeForm.controls['employeeStateID'].touched)">Please
+            Select State.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="city">Current City</label>
+          <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline" placeholder="Select City"
+            formControlName="employeeCityID" class="custom" labelForId="city" name="employeeCityID">
+            <ng-option *ngFor="let city of cityLists" [value]="city.cityID">{{city.cityName}}</ng-option>
+          </ng-select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeCityID'].hasError('required') && (kycEmployeeForm.controls['employeeCityID'].dirty || kycEmployeeForm.controls['employeeCityID'].touched)">Please
+            Select City.</small>
+        </div>
+      </div>
+
+      <div>
+        <p class="mb-0"><label>Experience Level</label></p>
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of level" [checked]="mode.checked"
+            (change)="onClickChangeLevel(mode.id)" [value]="mode.id">{{mode.value | titlecase}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Total Experience</label>
+          <select class="form-control custom-select cursr" name="employeeExpYr" formControlName="employeeExpYr"
+            required>
+            <option value="" disabled selected>Select Year</option>
+            <option *ngFor="let item of totalExpYears" [value]="item.id">{{item.yr}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeExpYr'].hasError('required') && (kycEmployeeForm.controls['employeeExpYr'].dirty || kycEmployeeForm.controls['employeeExpYr'].touched)">Please
+            Select Experiance Year.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>&nbsp;</label>
+          <select class="form-control custom-select cursr" name="employeeExpMnt" formControlName="employeeExpMnt"
+            required>
+            <option value="" disabled selected>Select Month</option>
+            <option *ngFor="let item of totalExpMonths" [value]="item.id">{{item.mt}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeExpMnt'].hasError('required') && (kycEmployeeForm.controls['employeeExpMnt'].dirty || kycEmployeeForm.controls['employeeExpMnt'].touched)">Please
+            Select Experiance Month.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Relevant Experience</label>
+          <select class="form-control custom-select cursr" name="employeeRelvExpYr" formControlName="employeeRelvExpYr"
+            required>
+            <option value="" disabled selected>Select Year</option>
+            <option *ngFor="let item of totalReExpYears" [value]="item.id">{{item.yr}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeRelvExpYr'].hasError('required') && (kycEmployeeForm.controls['employeeRelvExpYr'].dirty || kycEmployeeForm.controls['employeeRelvExpYr'].touched)">Please
+            Select Relevant Experiance Year.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>&nbsp;</label>
+          <select class="form-control custom-select cursr" name="employeeRelvExpMnt"
+            formControlName="employeeRelvExpMnt" required>
+            <option value="" disabled selected>Select Month</option>
+            <option *ngFor="let item of totalReExpMonths" [value]="item.id">{{item.mt}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeRelvExpMnt'].hasError('required') && (kycEmployeeForm.controls['employeeRelvExpMnt'].dirty || kycEmployeeForm.controls['employeeRelvExpMnt'].touched)">Please
+            Select Relevant Experiance Month.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label>Current Salary</label>
+          <select class="form-control custom-select cursr" name="employeeCurrentSallaryInLacs"
+            formControlName="employeeCurrentSallaryInLacs" required>
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of currentSallaryInLacs" [value]="item">{{item}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeCurrentSallaryInLacs'].hasError('required') && (kycEmployeeForm.controls['employeeCurrentSallaryInLacs'].dirty || kycEmployeeForm.controls['employeeCurrentSallaryInLacs'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-5 form-group">
+          <label>&nbsp;</label>
+          <select class="form-control custom-select cursr" name="employeeCurrentSallaryInThousand"
+            formControlName="employeeCurrentSallaryInThousand" required>
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of currentSallaryInThousands" [value]="item">{{item}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeCurrentSallaryInThousand'].hasError('required') && (kycEmployeeForm.controls['employeeCurrentSallaryInThousand'].dirty || kycEmployeeForm.controls['employeeCurrentSallaryInThousand'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-3 form-group">
+          <label>Currency</label>
+          <select class="form-control custom-select cursr" name="employeeCurrentSallaryCurrency"
+            formControlName="employeeCurrentSallaryCurrency" required>
+            <option value="" disabled selected>Select Currency</option>
+            <option *ngFor="let item of currencyList" [value]="item">{{item}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeCurrentSallaryCurrency'].hasError('required') && (kycEmployeeForm.controls['employeeCurrentSallaryCurrency'].dirty || kycEmployeeForm.controls['employeeCurrentSallaryCurrency'].touched)">Please
+            Select Currency.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label>Expected Salary</label>
+          <select class="form-control custom-select cursr" name="employeeExpectedSallaryInLacs"
+            formControlName="employeeExpectedSallaryInLacs" required>
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of sallaryRangeList" [value]="item.salaryrangeID">
+              {{item.salaryrangeName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeExpectedSallaryInLacs'].hasError('required') && (kycEmployeeForm.controls['employeeExpectedSallaryInLacs'].dirty || kycEmployeeForm.controls['employeeExpectedSallaryInLacs'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-5 form-group">
+          <label>&nbsp;</label>
+          <select class="form-control custom-select cursr" name="employeeExpectedSallaryInThousand"
+            formControlName="employeeExpectedSallaryInThousand" required>
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of currentSallaryInThousands" [value]="item">{{item}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeExpectedSallaryInThousand'].hasError('required') && (kycEmployeeForm.controls['employeeExpectedSallaryInThousand'].dirty || kycEmployeeForm.controls['employeeExpectedSallaryInThousand'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-3 form-group">
+          <label>Currency</label>
+          <select class="form-control custom-select cursr" name="employeeExpectedSallaryCurrency"
+            formControlName="employeeExpectedSallaryCurrency" required>
+            <option value="" disabled selected>Select Currency</option>
+            <option *ngFor="let item of currencyList" [value]="item">{{item}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeExpectedSallaryCurrency'].hasError('required') && (kycEmployeeForm.controls['employeeExpectedSallaryCurrency'].dirty || kycEmployeeForm.controls['employeeExpectedSallaryCurrency'].touched)">Please
+            Select Currency.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Notice Period</label>
+          <select class="form-control custom-select cursr" name="employeeNoticePeriod"
+            formControlName="employeeNoticePeriod" required>
+            <option value="" disabled selected>Select Day</option>
+            <option *ngFor="let item of noticeLists" [value]="item.noticeID">{{item.noticeName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeNoticePeriod'].hasError('required') && (kycEmployeeForm.controls['employeeNoticePeriod'].dirty || kycEmployeeForm.controls['employeeNoticePeriod'].touched)">Please
+            Select Notice Period.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Available from</label>
+          <select class="form-control custom-select cursr" name="employeeAvailableFrom"
+            formControlName="employeeAvailableFrom" required>
+            <option value="" disabled selected>Select Day</option>
+            <option *ngFor="let item of availableList" [value]="item.avialablefromID">
+              {{item.avialablefromName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeAvailableFrom'].hasError('required') && (kycEmployeeForm.controls['employeeAvailableFrom'].dirty || kycEmployeeForm.controls['employeeAvailableFrom'].touched)">Please
+            Select Available From.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Mobile Number</label>
+          <input type="text" id="Mobile" formControlName="employeeMoblie" name="employeeMoblie" class="form-control"
+            placeholder="Enter Contact Number">
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeMoblie'].hasError('required') && (kycEmployeeForm.controls['employeeMoblie'].dirty || kycEmployeeForm.controls['employeeMoblie'].touched)">This
+            field is required.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeMoblie'].hasError('pattern') && (kycEmployeeForm.controls['employeeMoblie'].dirty || kycEmployeeForm.controls['employeeMoblie'].touched)">Please
+            enter valid phone number.</small>
+        </div>
+        <div class="col-md-12 form-group">
+          <label>Email Id</label>
+          <input type="text" id="Email" formControlName="employeeEmail" name="employeeEmail" class="form-control"
+            placeholder="Enter Email">
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeEmail'].hasError('required') && (kycEmployeeForm.controls['employeeEmail'].dirty || kycEmployeeForm.controls['employeeEmail'].touched)">This
+            Field Is Required.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeEmail'].hasError('pattern') && (kycEmployeeForm.controls['employeeEmail'].dirty || kycEmployeeForm.controls['employeeEmail'].touched)">Please
+            enter valid email address.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Interview From</label>
+          <input class="form-control" placeholder="00:00:00" aria-label="12hr format"
+            formControlName="employeeInterviewFromTime" name="employeeInterviewFromTime" [ngxTimepicker]="default">
+          <ngx-material-timepicker #default></ngx-material-timepicker>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeInterviewFromTime'].hasError('required') && (kycEmployeeForm.controls['employeeInterviewFromTime'].dirty || kycEmployeeForm.controls['employeeInterviewFromTime'].touched)">This
+            Field Is Required.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Interview To</label>
+          <input class="form-control" placeholder="00:00:00" aria-label="12hr format"
+            formControlName="employeeInterviewToTime" name="employeeInterviewToTime" [ngxTimepicker]="default2">
+          <ngx-material-timepicker #default2></ngx-material-timepicker>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeInterviewToTime'].hasError('required') && (kycEmployeeForm.controls['employeeInterviewToTime'].dirty || kycEmployeeForm.controls['employeeInterviewToTime'].touched)">This
+            Field Is Required.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Proof of Identity</label>
+          <select class="form-control custom-select cursr" formControlName="employeeProofOfIdentityID"
+            name="employeeProofOfIdentity" (change)="onSelectProofOfID($event.target.value)" required>
+            <option value="" disabled selected>Select ID-Proof</option>
+            <option *ngFor="let item of proofOfID" [value]="item.proofidID">{{item.proofidName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfIdentityID'].hasError('required') && (kycEmployeeForm.controls['employeeProofOfIdentityID'].dirty || kycEmployeeForm.controls['employeeProofOfIdentityID'].touched)">Please
+            Select Proof Of Identity.</small>
+        </div>
+        <div class="col-md-12 form-group" *ngIf="selectedProofID">
+          <label>{{selectedProofIDName + " Number"}}</label>
+          <input type="text" id="kycDataID" name="kycDataID" formControlName="employeeProofOfIdentityNumber"
+            class="form-control" placeholder="Enter Number" required>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfIdentityNumber'].hasError('required') && (kycEmployeeForm.controls['employeeProofOfIdentityNumber'].dirty || kycEmployeeForm.controls['employeeProofOfIdentityNumber'].touched)">This
+            Field Is Required.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfIdentityNumber'].hasError('minlength')">Required
+            field, must be between 9 and 12 characters.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfIdentityNumber'].hasError('maxlength')">Required
+            field, must be between 9 and 12 characters.</small>
+        </div>
+        <div class="col-md-12 form-group" *ngIf="selectedProofID">
+          <label>Upload Copy</label>
+          <div class="profileupload">
+            <label for="photouploadID" class="fi-custom-upladfile cursr" *ngIf="makeItFalseAddressInput">
+              <input [src]="proofOfAddUrl" multiple="" (change)="kycProofIDfileAdded($event)" id="photouploadID"
+                name="photouploadID" type="file" value="" required>
+              <span class="imagebox"><img id="blah-b" src="assets/images/upload-doc.png" alt=""></span>
+            </label>
+            <span *ngIf="proofOfAddUrl">
+              <div class="fi-custom-upladfile">
+                <div class="imagebox"><img [src]="proofOfAddUrl" alt="">
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Proof of Address</label>
+          <select class="form-control custom-select cursr" name="employeeProofOfAddress"
+            formControlName="employeeProofOfAddressID" (change)="onSelectProofOfAdd($event.target.value)" required>
+            <option value="" disabled selected>Select Add-Proof</option>
+            <option *ngFor="let item of proofOfAdd" [value]="item.proofaddID">{{item.proofaddName}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfAddressID'].hasError('required') && (kycEmployeeForm.controls['employeeProofOfAddressID'].dirty || kycEmployeeForm.controls['employeeProofOfAddressID'].touched)">Please
+            Select Proof Of Address.</small>
+        </div>
+        <div class="col-md-12 form-group" *ngIf="selectedProofOfAdd">
+          <label>{{selectedProofOfAddName + " Number"}}</label>
+          <input type="text" id="kycDataAdd" name="kycDataAdd" formControlName="employeeProofOfAddressNumber"
+            class="form-control" placeholder="Enter Number" required>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfAddressNumber'].hasError('required') && (kycEmployeeForm.controls['employeeProofOfAddressNumber'].dirty || kycEmployeeForm.controls['employeeProofOfAddressNumber'].touched)">This
+            Field Is Required.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfAddressNumber'].hasError('minlength')">Required
+            field, must be between 9 and 12 characters.</small>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeProofOfAddressNumber'].hasError('maxlength')">Required
+            field, must be between 9 and 12 characters.</small>
+        </div>
+        <div class="col-md-12 form-group" *ngIf="selectedProofOfAdd">
+          <label>Upload Copy</label>
+          <div class="profileupload">
+            <label for="photouploadADD" class="fi-custom-upladfile cursr" *ngIf="makeItFalseIDInput">
+              <input [src]="proofOfIDUrl" multiple="" (change)="kycProofADDfileAdded($event)" id="photouploadADD"
+                name="photouploadADD" type="file" value="" required>
+              <span class="imagebox"><img id="blah-c" src="assets/images/upload-doc.png" alt=""></span>
+            </label>
+            <span *ngIf="proofOfAddUrl">
+              <div class="fi-custom-upladfile">
+                <div class="imagebox"><img [src]="proofOfIDUrl" alt="">
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h4 class="mt-2 card-title col-md-12">Work Permit Details <a href="#"
+            class="edit-pr-btn float-right text-blue">Add</a></h4>
+        <div class="col-md-6 form-group">
+          <label>Country</label>
+          <select class="form-control custom-select cursr" formControlName="employeeWorkPermitCountry"
+            name="employeeWorkPermitCountry">
+            <option value="" disabled selected>Select Country</option>
+            <option *ngFor="let country of countryLists" [value]="country.countryID">
+              {{country.countryName | titlecase}}</option>
+          </select>
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeWorkPermitCountry'].hasError('required') && (kycEmployeeForm.controls['employeeWorkPermitCountry'].dirty || kycEmployeeForm.controls['employeeWorkPermitCountry'].touched)">Please
+            Select Permit Country.</small>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Valid till</label>
+          <input type="date" class="form-control" id="DOB" formControlName="employeeWorkPermitValidTill"
+            name="employeeWorkPermitValidTill" placeholder="Date of Birth">
+          <small class="text-danger"
+            *ngIf="kycEmployeeForm.controls['employeeWorkPermitValidTill'].hasError('required') && (kycEmployeeForm.controls['employeeWorkPermitValidTill'].dirty || kycEmployeeForm.controls['employeeWorkPermitValidTill'].touched)">Please
+            Select Permit Date.</small>
+        </div>
+      </div>
+
+      <div class="row pt-3 justify-content-center">
+        <div class="col-md-8">
+          <button type="submit" [disabled]="kycEmployeeForm.invalid" class="btn btn-them btn-md w-100">Save</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="details-list hover">
+    <div class="plan-detais text-center">
+        <h4 class="text-green">{{planName | titlecase}}</h4>
+        <h2 class="text-dark mb-0"><small>{{planDiscountedCurrency}}</small> {{totalPrice | number : '1.0-0'}}</h2>
+        <h5 class="text-gray line-through"><small>{{planCurrency}}</small> {{planPrice | number : '1.0-0'}}</h5>
+        <p class="mb-0">{{'View Profiles ' + planView}}</p>
+        <p class="mb-0">{{'Download Profiles ' + planDownload}}</p>
+        <p class="mb-0">Unlimited Search</p>
+        <p class="mb-0">{{'Validity ' + planValidity + ' Days'}}</p>
+        <div class="pt-3">
+            <button type="button" class="btn btn-sm btn-outline-success">Buy
+                Plan</button>
+        </div>
+    </div>
+</div>

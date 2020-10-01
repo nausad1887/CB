@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-xl-3 col-lg-4">
+        <div class=" profile-customer text-center">
+
+            <div class="imguser mt-0 ">
+                <label class="hoverable" for="fileInput">
+                    <img [src]="url" onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'">
+                    <div class="hover-text">
+                        <input id="fileInput" accept="image/*" (change)="onSelectFile($event)" type='file'>
+                        <p style="margin-top: 20px; font-family: Lato;">Choose file</p>
+                    </div>
+                    <div class="background"></div>
+                </label>
+            </div>
+
+            <h4>{{employeeDataForDisplay.employeeFullName | titlecase}} <small class="text-success"><i
+                        class="icofont-check-circled"></i></small></h4>
+            <p *ngIf="workProfile">{{workProfile.empworkprofileName | titlecase}}<small><a
+                        (click)="openEditWorkProfile(workProfile)" style="color: blue;" class="text-blue cursr">
+                        Change</a></small></p>
+            <p *ngIf="!workProfile"><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u></a></p>
+            <div class="custom-progress">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" [checked]="visible" class="custom-control-input" (change)="makeVisible()" id="customSwitch1">
+                    <label class="custom-control-label cursr" for="customSwitch1">Visible</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-lg-8 pro-cr-details">
+        <p class="text-right"><a class="edit-pr-btn cursr" data-toggle="modal" (click)="openDialog()"><i
+                    class="icofont-pencil-alt-1"></i></a> </p>
+        <div class="row">
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.employeeFullAddress">
+                <p><span class="iconify text-green" data-icon="mdi-google-maps" style="height: 18px; width: 20px;"
+                        data-inline="false"></span>
+                    <span>{{" " + employeeDataForDisplay.employeeFullAddress}}</span></p>
+            </div>
+            <!-- // not show -->
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.employeeFullAddress">
+                <p><span class="iconify text-green" data-icon="mdi-google-maps" style="height: 18px; width: 20px;"
+                        data-inline="false"></span>
+                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u> </a></span></p>
+            </div>
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.employeeMobile">
+                <p><span class="iconify text-green" style="height: 18px; width: 20px;" data-icon="mdi-phone"
+                        data-inline="false"></span><u></u>
+                    <span>{{" " + "+91 " + employeeDataForDisplay.employeeMobile}}</span>
+                </p>
+            </div>
+            <!-- //not show -->
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.employeeMobile">
+                <p><span class="iconify text-green" style="height: 18px; width: 20px;" data-icon="mdi-phone"
+                        data-inline="false"></span>
+                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u> </a></span></p>
+            </div>
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.empkycProofaddNumber">
+                <p><span class="iconify text-green" data-icon="fa-address-card" data-inline="false"></span>
+                    <span>{{" " + employeeDataForDisplay.empkycProofaddNumber}}</span></p>
+            </div>
+            <!-- not show -->
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.empkycProofaddNumber">
+                <p><span class="iconify text-green" data-icon="fa-address-card" data-inline="false"></span>
+                    <span>&nbsp; <u style="color: #d2a32e;"><a class="cursr"> Add</a></u></span></p>
+            </div>
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.empkycExpYear">
+                <p><span class="iconify text-green" style="height: 18px; width: 20px;" data-icon="entypo-briefcase"
+                        data-inline="false"></span>
+                    <span>{{" " + employeeDataForDisplay.empkycExpYear + " Years " + employeeDataForDisplay.empkycExpMonth + " Months "}}</span>
+                </p>
+            </div>
+            <!-- // not show -->
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.empkycExpYear">
+                <p><span class="iconify text-green" style="height: 18px; width: 16px;" data-icon="entypo-briefcase"
+                        data-inline="false"></span>
+                    <span><a class="cursr">&nbsp; <u style="color: #d2a32e;">Add</u></a></span>
+                </p>
+            </div>
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.employeeEmail">
+                <p><span class="iconify text-green" style="height: 18px; width: 16px;" data-icon="topcoat-email"
+                        data-inline="false"></span>
+                    <span>{{" " + employeeDataForDisplay.employeeEmail}}</span></p>
+            </div>
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.employeeEmail">
+                <p><span class="iconify text-green" style="height: 18px; width: 18px;" data-icon="topcoat-email"
+                        data-inline="false"></span>
+                    <span><a class="cursr">&nbsp; <u style="color: #d2a32e;">Add</u></a></span></p>
+            </div>
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.empkycProofidNumber">
+                <p><span class="iconify text-green" data-icon="fa-address-book" data-inline="false"></span>
+                    <span>{{" " + employeeDataForDisplay.empkycProofidNumber}}</span></p>
+            </div>
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.empkycProofidNumber">
+                <p><span class="iconify text-green" data-icon="fa-address-book" data-inline="false"></span>
+                    <span><a class="cursr">&nbsp; <u style="color: #d2a32e;">Add</u></a></span></p>
+            </div>
+
+            <div class="col-lg-4 pro-items" *ngIf="employeeDataForDisplay.empkycCTCPACurrency">
+                <p class="icon-g"><span class="iconify text-green" style="height: 18px; width: 18px;"
+                        data-icon="zmdi-money" data-inline="false"></span>
+                    <span>{{" " + employeeDataForDisplay.empkycCTCPACurrency + " " + (employeeDataForDisplay.empkycCTCPA | number : '1.0-0') + " Lacs"}}</span>
+                </p>
+            </div>
+            <div class="col-lg-4 pro-items" *ngIf="!employeeDataForDisplay.empkycCTCPACurrency">
+                <p class="icon-g"><span class="iconify text-green" style="height: 18px; width: 18px;"
+                        data-icon="zmdi-money" data-inline="false"></span>
+                    <span><a class="cursr">&nbsp; <u style="color: #d2a32e;">Add</u></a></span>
+                </p>
+            </div>
+
+            <div class="col-lg-8 pro-items" *ngIf="employeeDataForDisplay.empkycInterviewFrom">
+                <p> <span><b style="font-weight:500;">Availibility for Interview:</b>
+                        {{" " + employeeDataForDisplay.empkycInterviewFrom + " To " + employeeDataForDisplay.empkycInterviewTo}}</span>
+                </p>
+            </div>
+            <div class="col-lg-8 pro-items" *ngIf="!employeeDataForDisplay.empkycInterviewFrom">
+                <p> <span><b style="font-weight:500;">Availibility for Interview:</b>
+                        <a class="cursr">&nbsp; <u style="color: #d2a32e;">Add</u></a></span>
+                </p>
+            </div>
+
+        </div>
+        <div class="profile-stranth custom-progress p-0">
+            <div class="mb-2 d-flex" *ngIf="employeeDataForDisplay.employeeProfileProgress">
+                <span class="text-blue">Profile Strength</span>
+                <span
+                    class="text-blue ml-auto">{{(employeeDataForDisplay.employeeProfileProgress | number : '1.0-0') + "%"}}
+                </span>
+            </div>
+            <div class="mb-2 d-flex" *ngIf="!employeeDataForDisplay.employeeProfileProgress">
+                <span class="text-blue">Profile Strength</span>
+                <span class="text-blue ml-auto"><a class="cursr">&nbsp; <u style="color: #d2a32e;">Add</u></a>
+                </span>
+            </div>
+            <div class="progress">
+                <mat-progress-bar mode="determinate" value="{{employeeDataForDisplay.employeeProfileProgress}}">
+                </mat-progress-bar>
+                <!-- <div class="progress-bar" style="width:70%"></div> -->
+            </div>
+        </div>
+    </div>
+</div>

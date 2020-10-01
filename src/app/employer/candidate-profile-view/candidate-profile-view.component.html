@@ -1,0 +1,260 @@
+<main id="main" class="bg-gray">
+  <!--  Breadcrumbs  -->
+  <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+    <div class="container">
+      <h1 class="text-center text-white mb-0">&nbsp;</h1>
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- customer Dashbord Section -->
+  <section id="dashbord" class="dashbord-section pb-5">
+    <div class="container">
+      <div class="candidate-profile-detail">
+        <div class="details-list hover">
+          <div class="row">
+            <div class="col-xl-3 col-lg-4">
+              <div class="profile-customer d-flex">
+                <div class="imguser mt-0"><img [src]="employeeDataForDisplay.empProfile"
+                    onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'" alt="user">
+                </div>
+                <div>
+                  <h4 class="blurry-text"
+                    [ngClass]="{marginName: employeeDataForDisplay.employeeFullName.length >= 8 && employeeDataForDisplay.workProfile.empworkprofileName.length > 15}">
+                    {{employeeDataForDisplay.employeeFullName | titlecase}}</h4>
+                  <p
+                    [ngClass]="{marginWorkProfile: employeeDataForDisplay.workProfile.empworkprofileName.length > 15 && employeeDataForDisplay.employeeFullName.length >= 8}">
+                    {{employeeDataForDisplay.workProfile.empworkprofileName | titlecase}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 pro-cr-details">
+              <div class="row">
+                <div class="col-lg-4 pro-items">
+                  <p><i class="icofont-google-map text-green"></i>
+                    <span>{{" " + employeeDataForDisplay.employeeFullAddress}}</span></p>
+                </div>
+                <div class="col-lg-4 pro-items">
+                  <p><i class="icofont-phone text-green"></i> <span
+                      class="blurry-text">{{" " + "+91 " + employeeDataForDisplay.employeeMobile}}</span>
+                  </p>
+                </div>
+                <div class="col-lg-4 pro-items">
+                  <p> <span><b style="font-weight:500;">Availibility for
+                        Interview:</b>{{" " + employeeDataForDisplay.empkycInterviewFrom + " To " + employeeDataForDisplay.empkycInterviewTo}}</span>
+                  </p>
+                </div>
+                <div class="col-lg-4 pro-items">
+                  <p><i class="icofont-briefcase text-green"></i>
+                    <span>{{" " + employeeDataForDisplay.empkycExpYear + " Years " + employeeDataForDisplay.empkycExpMonth + " Months "}}</span>
+                  </p>
+                </div>
+                <div class="col-lg-4 pro-items">
+                  <p><i class="icofont-email text-green"></i> <span
+                      class="blurry-text">{{" " + employeeDataForDisplay.employeeEmail}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3">
+            <a (click)="scheduleInterviewModal(employeeData)"
+              style="border: 1px solid #62a8ff; color: #62a8ff; border-radius: 30px; margin-right: .7rem!important;"
+              class="btn btn-sm cursr" data-toggle="modal" data-target="#ScheduleInterview">Schedule
+              Interview</a>
+            <a (click)="openSaveFolderModal()" style="background-color: #7fb126; color: #fff; border-radius: 30px;"
+              class="btn btn-sm cursr">Save</a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-3 col-lg-4">
+          <div class="aside-left">
+            <div class="card recently-update pt-3">
+              <h5 class="card-title text-center mb-0">Quick Links</h5>
+              <hr>
+              <div class="quick-menu">
+                <a class="cursr" (click)="moveToResume()">Attach Resume</a>
+                <a class="cursr" (click)="moveToResumeSummary()">Resume Summary</a>
+                <a class="cursr" (click)="moveToSkills()">Key Skills</a>
+                <a class="cursr" (click)="moveToEducation()">Education</a>
+                <a class="cursr" (click)="moveToEmployment()">Employment</a>
+                <a class="cursr" (click)="moveToCertificate()">Certificates</a>
+                <!-- <a class="cursr" (click)="moveToAward()">Awards</a> -->
+                <a class="cursr" (click)="moveToProfile()">Profiles</a>
+                <a class="cursr" (click)="moveToPersonalDetails()">Personal Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-8 pro-details">
+          <div class="tab-content" id="myTabContent">
+            <div class="content-details">
+
+              <div class="details-list hover" #AttachResume id="AttachResume">
+                <h4 class="mt-2 card-title"> Resume</h4>
+                <div class="d-flex">
+                  <h6>{{employeeDataForDisplay.resume}} &nbsp; <small
+                      class="text-muted">{{"Uploaded on " + (employeeDataForDisplay.resumeUpdatedDate | date: 'mediumDate')}}</small>
+                  </h6>
+                  <div class="uplodify ml-auto">
+                    <div class="upload-btn-wrapper">
+                      <button class="btn cursr"
+                        (click)="resumeOpenInNewTap(employeeDataForDisplay.resumeUrl, employeeDataForDisplay.resume)"><i
+                          class="icofont-download text-blue cursr" style="font-size:18px;"></i></button>
+                      <!-- <input type="file" name="myfile" disabled /> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="details-list hover" #summary id="summary">
+                <h4 class="mt-2 card-title">Resume Summary </h4>
+                <p>Adept at Photoshop, Illustrator, CorelDraw and InDesign. Great at developing unique
+                  design solutions as per current trends.
+                  Ability to design concepts as per requirements. Can work well under tight deadline.
+                </p>
+              </div>
+              <div class="details-list hover" #skills id="skills">
+                <h4 class="mt-2 card-title">Key Skills </h4>
+                <div class="skils-content" *ngIf="employeeDataForDisplay.primarySkills.length>0">
+                  <h5>Primary Skills</h5>
+                  <div class="skill-items-show"><span
+                      *ngFor="let skill of employeeDataForDisplay.primarySkills; let isLast=last">{{skill.skillName | titlecase}}{{isLast ? '' : ', '}}</span>
+                  </div>
+                </div>
+                <div class="skils-content" *ngIf="employeeDataForDisplay.secondarySkills.length>0">
+                  <h5>Secondary Skills</h5>
+                  <div class="skill-items-show"><span
+                      *ngFor="let skill of employeeDataForDisplay.secondarySkills; let isLast=last">{{skill.skillName | titlecase}}{{isLast ? '' : ', '}}</span>
+                  </div>
+                </div>
+                <div class="skils-content" *ngIf="employeeDataForDisplay.othersSkills.length>0">
+                  <h5>Other Skills</h5>
+                  <div class="skill-items-show"><span
+                      *ngFor="let skill of employeeDataForDisplay.othersSkills; let isLast=last">{{skill.skillName | titlecase}}{{isLast ? '' : ', '}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="details-list hover" *ngIf="employeeDataForDisplay.employeeeducation.length>0" #education
+                id="education">
+                <h4 class="mt-2 card-title">Education </h4>
+                <div class="skils-content" *ngFor="let edu of employeeDataForDisplay.employeeeducation">
+                  <h5>{{edu.degreeName + ', ' + edu.specialisationName}} </h5>
+                  <p class="mb-0">{{edu.universityName}}</p>
+                  <p class="mb-0">{{edu.empeducationPer + ', ' + edu.empeducationYear}}</p>
+                </div>
+              </div>
+
+              <div class="details-list hover" *ngIf="employeeDataForDisplay.employeework.length>0" #employment
+                id="employment">
+                <h4 class="mt-2 card-title">Employment </h4>
+                <div class="skils-content" *ngFor="let work of employeeDataForDisplay.employeework">
+                  <h5 class="blurry-text">{{work.companyName | titlecase}} </h5>
+                  <p class="mb-0">
+                    {{(work.empworkTo === '' ? work.empworkDesignation + " | " +  " Since " + work.empworkFrom : work.empworkDesignation + " | " +  "From " + work.empworkFrom + " to " + work.empworkTo)}}
+                  </p>
+                </div>
+              </div>
+
+              <div class="details-list hover" *ngIf="employeeDataForDisplay.certificates.length>0" #certificate
+                id="certificate">
+                <h4 class="mt-2 card-title">Certificates </h4>
+                <div class="skils-content" *ngFor="let certificate of employeeDataForDisplay.certificates">
+                  <h5>{{certificate.empcertificateName | titlecase}}</h5>
+                  <p class="mb-0">
+                    {{certificate.empcertificateIssuedBy + " | " +  " Valid till " + (certificate.empcertificateValidTill | date:'mediumDate')}}
+                  </p>
+                </div>
+              </div>
+
+              <!-- <div class="details-list hover" *ngIf="employeeDataForDisplay.awards.length>0" #award id="award">
+                <h4 class="mt-2 card-title">Awards </h4>
+                <div class="skils-content" *ngFor="let award of employeeDataForDisplay.awards">
+                  <h5>{{award.empawardName | titlecase}}</h5>
+                  <p class="mb-0">{{award.empawardIssuedBy | titlecase}}</p>
+                </div>
+              </div> -->
+
+              <div class="details-list hover" *ngIf="employeeDataForDisplay.workprofiles.length>0" #profile
+                id="profile">
+                <h4 class="mt-2 card-title">Profiles </h4>
+                <div class="skils-content" *ngFor="let profile of employeeDataForDisplay.workprofiles ; let i = index">
+                  <h5>{{profile.empworkprofileName | titlecase}}</h5>
+                  <p class="mb-0" *ngIf="employeeDataForDisplay.workprofiles[i].skills.length>0">
+                    Secondary Skills: <span
+                      *ngFor="let skill of employeeDataForDisplay.workprofiles[i].skills; let isLast=last">{{skill.skillName | titlecase}}{{isLast ? '' : ', '}}</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="details-list hover" #pdetails id="pdetails">
+                <h4 class="mt-2 card-title">Personal Details </h4>
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="fild-personal">
+                      <label>Date of Birth</label>
+                      <p>
+                        {{employeeDataForDisplay.employeeDOB ? (employeeDataForDisplay.employeeDOB | date: 'mediumDate') : 'Not Defined'}}
+                      </p>
+                    </div>
+                    <div class="fild-personal">
+                      <label>Marital Status</label>
+                      <p>
+                        {{employeeDataForDisplay.employeeMartialStatus ? (employeeDataForDisplay.employeeMartialStatus | titlecase) : 'Not Defined'}}
+                      </p>
+                    </div>
+                    <div class="fild-personal">
+                      <label>Gender</label>
+                      <p>
+                        {{employeeDataForDisplay.employeeGender ? (employeeDataForDisplay.employeeGender | titlecase) : 'Not Defined'}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="fild-personal">
+                      <label>Present Address</label>
+                      <p class="blurry-text">
+                        {{employeeDataForDisplay.employeeCurrentAddress ? (employeeDataForDisplay.employeeCurrentAddress | titlecase) : 'Not Defined'}}
+                      </p>
+                    </div>
+                    <div class="fild-personal">
+                      <label>Permanent Address</label>
+                      <p class="blurry-text">
+                        {{employeeDataForDisplay.employeePermanantAddress ? (employeeDataForDisplay.employeePermanantAddress | titlecase) : 'Not Defined'}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="language-know">
+                  <div class="row fild-personal pb-2">
+                    <label class="col">Languages
+                    </label>
+                    <label class="col">Read</label>
+                    <label class="col">Write</label>
+                    <label class="col">Speak</label>
+                  </div>
+                  <span *ngIf="employeeDataForDisplay.languages.length>0">
+                    <div class="row fild-personal pb-2" *ngFor="let language of employeeDataForDisplay.languages">
+                      <p class="col">{{language.emplanguageName | titlecase}}</p>
+                      <p class="col"><i *ngIf="language.emplanguageRead === 'Yes'" class="icofont-check text-green"></i>
+                      </p>
+                      <p class="col"><i *ngIf="language.emplanguageWrite === 'Yes'"
+                          class="icofont-check text-green"></i></p>
+                      <p class="col"><i *ngIf="language.emplanguageSpeak === 'Yes'"
+                          class="icofont-check text-green"></i></p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main><!-- End #main -->

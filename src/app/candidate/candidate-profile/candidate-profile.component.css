@@ -1,0 +1,11 @@
+.iconify {
+  width: 16px;
+  height: 16px;
+}
+
+#fileInput {
+  display: none;
+}
+.cursr {
+  cursor: pointer;
+}

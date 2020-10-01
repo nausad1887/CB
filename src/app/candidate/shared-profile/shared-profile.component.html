@@ -1,0 +1,43 @@
+<div class="aside-left">
+  <div class="card profile-customer text-center mb-3">
+    <div class="imguser"><img [src]="url" onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'"></div>
+    <h4>{{employeeName | titlecase}} <small class="text-success"><i class="icofont-check-circled"></i></small></h4>
+    <p *ngIf="workProfile">{{workProfile.empworkprofileName | titlecase}}<small><a
+          (click)="openEditWorkProfile(workProfile)" style="color: blue;" class="text-blue cursr">
+          Change</a></small></p>
+    <p *ngIf="!workProfile"><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u></a></p>
+    <div class="custom-progress">
+      <div class="pt-3 pb-3">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" [checked]="visible" (change)="makeVisible()" class="custom-control-input"
+            id="customSwitch1">
+          <label class="custom-control-label cursr" for="customSwitch1">Visible</label>
+        </div>
+      </div>
+      <p class="mb-2 text-left"><small
+          class="text-blue">{{(employeeDataForDisplay.employeeProfileProgress | number : '1.0-0') + "%" + " Profile Completed"}}</small>
+      </p>
+      <div class="progress">
+        <mat-progress-bar mode="determinate" class="green-progress"
+          value="{{employeeDataForDisplay.employeeProfileProgress}}"></mat-progress-bar>
+      </div>
+      <br>
+      <a routerLink="/dashboard/candidate-profile" type="button" class="btn btn-them btn-sm w-100">Update Profile</a>
+    </div>
+  </div>
+  <div class="card recently-update pt-3">
+    <h5 class="card-title text-center mb-0">Recent Updates</h5>
+    <div class="recently-items">
+      <p class="mb-0">You received interview request from Fusion Info Corp.</p>
+      <a href="#" class="text-blue">Know More</a>
+    </div>
+    <div class="recently-items">
+      <p class="mb-0">Job status has been updated for xyz position at Meta Design Inc.</p>
+      <a href="#" class="text-blue">Know More</a>
+    </div>
+    <div class="recently-items">
+      <p class="mb-0">You have declined interview request for abc position at Nirvana Global Multicomm.</p>
+      <a href="#" class="text-blue">Know More</a>
+    </div>
+  </div>
+</div>

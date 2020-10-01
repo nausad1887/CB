@@ -1,0 +1,14 @@
+.cursr {
+  cursor: pointer;
+}
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+.ng-select.custom ::ng-deep .ng-select-container {
+  height: 45px;
+  border-radius: 0;
+  margin-top: -1px !important;
+  margin-left: -1px !important;
+  border-bottom: 0;
+  border-right: 0;
+}

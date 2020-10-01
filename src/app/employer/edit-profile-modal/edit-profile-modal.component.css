@@ -1,0 +1,28 @@
+.cursr {
+  cursor: pointer;
+}
+.ng-select.custom::ng-deep .ng-arrow-wrapper {
+  width: 25px;
+  padding-right: 5px
+}
+
+[dir="rtl"] .ng-select.custom::ng-deep .ng-arrow-wrapper {
+  padding-left: 5px;
+  padding-right: 0
+}
+
+.ng-select.custom::ng-deep .ng-arrow-wrapper:hover .ng-arrow {
+  border-top-color: #666
+}
+
+.ng-select.custom::ng-deep .ng-arrow-wrapper .ng-arrow {
+  border-color: #495057 transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 2.5px
+}
+.ng-select.custom::ng-deep .ng-dropdown-panel {
+  border: 1px solid #ccc;
+}
+.ng-select.custom::ng-deep .ng-select-container  {            
+border-radius: .25rem;
+}

@@ -1,0 +1,171 @@
+<main id="main" class="bg-gray">
+  <!--  Breadcrumbs  -->
+  <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+    <div class="container">
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- customer Dashbord Section -->
+  <section id="dashbord" class="dashbord-section pb-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-9">
+          <ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="Active-tab" data-toggle="tab" href="#Active" role="tab"
+                aria-controls="Active" aria-selected="false">Active </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="Inactive-tab" data-toggle="tab" href="#Inactive" role="tab"
+                aria-controls="Inactive" aria-selected="false">Inactive</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="Active" role="tabpanel" aria-labelledby="Active-tab">
+              <div class="postbtn pt-4">
+                <button type="post" class="btn btn-them btn-md" data-toggle="modal" (click)="openAddPostJDmodal()"><span
+                    style="font-size:22px;">+ </span> Post New
+                  JD</button>
+              </div>
+
+              <div class="content-details pt-1" *ngIf="jobJDlistActive.length > 0">
+                <div class="details-list hover" *ngFor="let job of jobJDlistActive;  let ind = index">
+                  <div class="row align-items-center">
+                    <div class="col-md-6">
+                      <a (click)="navigateJobJDdetailsPage(job)" class="d-flex align-items-center cursr">
+                        <div class="nameCandate">
+                          <h5 class="mt-2 mb-1">{{job.jobjdName | titlecase}}</h5>
+                          <p class="text-dark mb-0">
+                            {{"Created on " + (job.jobjdCreatedDate | date: 'mediumDate')}}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                      <a (click)="openViewJDmodal(job)" class="text-blue pr-3 textBlue cursr">View JD</a>
+                      <a href="#" class="text-green pr-3" data-toggle="modal" (click)="openEditPostJDmodal(job)"><i
+                          class="icofont-pencil-alt-2"></i></a>
+                      <a href="#" class="text-green pr-4"><i class="fa fa-share-alt"></i></a>
+                      <div class="dropdown dotsmenu d-inline-block">
+                        <div class="custom-control custom-switch ml-4">
+                          <input type="checkbox" (change)="deactivateJobJD(job.jobjdID, 'Inactive')"
+                            [checked]="job.jobjdStatus === 'Active'" class="custom-control-input "
+                            id=jobJDactive{{ind}}>
+                          <label class="custom-control-label cursr" for=jobJDactive{{ind}}></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- margin-top -->
+              <div class="" role="tabpanel" style="margin-top: 20px;"
+                *ngIf="jobJDlistActive.length === 0 && noRecordFound">
+                <div class="" style="min-height:240px;">
+                  <p class="lead text-center">Create JD.</p>
+                </div>
+              </div>
+              <div class="" role="tabpanel" style="margin-top: 20px;"
+                *ngIf="jobJDlistActive.length === 0 && noRecordFoundActive">
+                <div class="" style="min-height:240px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 135px;"
+                *ngIf="jobJDlistActive.length > 0 && jobJDlistActive.length <= 1">
+                <div>
+                  <p></p>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 40px;"
+                *ngIf="jobJDlistActive.length > 1 && jobJDlistActive.length <= 2">
+                <div>
+                  <p></p>
+                </div>
+              </div>
+              <div class="" role="tabpanel" *ngIf="jobJDlistActive.length === 0 && loading">
+                <div class="" style="min-height:300px;">
+                  <p class="lead text-center">Loading...</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="Inactive" role="tabpanel" aria-labelledby="Inactive-tab">
+              <div class="content-details pt-1" *ngIf="jobJDlistInactive.length > 0">
+                <div class="details-list hover" *ngFor="let job of jobJDlistInactive; let ind = index">
+                  <div class="row align-items-center">
+                    <div class="col-md-6">
+                      <a (click)="navigateJobJDdetailsPage(job)" class="d-flex align-items-center cursr">
+                        <div class="nameCandate">
+                          <h5 class="mt-2 mb-1">{{job.jobjdName | titlecase}}</h5>
+                          <p class="text-dark mb-0">
+                            {{"Created on " + (job.jobjdCreatedDate | date: 'mediumDate')}}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                      <a (click)="openViewJDmodal(job)" class="text-blue textBlue pr-3 cursr">View JD</a>
+                      <a href="#" class="text-green pr-3" data-toggle="modal" (click)="openEditPostJDmodal(job)"><i
+                          class="icofont-pencil-alt-2"></i></a>
+                      <a href="#" class="text-green pr-4"><i class="fa fa-share-alt"></i></a>
+                      <div class="dropdown dotsmenu d-inline-block">
+                        <div class="custom-control custom-switch ml-4">
+                          <input type="checkbox" (change)="deactivateJobJD(job.jobjdID, 'active')" [checked]="job.jobjdStatus === 'Active'" class="custom-control-input"
+                            id=jobJD{{ind}}>
+                          <label class="custom-control-label cursr" for=jobJD{{ind}}></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- margin-top -->
+              <div class="row" style="margin-top: 205px;"
+                *ngIf="jobJDlistInactive.length > 0 && jobJDlistInactive.length <= 1">
+                <div>
+                  <p></p>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 110px;"
+                *ngIf="jobJDlistInactive.length > 1 && jobJDlistInactive.length <= 2">
+                <div>
+                  <p></p>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;"
+                *ngIf="jobJDlistInactive.length > 2 && jobJDlistInactive.length <= 3">
+                <div>
+                  <p></p>
+                </div>
+              </div>
+              <div class="" role="tabpanel" *ngIf="jobJDlistInactive.length === 0 && loading">
+                <div class="" style="min-height:300px;">
+                  <p class="lead text-center">Loading...</p>
+                </div>
+              </div>
+              <div class="" role="tabpanel" style="margin-top: 20px;"
+                *ngIf="jobJDlistInactive.length === 0 && noRecordFound">
+                <div class="" style="min-height:305px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+              <div class="" role="tabpanel" style="margin-top: 20px;"
+                *ngIf="jobJDlistInactive.length === 0 && noRecordFoundInActive">
+                <div class="" style="min-height:305px;">
+                  <p class="lead text-center">No Record Found.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

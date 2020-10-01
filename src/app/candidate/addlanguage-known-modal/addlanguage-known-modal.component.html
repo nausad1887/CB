@@ -1,0 +1,119 @@
+<!--Modal Add Profiles   -->
+<!-- <div class="modal fade" id="AddProfiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"> -->
+<!-- <div class="modal-dialog" role="document"> -->
+<div class="modal-content" *ngIf="addLanguage">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add Language</h5>
+        <button type="button" class="close" (click)="onModalClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #addLanguage=ngForm (ngSubmit)="onSaveAddKnownLanguage(addLanguage)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Language Name: </label>
+                    <input type="text" id="" name="emplanguageName" [(ngModel)]="languageKnownData.emplanguageName"
+                        class="form-control" placeholder="Enter Language Known Name">
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Read: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of readStatus"
+                            (change)="onClickChangeRead(mode.value)" [value]="mode.value">{{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Write: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of writeStatus"
+                            (change)="onClickChangeWrite(mode.value)" [value]="mode.value">{{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Speak: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of speakStatus"
+                            (change)="onClickChangeSpeak(mode.value)" [value]="mode.value">{{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #addLanguage class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->
+
+<!--Modal Edit Profiles   -->
+<!-- <div class="modal fade" id="EditProfiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"> -->
+<!-- <div class="modal-dialog" role="document"> -->
+<div class="modal-content" *ngIf="editLanguage">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Edit Language</h5>
+        <button type="button" class="close" (click)="onModalClose()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" #editLanguage="ngForm" (ngSubmit)="onSaveEditLanguage(editLanguage)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Language Name: </label>
+                    <input type="text" id="" name="emplanguageName" [(ngModel)]="languageKnownData.emplanguageName"
+                        class="form-control" placeholder="Enter resume title">
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Read: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of readStatus"
+                            (change)="onClickChangeRead(mode.value)"
+                            [checked]="mode.value === languageKnownData.emplanguageRead" [value]="mode.value">
+                            {{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Write: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of writeStatus"
+                            (change)="onClickChangeWrite(mode.value)"
+                            [checked]="mode.value === languageKnownData.emplanguageWrite" [value]="mode.value">
+                            {{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Speak: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of speakStatus"
+                            (change)="onClickChangeSpeak(mode.value)"
+                            [checked]="mode.value === languageKnownData.emplanguageSpeak" [value]="mode.value">
+                            {{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" #editLanguage class="btn btn-them btn-md w-100">Save</button>
+                    <a (click)="onDeleteLanguage()" class="text-danger cursr">Delete
+                        Record</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->

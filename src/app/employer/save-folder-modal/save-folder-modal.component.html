@@ -1,0 +1,72 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Save to...</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onClose()" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="saveFolderForm"
+            (ngSubmit)="onSubmitSave(saveFolderForm.value)">
+            <h5 class="cursr" (click)="openAddFolderModal()"><img src="assets/images/add-folder-icon.png" class="cursr"
+                    alt="folder" height="18"> &nbsp; Add Folder</h5>
+            <hr>
+            <div *ngIf="favouritesLists.length>0">
+                <div class="pt-3 pl-2 pr-2" *ngFor="let favourite of favouritesLists">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <input type="radio" class="custom-control-input cursr" formControlName="formRadio"
+                            name="formRadio" [value]="favourite.employerfavoriteID"
+                            id=favourite{{favourite.employerfavoriteID}}>
+                        <label class="custom-control-label cursr" for="favourite{{favourite.employerfavoriteID}}"> <img
+                                src="assets/images/folder-icon.png" alt="folder" height="18"> &nbsp;
+                            {{favourite.employerfavoriteName | titlecase}}</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="favouritesLists.length === 0 && loading">
+                <div class="pt-3 pl-2 pr-2">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="pt-3 pl-2 pr-2">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="pt-3 pl-2 pr-2">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="pt-3 pl-2 pr-2">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="pt-3 pl-2 pr-2">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="pt-3 pl-2 pr-2">
+                    <div class="custom-control custom-radio btn-radio-right">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;" *ngIf="favouritesLists.length === 0 && noRecordFound">
+                <div>
+                    <p class="text-center">No Folders Found.</p>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-md-12">
+                    <button type="submit" [disabled]="saveFolderForm.invalid" class="btn btn-them btn-sm">Save</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

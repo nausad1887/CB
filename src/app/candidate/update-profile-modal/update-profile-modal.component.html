@@ -1,0 +1,76 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add/Edit Personal Details</h5>
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal" aria-label="Close"> <span
+                aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <form class="text-left profile-form" [formGroup]="personalAddEditForm"
+            (ngSubmit)="updateEmployeePersonalDetails(personalAddEditForm.value)">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Name: </label>
+                    <input type="text" id="ename" name="employeeName" formControlName="employeeName"
+                        class="form-control" placeholder="Enter Name">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Email Id: </label>
+                    <input type="text" id="Email" name="employeeEmail" formControlName="employeeEmail"
+                        class="form-control" placeholder="Enter Email">
+                    <small class="text-danger"
+                        *ngIf="personalAddEditForm.controls['employeeEmail'].hasError('required') && (personalAddEditForm.controls['employeeEmail'].dirty || personalAddEditForm.controls['employeeEmail'].touched)">This
+                        field is required.</small>
+                    <small class="text-danger"
+                        *ngIf="personalAddEditForm.controls['employeeEmail'].hasError('pattern') && (personalAddEditForm.controls['employeeEmail'].dirty || personalAddEditForm.controls['employeeEmail'].touched)">Please
+                        enter valid email address.</small>
+                    <small class="text-danger"
+                        *ngIf="personalAddEditForm.controls['employeeEmail'].hasError('emailAlreadyExist')">Email
+                        already
+                        exist.</small>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Date of Birth: </label>
+                    <input type="date" formControlName="employeeDOB" class="form-control" id="DOB" name="employeeDOB"
+                        placeholder="Date of Birth">
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Marital Status: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of maritalStatus"
+                            [checked]="mode.value === employeeData.employeeMartialStatus"
+                            (change)="onClickChangeMaritalStatus(mode.value)" [value]="mode.value">
+                            {{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+                <div class="col-md-12 form-group">
+                    <p class="mb-0"><label>Gender: </label></p>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button style="margin-right: 20px;" *ngFor="let mode of gender"
+                            [checked]="mode.value === employeeData.employeeGender"
+                            (change)="onClickChangeGender(mode.value)" [value]="mode.value">
+                            {{mode.value | titlecase}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Present Address: </label>
+                    <input type="text" id="currentAddress" formControlName="currentAddPer" name="currentAddPer"
+                        class="form-control" placeholder="Enter Present Address">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Permanent Address: </label>
+                    <input type="text" id="parmanentAddress" formControlName="parmanentAddress" name="parmanentAddress"
+                        class="form-control" placeholder="Enter Permanent Address">
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    <button type="submit" class="btn btn-them btn-md w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

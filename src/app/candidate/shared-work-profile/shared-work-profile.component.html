@@ -1,0 +1,21 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" data-icon="icomoon-free:profile"
+            style="height: 35px; width: 28px;" data-inline="false"></span>&nbsp;&nbsp;Profiles <a data-toggle="modal"
+            (click)="openAddWorkProfileModal()" href="#" class="edit-pr-btn float-right"><span class="iconify"
+                data-icon="fa-plus-circle" data-inline="false"></span></a>
+    </h4>
+    <div *ngIf="workProfileLists.length>0">
+        <div class="skils-content" *ngFor="let item of workProfileLists ; let i = index">
+            <h5>{{item.empworkprofileName | titlecase}} <a data-toggle="modal" (click)="openEditWorkProfile(item)"
+                    href="#" class="edit-pr-btn float-right"><i class="icofont-pencil-alt-1"></i></a>
+            </h5>
+            <p class="mb-0" *ngIf="workProfileLists[i].skills.length>0">Secondary
+                Skills: <span
+                    *ngFor="let skill of workProfileLists[i].skills; let isLast=last">{{skill.skillName | titlecase}}{{isLast ? '' : ', '}}</span>
+            </p>
+        </div>
+    </div>
+    <div class="text-center" *ngIf="workProfileLists.length === 0">
+        <span style="color: #d2a32e;"><u>Incomplete </u> </span>
+    </div>
+</div>

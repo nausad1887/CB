@@ -1,0 +1,189 @@
+<main id="main" class="bg-gray">
+    <!--  Breadcrumbs  -->
+    <section id="breadcrumbs" class="breadcrumbs" style="background: url(assets/images/cms-banner-bg.png)">
+        <div class="container">
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <!-- customer Dashbord Section -->
+    <section id="dashbord" class="dashbord-section pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="aside-left">
+                        <div class="card profile-customer text-center mb-3 partner-profile">
+                            <div class="imguser">
+                                <label class="hoverable" for="fileInput">
+                                    <img [src]="url"
+                                        onerror="this.src ='https://www.w3schools.com/howto/img_avatar.png'">
+                                    <div class="hover-text">
+                                        <input id="fileInput" accept="image/*" (change)="onSelectFile($event)"
+                                            type='file'>
+                                        <p class="clls" style="margin-top: 20px;">Choose file</p>
+                                    </div>
+                                    <div class="background"></div>
+                                </label>
+                            </div>
+                            <h4 *ngIf="employerData.employerCompany">{{employerData.employerCompany | titlecase}}
+                            </h4>
+                            <p
+                                *ngIf="employerData.employerMobileVerified === 'Yes' && employerData.employerEmailVerified === 'Yes'">
+                                <span class="text-success"><i class="icofont-check-circled"></i></span> Verified</p>
+                            <p
+                                *ngIf="employerData.employerMobileVerified === 'No' || employerData.employerEmailVerified === 'No'">
+                                <span class="text-success" style="color: Tomato;">
+                                    <i class="fas fa-exclamation"></i></span> Not Verified</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 pro-details">
+                    <div class="candidate-profile-detail">
+                        <div class="details-listing hover mt-0">
+                            <div class="">
+                                <div class="pro-cr-details profile-employer">
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Email</p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.employerEmail">
+                                                    {{employerData.employerEmail}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.employerEmail">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Phone Number</p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="employerData.employerContactMobile">
+                                                    {{employerData.employerContactMobile}}</p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="!employerData.employerContactMobile"><span><a
+                                                            class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Industry</p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.industryName">
+                                                    {{employerData.industryName | titlecase}}
+                                                </p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.industryName">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Employee Strength</p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.empsizeName">
+                                                    {{employerData.empsizeName}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.empsizeName"><span><a
+                                                            class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Country </p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.countryName">
+                                                    {{employerData.countryName}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.countryName"><span><a
+                                                            class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">State </p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.stateName">
+                                                    {{employerData.stateName}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.stateName"><span><a
+                                                            class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">City</p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.cityName">
+                                                    {{employerData.cityName}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.cityName"><span><a
+                                                            class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Business Certificate</p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="employerData.employerBusinessCertiNumber">
+                                                    {{employerData.employerBusinessCertiNumber}}</p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="!employerData.employerBusinessCertiNumber"><span><a
+                                                            class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+
+                                            <hr>
+                                            <div class="item-counted">
+                                                <p class="mb-0 text-dark titleCr">Headquarter Address </p>
+                                                <p class="text-muted" *ngIf="employerData.employerHqAddress">
+                                                    {{employerData.employerHqAddress | titlecase}}
+                                                </p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.employerHqAddress">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Spokesperson </p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.employerContactName">
+                                                    {{employerData.employerContactName | titlecase}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.employerContactName">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Designation</p>
+                                                <p class="mb-0 text-muted" *ngIf="employerData.employerDesignation">
+                                                    {{employerData.employerDesignation | titlecase}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.employerDesignation">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <div class="item-counted d-flex align-items-center">
+                                                <p class="mb-0 text-dark titleCr">Mobile Number </p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="employerData.employerCountryCode === '91' && employerData.employerMobile">
+                                                    {{employerData.employerCountryCode + " " + employerData.employerMobile}}
+                                                </p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="!employerData.employerCountryCode && employerData.employerMobile">
+                                                    {{employerData.employerMobile}}
+                                                </p>
+                                                <p class="mb-0 text-muted"
+                                                    *ngIf="employerData.employerMobile && employerData.employerCountryCode === 'undef'">
+                                                    {{employerData.employerMobile}}
+                                                </p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.employerMobile">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                            <hr>
+                                            <div class="item-counted">
+                                                <p class="mb-0 text-dark titleCr">About Company</p>
+                                                <p class="text-muted" *ngIf="employerData.employerAbout">
+                                                    {{employerData.employerAbout | titlecase}}</p>
+                                                <p class="mb-0 text-muted" *ngIf="!employerData.employerAbout">
+                                                    <span><a class="cursr">&nbsp;<u style="color: #d2a32e;">Add</u>
+                                                        </a></span></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <p class="text-right"><a (click)="openEditPostJDmodal()"
+                                                    class="edit-pr-btn cursr" data-toggle="modal"><i
+                                                        class="icofont-pencil-alt-1"></i></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

@@ -1,0 +1,38 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" style="height: 35px; width: 28px;" data-icon="fa-cogs"
+            data-inline="false"></span>&nbsp;&nbsp;Key Skills
+    </h4>
+
+    <div class="skils-content">
+        <h5>Primary Skills
+            <a data-toggle="modal" href="#" (click)="openPriSkillModal(primaryList)" class="edit-pr-btn float-right"><span
+                    class="iconify" data-icon="fa-plus-circle" data-inline="false"></span></a>
+        </h5>
+        <div class="row m-0" *ngIf="primaryList.length>0">
+            <div class="skill-items" *ngFor="let item of primaryList">{{item.skillName}}
+                <!-- <a class="close-btn cursr" (click)="deleteSkill(item)">&times;</a></div> -->
+        </div>
+    </div>
+    <div class="skils-content">
+        <h5>Secondary Skills<a data-toggle="modal" href="#" (click)="openSecondaryModal(secondaryList)"
+                class="edit-pr-btn float-right"><span class="iconify" data-icon="fa-plus-circle"
+                    data-inline="false"></span></a></h5>
+        <div class="row m-0" *ngIf="secondaryList.length>0">
+            <div class="skill-items" *ngFor="let item of secondaryList">{{item.skillName}}
+                <!-- <a class="close-btn cursr" (click)="deleteSkill(item)">&times;</a></div> -->
+        </div>
+    </div>
+    <div class="skils-content">
+        <h5>Other Skills<a data-toggle="modal" (click)="openOtherModal(otherList)" href="#" class="edit-pr-btn float-right"><span
+                    class="iconify" data-icon="fa-plus-circle" data-inline="false"></span></a></h5>
+        <div class="row m-0" *ngIf="otherList.length>0">
+            <div class="skill-items" *ngFor="let item of otherList">{{item.skillName}}
+                <!-- <a class="close-btn cursr" (click)="deleteSkill(item)">&times;</a> -->
+            </div>
+        </div>
+    </div>
+    <div class="text-center"
+        *ngIf="(primaryList.length === 0) && (secondaryList.length === 0) && (otherList.length === 0)">
+        <span style="color: #d2a32e;"><u>Incomplete </u> </span>
+    </div>
+</div>

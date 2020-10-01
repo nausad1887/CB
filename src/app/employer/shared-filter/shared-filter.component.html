@@ -1,0 +1,363 @@
+<div class="aside-left">
+    <div class="card recently-update pt-3">
+        <h5 class="card-title text-center">Filter <a (click)="clearFilter()" style="color: #7fb126;"
+                class="clearbtn check cursr">Clear
+                All</a></h5>
+
+        <div id="accordion">
+            <div class="filter-acrodation">
+                <div class="" id="headingOne">
+                    <a href="#" class="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                        aria-controls="collapseOne">Salary <i class="icofont-simple-up"></i></a>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group">
+                            <input type="text" id="demo_1" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-acrodation">
+                <div class="" id="headingTwo">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">Skill Set <span
+                            *ngIf="(skillslist$ | async) === null"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="(skillslist$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" id="Mobile1" (keyup)='keySkills.next($event)' class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="skillslist$ | async as skillsLists">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let skill of skillsLists | skillpipe: selectedSkills | slice:0:show; index as i">
+                                <input type="checkbox" class="custom-control-input cursr" [(ngModel)]="skill.checked"
+                                    (click)="onChangeSkills(skill.skillID)" id=customCheck{{skill.skillID}}
+                                    name="example1" [value]="skill.skillID">
+                                <label class="custom-control-label cursr"
+                                    for="customCheck{{skill.skillID}}">{{skill.skillName}}</label>
+                            </div>
+                            <a (click)="show = skillsLists.length"
+                                *ngIf="skillsLists.length != show && skillsLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="skillsLists.length === show && skillsLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingThree">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="false" aria-controls="collapseThree"> Industry <span
+                            *ngIf="(industrieslist$ | async) === null"><img src="assets/images/loading.gif"
+                                alt="gif"></span><i class="icofont-simple-up"
+                            *ngIf="(industrieslist$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" (keyup)='keyIndustries.next($event)' id="Mobile2" class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="industrieslist$ | async as industriesLists">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let industry of industriesLists | industrypipe: selectedIndustries | slice:0:show; let i = index">
+                                <input type="checkbox" [(ngModel)]="industry.checked" class="custom-control-input cursr" id="industry{{industry.industryID}}"
+                                    (click)="onChangeIndustry(industry.industryID)" name="example1">
+                                <label class="custom-control-label cursr"
+                                    for="industry{{industry.industryID}}">{{industry.industryName | titlecase}}</label>
+                            </div>
+                            <a (click)="show = industriesLists.length"
+                                *ngIf="industriesLists.length != show && industriesLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="industriesLists.length === show && industriesLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="filter-acrodation">
+                <div class="" id="headingFour">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="false" aria-controls="collapseFour"> Experience <i
+                            class="icofont-simple-up"></i></a>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" id="Mobile88" [(ngModel)]="searchExp"  class="form-control" placeholder="Search">
+                        </div>
+                        <div class="check-content">
+                            <div class="custom-control custom-checkbox mb-2" *ngFor="let exp of expYears | search:'value, value': searchExp | emperiance: selectedExp | slice:0:show;" >
+                                <input type="checkbox" (click)="onChangeExperiance(exp.id)" [(ngModel)]="exp.checked" class="custom-control-input cursr" id=exp{{exp.id}} name="example1">
+                                <label class="custom-control-label cursr" for="exp{{exp.id}}">{{exp.value}}
+                                </label>
+                            </div>
+                            <a (click)="show = expYears.length"
+                                *ngIf="expYears.length != show && expYears.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="expYears.length === show && expYears.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingFive">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseFive"
+                        aria-expanded="false" aria-controls="collapseFive"> Duration of CV <i
+                            class="icofont-simple-up"></i></a>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" id="Mobile4" class="form-control" placeholder="Search">
+                        </div>
+                        <div class="check-content">
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input cursr" id="customCheck19" name="example1">
+                                <label class="custom-control-label cursr" for="customCheck19">0-1
+                                </label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input cursr" id="customCheck20" name="example1">
+                                <label class="custom-control-label cursr" for="customCheck20">2-3
+                                </label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input cursr" id="customCheck21" name="example4">
+                                <label class="custom-control-label cursr" for="customCheck21">4-5
+                                </label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input cursr" id="customCheck22" name="example1">
+                                <label class="custom-control-label cursr" for="customCheck22">6-7
+                                </label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input cursr" id="customCheck23" name="example1">
+                                <label class="custom-control-label cursr" for="customCheck23">8-9
+                                </label>
+                            </div>
+                            <a href="#" class="more-text p-0">More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingSix">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseSix"
+                        aria-expanded="false" aria-controls="collapseSix"> Notice Period <span
+                            *ngIf="(noticeLists$ | async) === null"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="(noticeLists$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" (keyup)='keyNotice.next($event)' id="Mobile5" class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="noticeLists$ | async as noticeLists">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let notice of noticeLists | notice: selectedNotice | slice:0:show; let i = index">
+                                <input type="checkbox" class="custom-control-input cursr" [(ngModel)]="notice.checked"
+                                    (click)="onChangeNotice(notice.noticeID)" id=notice{{notice.noticeID}}
+                                    name="example1">
+                                <label class="custom-control-label cursr"
+                                    for="notice{{notice.noticeID}}">{{notice.noticeName}}</label>
+                            </div>
+                            <a (click)="show = noticeLists.length"
+                                *ngIf="noticeLists.length != show && noticeLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="noticeLists.length === show && noticeLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingSeven">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseSeven"
+                        aria-expanded="false" aria-controls="collapseSeven"> Nationality <span
+                            *ngIf="(countrylist$ | async) === null"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="(countrylist$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" (keyup)='keyCountry.next($event)' id="Mobile6" class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="countrylist$ | async as countryLists">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let country of countryLists | country: selectedCountries | slice:0:show;">
+                                <input type="checkbox" [(ngModel)]="country.checked" (click)="onChangeCountry(country.countryID)"
+                                    class="custom-control-input cursr" id=country{{country.countryID}} name="example1">
+                                <label class="custom-control-label cursr"
+                                    for="country{{country.countryID}}">{{country.countryName}}
+                                </label>
+                            </div>
+                            <a (click)="show = countryLists.length"
+                                *ngIf="countryLists.length != show && countryLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="countryLists.length === show && countryLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingEight">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseEight"
+                        aria-expanded="false" aria-controls="collapseEight"> City <span
+                            *ngIf="(cityLists$ | async) === null"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="(cityLists$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" (keyup)='keyCities.next($event)' id="Mobile7" class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="cityLists$ | async as cityLists">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let city of cityLists | citypipe: selectedCities | slice:0:show; trackBy:trackSkill;">
+                                <input type="checkbox" (click)="onChangeCity(city.cityID)" [(ngModel)]="city.checked"
+                                    class="custom-control-input cursr" id="{{city.cityID}}" [value]="city.cityID"
+                                    name="example1">
+                                <label class="custom-control-label cursr" for="{{city.cityID}}">{{city.cityName | titlecase}}
+                                </label>
+                            </div>
+                            <a (click)="show = cityLists.length" *ngIf="cityLists.length != show && cityLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="cityLists.length === show && cityLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingNine">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseNine"
+                        aria-expanded="false" aria-controls="collapseNine"> Available From <span
+                            *ngIf="(availableList$ | async) === null"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="(availableList$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <!-- <div class="form-group">
+                                                    <input type="date" id="" class="form-control">
+                                                </div> -->
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" (keyup)='keyAvailable.next($event)' id="Mobile13" class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="availableList$ | async as availableList">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let available of availableList | availableLists: selectedAvailableLists | slice:0:show;">
+                                <input type="checkbox" [(ngModel)]="available.checked" (click)="onChangeAvailableList(available.avialablefromID)"
+                                    class="custom-control-input cursr" id=available{{available.avialablefromID}}
+                                    name="example1">
+                                <label class="custom-control-label cursr"
+                                    for="available{{available.avialablefromID}}">{{available.avialablefromName | titlecase}}
+                                </label>
+                            </div>
+                            <a (click)="show = availableList.length"
+                                *ngIf="availableList.length != show && availableList.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="availableList.length === show && availableList.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingTen">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseTen"
+                        aria-expanded="false" aria-controls="collapseTen"> Language <span
+                            *ngIf="languageLists.length === 0"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="languageLists.length > 0"></i></a>
+                </div>
+                <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" [(ngModel)]="searchLan" id="Mobile8" class="form-control" placeholder="Search">
+                        </div>
+                        <div class="check-content">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let language of languageLists | search:'value, value': searchLan | language: selectedKnownLanguage | slice:0:show;">
+                                <input type="checkbox" [(ngModel)]="language.checked"
+                                    (click)="onChangeLanguage(language.value)" class="custom-control-input cursr"
+                                    id=language{{language.id}} name="example1">
+                                <label class="custom-control-label cursr"
+                                    for="language{{language.id}}">{{language.value | titlecase}}
+                                </label>
+                            </div>
+                            <a (click)="show = languageLists.length"
+                                *ngIf="languageLists.length != show && languageLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="languageLists.length === show && languageLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-acrodation">
+                <div class="" id="headingElevone">
+                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseElevone"
+                        aria-expanded="false" aria-controls="collapseElevone"> Education <span
+                            *ngIf="(degreelist$ | async) === null"><img src="assets/images/loading.gif" alt="gif"></span><i
+                            class="icofont-simple-up" *ngIf="(degreelist$ | async)?.length > 0"></i></a>
+                </div>
+                <div id="collapseElevone" class="collapse" aria-labelledby="headingElevone" data-parent="#accordion">
+                    <div class="card-body pt-0">
+                        <div class="form-group serach-small position-relative">
+                            <span class="addons"><i class="icofont-search"></i></span>
+                            <input type="text" (keyup)='keyDegrees.next($event)' id="Mobile9" class="form-control"
+                                placeholder="Search">
+                        </div>
+                        <div class="check-content" *ngIf="degreelist$ | async as degreeLists">
+                            <div class="custom-control custom-checkbox mb-2"
+                                *ngFor="let degree of degreeLists | degreepipe: selectedDegree | slice:0:show; let i = index">
+                                <input type="checkbox" [(ngModel)]="degree.checked" (click)="onChangeDegree(degree.degreeID)"
+                                    class="custom-control-input cursr" id=degree{{degree.degreeID}} name="example1">
+                                <label class="custom-control-label cursr"
+                                    for="degree{{degree.degreeID}}">{{degree.degreeName | titlecase}}
+                                </label>
+                            </div>
+                                <a (click)="show = degreeLists.length"
+                                *ngIf="degreeLists.length != show && degreeLists.length>6"
+                                class="more-text p-0 cursr">More</a>
+                            <a (click)="show = 6" *ngIf="degreeLists.length === show && degreeLists.length>6"
+                                class="more-text p-0 cursr">Less</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

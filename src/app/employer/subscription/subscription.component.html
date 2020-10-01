@@ -1,0 +1,97 @@
+<main id="main" class="bg-gray">
+  <!--  Breadcrumbs  -->
+  <section id="breadcrumbs" class="breadcrumbs detail-page" style="background: url(assets/images/cms-banner-bg.png)">
+    <div class="container">
+      <h1 class="text-center text-white mb-0">&nbsp;</h1>
+      <ol>
+        <li><a routerLink="/employer-profile"
+            class="text-white cursr">{{employerData.employerCompany | titlecase}}</a></li>
+        <li class="text-white"><b>Subscription</b> </li>
+      </ol>
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- customer Dashbord Section -->
+  <section id="dashbord" class="dashbord-section pb-5 mt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 pro-details">
+          <div class="tab-content" id="myTabContent">
+            <div class="">
+              <div class="content-details">
+                <div class="d-flex">
+                  <h5 class="text-dark mb-0">My Subscription Plan</h5>
+                </div>
+                <div *ngIf="purchasedPlansLists.length>0">
+                  <div *ngFor="let plan of purchasedPlansLists | slice:0:show">
+                    <app-shared-purchased-plans [emplrplanID]="plan.emplrplanID ? plan.emplrplanID : ''"
+                      [planID]="plan.planID ? plan.planID : ''"
+                      [emplrplanPrice]="plan.emplrplanPrice ? plan.emplrplanPrice : ''"
+                      [emplrplanView]="plan.emplrplanView ? plan.emplrplanView : ''"
+                      [emplrplanDownload]="plan.emplrplanDownload ? plan.emplrplanDownload : ''"
+                      [emplrplanViewBalance]="plan.emplrplanViewBalance ? plan.emplrplanViewBalance : ''"
+                      [emplrplanDownloadBalance]="plan.emplrplanDownloadBalance ? plan.emplrplanDownloadBalance : ''"
+                      [emplrplanValidDays]="plan.emplrplanValidDays ? plan.emplrplanValidDays : ''"
+                      [emplrplanEndDate]="plan.emplrplanEndDate ? plan.emplrplanEndDate : ''"
+                      [planName]="plan.planName ? plan.planName : ''">
+                    </app-shared-purchased-plans>
+                  </div>
+                  <div class="row" *ngIf="purchasedPlansLists.length > 3">
+                    <div class="col-12">
+                      <div class="text-center">
+                        <a (click)="show = purchasedPlansLists.length" class="btned cursr"
+                          *ngIf="purchasedPlansLists.length != show">More
+                          <i class="fas fa-chevron-down"></i></a>
+                        <a (click)="show = 2" class="btned cursr" *ngIf="purchasedPlansLists.length === show">Less<i
+                            class="fas fa-chevron-up"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 20px;"
+                  *ngIf="purchasedPlansLists.length === 0 && noRecordFoundUserSubscription">
+                  <div class="col">
+                    <p class="text-center">No Subscription Available</p>
+                  </div>
+                </div>
+                <app-subscrptions-skeleton *ngIf="purchasedPlansLists.length === 0 && loadingUserSubscription">
+                </app-subscrptions-skeleton>
+                <br>
+                <div class="d-flex">
+                  <h5 class="text-dark mb-0">Buy Subscription Plan</h5>
+                </div>
+                <div class="row" *ngIf="(plansLists$ | async)?.length>0; else loading">
+                  <div class="col-lg-4 col-sm-6" *ngFor="let plan of (plansLists$ | async)">
+                    <app-shared-plans [planName]="plan.planName ? plan.planName : ''"
+                      [planID]="plan.planID ? plan.planID : ''"
+                      [planValidity]="plan.planValidity ? plan.planValidity : ''"
+                      [planPrice]="plan.planPrice ? plan.planPrice : ''"
+                      [planCurrency]="plan.planCurrency ? plan.planCurrency : ''"
+                      [planView]="plan.planView ? plan.planView : ''"
+                      [planDownload]="plan.planDownload ? plan.planDownload : ''"
+                      [planDiscountedPrice]="plan.planDiscountedPrice ? plan.planDiscountedPrice : ''"
+                      [planDiscountedCurrency]="plan.planDiscountedCurrency ? plan.planDiscountedCurrency : ''"
+                      [planDiscounted]="plan.planDiscounted ? plan.planDiscounted : ''">
+                    </app-shared-plans>
+                  </div>
+                </div>
+                <!-- <div class="row" style="margin-top: 20px;" *ngIf="(plansLists$ | async)?.length === 0">
+                  <div class="col">
+                    <p class="text-center">No Subscription Found</p>
+                  </div>
+                </div> -->
+                <ng-template #loading>
+                  <app-subscription-skeleton2>
+                  </app-subscription-skeleton2>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

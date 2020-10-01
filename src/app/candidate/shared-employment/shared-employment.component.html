@@ -1,0 +1,20 @@
+<div class="details-list hover">
+    <h4 class="mt-2 card-title"><span class="iconify" data-icon="ion-briefcase" style="height: 35px; width: 28px;"
+            data-inline="false"></span>&nbsp;&nbsp;Employment <a data-toggle="modal" (click)="openAddEmploymentModal()"
+            href="#" class="edit-pr-btn float-right"><span class="iconify" data-icon="fa-plus-circle"
+                data-inline="false"></span></a>
+    </h4>
+    <div *ngIf="employmentLists.length>0">
+        <div class="skils-content" *ngFor="let employment of employmentLists">
+            <h5>{{employment.companyName | titlecase}} <a data-toggle="modal" (click)="openEditEmploymentModal(employment)" href="#"
+                    class="edit-pr-btn float-right"><i class="icofont-pencil-alt-1"></i></a>
+            </h5>
+            <p class="mb-0">
+                {{(employment.empworkTo === '' ? employment.empworkDesignation + " | " +  " Since " + employment.empworkFrom : employment.empworkDesignation + " | " +  "From " + employment.empworkFrom + " to " + employment.empworkTo)}}
+            </p>
+        </div>
+    </div>
+    <div class="text-center" *ngIf="employmentLists.length === 0">
+        <span style="color: #d2a32e;"><u>Incomplete </u> </span>
+    </div>
+</div>

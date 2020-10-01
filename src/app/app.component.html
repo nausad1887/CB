@@ -1,0 +1,4 @@
+<app-employee-navbar *ngIf="isEmployee"></app-employee-navbar>
+<app-candidate-navbar *ngIf="isCandidate"></app-candidate-navbar>
+<app-navbar *ngIf="isHome"></app-navbar>
+<router-outlet (activate)="onActivate($event)"></router-outlet>

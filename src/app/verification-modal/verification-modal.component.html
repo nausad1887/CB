@@ -1,0 +1,258 @@
+<div class="modal-content" *ngIf="isCandidateVerification">
+
+    <div class="modal-header text-center d-block position-relative" style="border: none;">
+        <a class="backicon cursr"><img src="assets/images/back-icon.png" alt="icon"></a>
+        <h5 class="modal-title" id="exampleModalLabel">Mobile Number Verification</h5>
+        <p class="mb-0" style="color: #6a7081;">Please enter the 4 - digit OTP <br>
+            received on your mobile number</p>
+    </div>
+
+    <div class="modal-body">
+        <form class="text-left profile-form otp-adding" #verify="ngForm" (ngSubmit)="onContactVerifyClick(verify)">
+            <div class="row">
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode1" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" [(ngModel)]="otp.one"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode2" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" [(ngModel)]="otp.two"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode3" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" [(ngModel)]="otp.three"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode4" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" [(ngModel)]="otp.four"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+
+                <div class="col-md-12 col-sm-12 mb-2 mt-3 text-center">
+                    <a (click)="onResendClick(verify)" style="color: blue;" class="text-blue cursr">Resend OTP</a>
+                    <button type="submit" #verify class="btn btn-them btn-md w-100 mt-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="isEmployerVerificationMobile">
+
+    <div class="modal-header text-center d-block position-relative" style="border: none;">
+        <a class="backicon cursr"><img src="assets/images/back-icon.png" alt="icon"></a>
+        <h5 class="modal-title" id="exampleModalLabel">Mobile Number Verification</h5>
+        <p class="mb-0" style="color: #6a7081;">Please enter the 4 - digit OTP <br>
+            received on your mobile number</p>
+    </div>
+
+    <div class="modal-body">
+        <form class="text-left profile-form otp-adding" #employerMobileverify="ngForm"
+            (ngSubmit)="onEmployerContactVerifyClick(employerMobileverify)">
+            <div class="row">
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode1" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" [(ngModel)]="otp.one"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode2" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" [(ngModel)]="otp.two"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode3" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" [(ngModel)]="otp.three"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode4" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" [(ngModel)]="otp.four"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+
+                <div class="col-md-12 col-sm-12 mb-2 mt-3 text-center">
+                    <a (click)="onResendEmployerMobileClick(employerMobileverify)" style="color: blue;"
+                        class="text-blue cursr">Resend
+                        OTP</a>
+                    <button type="submit" #employerMobileverify class="btn btn-them btn-md w-100 mt-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="isEmployerVerificationEmail">
+
+    <div class="modal-header text-center d-block position-relative" style="border: none;">
+        <a class="backicon cursr"><img src="assets/images/back-icon.png" alt="icon"></a>
+        <h5 class="modal-title" id="exampleModalLabel">Email Verification</h5>
+        <p class="mb-0" style="color: #6a7081; text-align: center;">Please enter the 4 - digit OTP <br>
+            received on your Email</p>
+    </div>
+
+    <div class="modal-body">
+        <form class="text-left profile-form otp-adding" #emailverify="ngForm"
+            (ngSubmit)="onEmployerEmailVerifyClick(emailverify)">
+            <div class="row">
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode1" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" [(ngModel)]="otp.one"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode2" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" [(ngModel)]="otp.two"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode3" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" [(ngModel)]="otp.three"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode4" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" [(ngModel)]="otp.four"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+
+                <div class="col-md-12 col-sm-12 mb-2 mt-3 text-center">
+                    <a (click)="onEmailResendClick(emailverify)" style="color: blue;" class="text-blue cursr">Resend
+                        OTP</a>
+                    <button type="submit" #emailverify class="btn btn-them btn-md w-100 mt-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="employeeForgetPass">
+    <div class="modal-header text-center d-block position-relative" style="border: none;">
+        <a (click)="backToForgetPasswordModal()" class="backicon cursr"><img src="assets/images/back-icon.png"
+                alt="icon"></a>
+        <h5 class="modal-title" id="exampleModalLabel">Verification</h5>
+        <p class="mb-0" style="color: #6a7081;">
+            Please enter the 4 - digit OTP <br>
+            received on your email/ mobile number</p>
+    </div>
+
+    <div class="modal-body">
+        <form class="text-left profile-form otp-adding" #resetPassword="ngForm"
+            (ngSubmit)="onSubmitResetPasswordOTP(resetPassword)">
+            <div class="row">
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode1" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" [(ngModel)]="otp.one"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode2" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" [(ngModel)]="otp.two"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode3" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" [(ngModel)]="otp.three"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode4" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" [(ngModel)]="otp.four"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+            </div>
+            <!-- <div class="text-center pb-3">
+						<h5 class="modal-title" id="exampleModalLabel">Email Number Verification</h5>
+						<p class="mb-0" style="color: #6a7081;">Please enter the 4 - digit OTP <br>
+			received on your email </p>	
+					</div>	 -->
+            <div class="row">
+                <!-- <div class="col-3 form-group">             
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>
+					  <div class="col-3 form-group">    
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>
+					  <div class="col-3 form-group">    
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>
+					  <div class="col-3 form-group">    
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>  -->
+                <div class="col-md-12 col-sm-12 mb-2 mt-3 text-center">
+                    <a (click)="onResendClick(resetPassword)" style="color: blue;" class="text-blue cursr">Resend
+                        OTP</a>
+                    <button type="submit" #resetPassword [disabled]="resetPassword.form.invalid"
+                        class="btn btn-them btn-md w-100 mt-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-content" *ngIf="employerForgetPass">
+    <div class="modal-header text-center d-block position-relative" style="border: none;">
+        <a (click)="backToEmployerForgetPasswordModal()" class="backicon cursr"><img src="assets/images/back-icon.png"
+                alt="icon"></a>
+        <h5 class="modal-title" id="exampleModalLabel">Verification</h5>
+        <p class="mb-0" style="color: #6a7081;">
+            Please enter the 4 - digit OTP <br>
+            received on your email/ mobile number</p>
+    </div>
+
+    <div class="modal-body">
+        <form class="text-left profile-form otp-adding" #resetEmployerPassword="ngForm"
+            (ngSubmit)="onSubmitEmployerResetPasswordOTP(resetEmployerPassword)">
+            <div class="row">
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode1" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" [(ngModel)]="otp.one"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode2" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" [(ngModel)]="otp.two"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode3" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" [(ngModel)]="otp.three"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+                <div class="col-3 form-group">
+                    <input type="text" id="VericationCode4" maxlength="1"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" [(ngModel)]="otp.four"
+                        class="form-control mobile-verify pass" value="" required>
+                </div>
+            </div>
+            <!-- <div class="text-center pb-3">
+						<h5 class="modal-title" id="exampleModalLabel">Email Number Verification</h5>
+						<p class="mb-0" style="color: #6a7081;">Please enter the 4 - digit OTP <br>
+			received on your email </p>	
+					</div>	 -->
+            <div class="row">
+                <!-- <div class="col-3 form-group">             
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>
+					  <div class="col-3 form-group">    
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>
+					  <div class="col-3 form-group">    
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>
+					  <div class="col-3 form-group">    
+						 <input type="text" id="VericationCode" class="form-control" value="">
+					  </div>  -->
+                <div class="col-md-12 col-sm-12 mb-2 mt-3 text-center">
+                    <a (click)="onEmployerResendClick(resetEmployerPassword)" style="color: blue;"
+                        class="text-blue cursr">Resend OTP</a>
+                    <button type="submit" #resetEmployerPassword [disabled]="resetEmployerPassword.form.invalid"
+                        class="btn btn-them btn-md w-100 mt-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

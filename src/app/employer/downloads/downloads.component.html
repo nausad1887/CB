@@ -1,0 +1,95 @@
+<main id="main" class="bg-gray">
+    <!--  Breadcrumbs  -->
+    <section id="breadcrumbs" class="breadcrumbs detail-page" style="background: url(assets/images/cms-banner-bg.png)">
+        <div class="container">
+            <h1 class="text-center text-white mb-0">&nbsp;</h1>
+            <ol>
+                <li><a routerLink="/employer-profile"
+                        class="text-white cursr">{{employerData.employerCompany | titlecase}}</a></li>
+                <li class="text-white"><b>Downloads</b> </li>
+            </ol>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- customer Dashbord Section -->
+    <section id="dashbord" class="dashbord-section pb-5 mt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 pro-details">
+                    <div class="d-flex">
+                        <h5 class="text-dark mb-0">Downloads</h5>
+                        <div class="ml-auto">
+                            <a (click)="openAddFolderModal()" class="text-dark cursr" data-toggle="modal"><img
+                                    src="assets/images/add-folder-icon.png" alt="folder" height="18"> &nbsp; Add Folder
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="">
+                            <div class="content-details" *ngIf="downloadsLists.length > 0">
+                                <div class="details-list hover">
+                                    <div class="row">
+                                        <div class="col-md-6"
+                                            *ngFor="let download of downloadsLists; trackBy: trackDownloads">
+                                            <div class="favorites-item d-flex">
+                                                <div class="text-dark"><img src="assets/images/folder-icon.png"
+                                                        alt="folder" height="15"> &nbsp;
+                                                    {{download.employerdownloadName | titlecase}} </div>
+                                                <div class="dropdown dotsmenu ml-auto">
+                                                    <a class="text-md-right dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                        <a class="dropdown-item cursr"
+                                                            (click)="openEditFolderModal(download)">Edit</a>
+                                                        <!-- <a class="dropdown-item cursr" (click)="onRemoveFolder(download)">Remove</a> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 207px;"
+                                *ngIf="downloadsLists.length > 0 && downloadsLists.length <= 2">
+                                <div>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 140px;"
+                                *ngIf="downloadsLists.length > 2 && downloadsLists.length <= 4">
+                                <div>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 80px;"
+                                *ngIf="downloadsLists.length > 4 && downloadsLists.length <= 6">
+                                <div>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="" role="tabpanel" *ngIf="downloadsLists.length === 0 && loading">
+                                <div class="" style="min-height:330px;">
+                                    <p class="lead text-center">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="" role="tabpanel" *ngIf="downloadsLists.length === 0 && noRecordFound">
+                                <div class="" style="min-height:330px;">
+                                    <p class="lead text-center">No Record Found.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>

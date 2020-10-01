@@ -1,0 +1,28 @@
+<div class="details-list hover">
+    <div class="row">
+        <div class="col-md-3">
+            <h4 class="text-green">{{planName | titlecase}}</h4>
+            <p class="mb-0">{{'View Profiles ' + emplrplanView}}</p>
+            <p class="mb-0">{{'Validity ' + emplrplanValidDays + ' Days'}}</p>
+        </div>
+        <div class="col-md-2">
+            <h6 class="">&nbsp;</h6>
+            <p class="mb-0">Viewed</p>
+            <p class="mb-0">Downloaded</p>
+        </div>
+        <div class="col-md-2">
+            <h6 class="">Accessed</h6>
+            <p class="mb-0">{{accessedemplrplanView}}</p>
+            <p class="mb-0">{{accessedemplrplanDownload}}</p>
+        </div>
+        <div class="col-md-2">
+            <h6>Remained to access</h6>
+            <p class="mb-0">{{emplrplanViewBalance}}</p>
+            <p class="mb-0">{{emplrplanDownloadBalance}}</p>
+        </div>
+        <div class="col-md-3 text-md-right">
+            <h6>{{'Remaining days to expire: ' + remainingDaysToExp}}</h6>
+            <button type="button" class="btn btn-them btn-sm btn-rounded">Renew</button>
+        </div>
+    </div>
+</div>
