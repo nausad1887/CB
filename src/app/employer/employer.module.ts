@@ -76,6 +76,7 @@ import { CountryPipe } from './shared-filter/country.pipe';
 import { AvailableListsPipe } from './shared-filter/available-lists.pipe';
 import { ViewJdComponent } from './view-jd/view-jd.component';
 import { CandidatePipe } from './post-jd-details/candidate.pipe';
+import { NamePipe } from './interviews/name.pipe';
 @NgModule({
   declarations: [
     EmployerDashboardComponent,
@@ -145,6 +146,7 @@ import { CandidatePipe } from './post-jd-details/candidate.pipe';
     AvailableListsPipe,
     ViewJdComponent,
     CandidatePipe,
+    NamePipe,
   ],
   imports: [
     CommonModule,

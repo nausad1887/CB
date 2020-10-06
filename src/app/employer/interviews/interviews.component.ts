@@ -15,26 +15,10 @@ import { ReScheduleModalComponent } from '../re-schedule-modal/re-schedule-modal
 })
 export class InterviewsComponent implements OnInit, OnDestroy {
   public employerData: any;
-  public inProcess: any = [];
-  public scheduled: any = [];
-  public unavailable: any = [];
-  public reScheduled: any = [];
   public interviewStatusLists: any = [];
   public scheduledNavItems: any = [];
   public inProcessNavItems: any = [];
   public reScheduledNavItems: any = [];
-  public loadingScheduled = false;
-  public loadingInProcess = false;
-  public loadingUnAvailable = false;
-  public loadingReScheduled = false;
-  public noRecordFoundScheduled = false;
-  public noRecordFoundInProcess = false;
-  public noRecordFoundUnAvailable = false;
-  public noRecordFoundReScheduled = false;
-  public errorOccuredScheduled = false;
-  public errorOccuredInProcess = false;
-  public errorOccuredUnAvailable = false;
-  public errorOccuredReScheduled = false;
   public searchTexts: string;
   public searchTextProcess: string;
   public searchTextRescheduled: string;
@@ -46,6 +30,13 @@ export class InterviewsComponent implements OnInit, OnDestroy {
   public pageUnavailable = 1;
   public closeResult: any;
   modalOption: NgbModalOptions = {}; //  not null!
+  public data = {
+    languageID: '1',
+    loginemployerID: '',
+    employeeID: '',
+    type: 'Employer',
+    jobjdID: ''
+  };
 
   interviewsProcess$: Observable<Array<Interview>>;
   interviewsScheduled$: Observable<Array<Interview>>;
@@ -54,32 +45,24 @@ export class InterviewsComponent implements OnInit, OnDestroy {
   interviewStatusLists$: Observable<Array<any>>;
 
   // handling unsubscriptions
-  interviewsProcessSubs: Subscription;
-  interviewsScheduledSubs: Subscription;
-  interviewsReScheduledSubs: Subscription;
-  interviewsUnavailableSubs: Subscription;
   interviewStatusListsSubs: Subscription;
 
   constructor(
     public employerService: EmployerService,
     public homeService: HomeService,
     private spinner: NgxSpinnerService,
-    config: NgbPaginationConfig,
+    public config: NgbPaginationConfig,
     private modalService: NgbModal
   ) {
-    // customize default values of paginations used by this component tree
     config.size = 'sm';
     config.boundaryLinks = true;
   }
 
   ngOnInit(): void {
-    this.loadingScheduled = true;
-    this.loadingInProcess = true;
-    this.loadingReScheduled = true;
-    this.loadingUnAvailable = true;
     this.employerData = this.homeService.getCurrentEmployerFromLocalStorage()
       ? this.homeService.getCurrentEmployerFromLocalStorage()
       : this.homeService.getCurrentEmployerFromSessionStorage();
+    this.data.loginemployerID = this.employerData.employerID;
     setTimeout(() => {
       this.asyncFunction();
       this.getInterviewStatusLists().then((success: Array<any>) => {
@@ -96,83 +79,11 @@ export class InterviewsComponent implements OnInit, OnDestroy {
     });
   }
 
-  public asyncFunction = async () => {
-    await this.getInterviewScheduled()
-      .then((fulfilled: Array<any>) => {
-        if (fulfilled.length > 0) {
-          this.scheduled = fulfilled;
-          this.loadingScheduled = false;
-          this.scheduled.forEach((element: any) => {
-            element.employeeName = element.employee[0].employeeName;
-          });
-        } else {
-          this.scheduled = [];
-          this.loadingScheduled = false;
-          this.noRecordFoundScheduled = true;
-        }
-      })
-      .catch(() => {
-        this.loadingScheduled = false;
-        this.noRecordFoundScheduled = false;
-        this.errorOccuredScheduled = true;
-      });
-    await this.getInterviewInProcess()
-      .then((fulfilled: Array<any>) => {
-        if (fulfilled.length > 0) {
-          this.inProcess = fulfilled;
-          this.loadingInProcess = false;
-          this.inProcess.forEach((element: any) => {
-            element.employeeName = element.employee[0].employeeName;
-          });
-        } else {
-          this.inProcess = [];
-          this.loadingInProcess = false;
-          this.noRecordFoundInProcess = true;
-        }
-      })
-      .catch(() => {
-        this.loadingInProcess = false;
-        this.noRecordFoundInProcess = false;
-        this.errorOccuredInProcess = true;
-      });
-    await this.getInterviewReScheduled()
-      .then((fulfilled: Array<any>) => {
-        if (fulfilled.length > 0) {
-          this.reScheduled = fulfilled;
-          this.loadingReScheduled = false;
-          this.reScheduled.forEach((element: any) => {
-            element.employeeName = element.employee[0].employeeName;
-          });
-        } else {
-          this.reScheduled = [];
-          this.loadingReScheduled = false;
-          this.noRecordFoundReScheduled = true;
-        }
-      })
-      .catch(() => {
-        this.loadingReScheduled = false;
-        this.noRecordFoundReScheduled = false;
-        this.errorOccuredReScheduled = true;
-      });
-    await this.getInterviewUnavailable()
-      .then((fulfilled: Array<any>) => {
-        if (fulfilled.length > 0) {
-          this.unavailable = fulfilled;
-          this.loadingUnAvailable = false;
-          this.unavailable.forEach((element: any) => {
-            element.employeeName = element.employee[0].employeeName;
-          });
-        } else {
-          this.unavailable = [];
-          this.loadingUnAvailable = false;
-          this.noRecordFoundUnAvailable = true;
-        }
-      })
-      .catch(() => {
-        this.loadingUnAvailable = false;
-        this.noRecordFoundUnAvailable = false;
-        this.errorOccuredUnAvailable = true;
-      });
+  public asyncFunction = () => {
+    this.getInterviewInProcess();
+    this.getInterviewReScheduled();
+    this.getInterviewScheduled();
+    this.getInterviewUnavailable();
   }
   public getScheduledNavItems = () => {
     this.scheduledNavItems = this.interviewStatusLists.filter((scheduled: any) => {
@@ -222,94 +133,16 @@ export class InterviewsComponent implements OnInit, OnDestroy {
     });
   }
   public getInterviewScheduled = () => {
-    return new Promise((resolve, reject) => {
-      const data = {
-        languageID: '1',
-        loginemployerID: this.employerData.employerID,
-        employeeID: '',
-        type: 'Employer',
-        jobjdID: '',
-        interviewstatusID: '1', // for scheduled interview data
-      };
-      this.pageSchedule = 1;
-      this.interviewsScheduled$ = this.employerService.interviewsScheduled(data);
-      this.interviewsScheduledSubs = this.interviewsScheduled$.subscribe(
-        (response) => {
-          if (response[0].data[0].scheduled.length > 0) {
-            resolve(response[0].data[0].scheduled);
-          } else { resolve([]); }
-        },
-        (error) => { reject(error); }
-      );
-    });
+      this.interviewsScheduled$ = this.employerService.scheduled(this.data);
   }
   public getInterviewInProcess = () => {
-    return new Promise((resolve, reject) => {
-      const data = {
-        languageID: '1',
-        loginemployerID: this.employerData.employerID,
-        employeeID: '',
-        type: 'Employer',
-        jobjdID: '',
-        interviewstatusID: '14', // for un-available interview data
-      };
-      this.pageProgress = 1;
-      this.interviewsProcess$ = this.employerService.interviewsProcess(data);
-      this.interviewsProcessSubs = this.interviewsProcess$.subscribe(
-        (response) => {
-          if (response[0].data[0].inprogress.length > 0) {
-            resolve(response[0].data[0].inprogress);
-          } else { resolve([]); }
-        },
-        (error) => { reject(error); }
-      );
-    });
+      this.interviewsProcess$ = this.employerService.inprocess(this.data);
   }
   public getInterviewReScheduled = () => {
-    return new Promise((resolve, reject) => {
-      const data = {
-        languageID: '1',
-        loginemployerID: this.employerData.employerID,
-        employeeID: '',
-        type: 'Employer',
-        jobjdID: '',
-        interviewstatusID: '3', // for Re-Scheduled interview data
-      };
-      this.pageReschedule = 1;
-      this.interviewsReScheduled$ = this.employerService.interviewsRescheduled(data);
-      this.interviewsReScheduledSubs = this.interviewsReScheduled$.subscribe(
-        (response) => {
-          if (response[0].data[0].reschedule !== null) {
-            if (response[0].data[0].reschedule.length > 0) {
-              resolve(response[0].data[0].reschedule);
-            } else {resolve([]); }
-          } else {resolve([]); }
-        },
-        (error) => { reject(error); }
-      );
-    });
+      this.interviewsReScheduled$ = this.employerService.rescheduled(this.data);
   }
   public getInterviewUnavailable = () => {
-    return new Promise((resolve, reject) => {
-      const data = {
-        languageID: '1',
-        loginemployerID: this.employerData.employerID,
-        employeeID: '',
-        type: 'Employer',
-        jobjdID: '',
-        interviewstatusID: '4', // for un-available interview data
-      };
-      this.pageUnavailable = 1;
-      this.interviewsUnavailable$ = this.employerService.interviewsUnavailabe(data);
-      this.interviewsUnavailableSubs = this.interviewsUnavailable$.subscribe(
-        (response) => {
-          if (response[0].data[0].unavailable.length > 0) {
-            resolve(response[0].data[0].unavailable);
-          } else {resolve([]); }
-        },
-        (error) => {reject(error); }
-      );
-    });
+      this.interviewsUnavailable$ = this.employerService.unavailable(this.data);
   }
   // tracking new value
   public scheduledTrackBy = (interview: any) => {
@@ -323,9 +156,6 @@ export class InterviewsComponent implements OnInit, OnDestroy {
   }
   public unAvailableTrackBy = (interview: any) => {
     return interview.interviewID;
-  }
-  // updating status
-  public updateStatus = () => {
   }
 
   public updateInterviewStatusScheduled = (statusData: any) => {
@@ -394,22 +224,18 @@ export class InterviewsComponent implements OnInit, OnDestroy {
   // accepting and declining re-schedule request
   public acceptRescheduledFromCandidate = (data: any) => {
     this.spinner.show();
-    const saveInterview = this.reScheduled.filter(
-      (interview: any) => interview.interviewID === data.interviewID
-    );
     const value = {
       languageID: '1',
       loginemployerID: this.employerData.employerID,
-      interviewID: saveInterview[0].interviewID,
+      interviewID: data.interviewID,
       rescheduleID: data.rescheduledID,
       rescheduleStatusBy: 'Employer',
-      employeeID: saveInterview[0].employeeID,
-      employerID: saveInterview[0].employerID,
+      employeeID: data.employeeID,
+      employerID: this.employerData.employerID,
     };
     this.employerService.acceptInterview(value).subscribe(
       (response) => {if (response[0].status === 'true') {
-          this.spinner.hide();
-          setTimeout(() => { this.asyncFunction(); }, 1000);
+        this.spinner.hide();
         } else {
           this.spinner.hide();
           console.error(response[0].message);
@@ -422,28 +248,22 @@ export class InterviewsComponent implements OnInit, OnDestroy {
     );
   }
   public declineRescheduledFromCandidate = (data: any) => {
-    const saveInterview = this.reScheduled.filter(
-      (interview: any) => interview.interviewID === data.interviewID
-    );
     const value = {
       languageID: '1',
       loginemployerID: this.employerData.employerID,
-      interviewID: saveInterview[0].interviewID,
+      interviewID: data.interviewID,
       reasonID: '',
       interviewRejectRemarks: '',
       rescheduleID: data.rescheduledID,
       rescheduleStatusBy: 'employer',
-      employeeID: saveInterview[0].employeeID,
-      employerID: saveInterview[0].employerID,
+      employeeID: data.employeeID,
+      employerID: this.employerData.employerID,
       from: 'rescheduled',
     };
     this.openDeclinedModal(value);
   }
   public rescheduleRescheduledFromCandidate = (data: any) => {
-    const saveInterview = this.reScheduled.filter(
-      (interview: any) => interview.interviewID === data.interviewID
-    );
-    this.openRescheduleModal(saveInterview[0]);
+    this.openRescheduleModal(data);
   }
   // decline modal
   public openDeclinedModal = (data: any) => {
@@ -480,10 +300,6 @@ export class InterviewsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.interviewsProcessSubs){this.interviewsProcessSubs.unsubscribe(); }
-    if (this.interviewsScheduledSubs){this.interviewsScheduledSubs.unsubscribe(); }
-    if (this.interviewsReScheduledSubs){this.interviewsReScheduledSubs.unsubscribe(); }
-    if (this.interviewsUnavailableSubs){this.interviewsUnavailableSubs.unsubscribe(); }
     if (this.interviewStatusListsSubs){this.interviewStatusListsSubs.unsubscribe(); }
   }
 

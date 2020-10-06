@@ -20,6 +20,10 @@ export class CandidateService {
   private getListsRejected$: Observable<Array<Interview>>;
   private getListsInterviewed$: Observable<Array<Interview>>;
   private getListsReasons$: Observable<Array<any>>;
+  private interviewsScheduled$: Observable<Array<Interview>>;
+  private interviewRequests$: Observable<Array<Interview>>;
+  private interviewsReScheduled$: Observable<Array<Interview>>;
+  private interviewsDeclined$: Observable<Array<Interview>>;
 
   private employeeKycAddUrl = '/employee/employee-kyc-add-edit';
   private employeeUpdateProfileUrl = '/employee/employee-update-profile';
@@ -1068,7 +1072,16 @@ export class CandidateService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  // candidate interview listing api
+  public requests(data: any) {
+    if (!this.interviewRequests$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewRequests$ = timer$.pipe(
+        switchMap(_ => this.interviewsRequest(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewRequests$;
+  }
   public interviewsRequest(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -1077,7 +1090,7 @@ export class CandidateService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "14",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -1086,10 +1099,19 @@ export class CandidateService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employeeInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].inprogress), retry(2), catchError(this.handleError));
   }
 
-  // candidate interview listing api
+  public schedule(data: any) {
+    if (!this.interviewsScheduled$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsScheduled$ = timer$.pipe(
+        switchMap(_ => this.interviewsScheduled(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsScheduled$;
+  }
   public interviewsScheduled(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -1098,7 +1120,7 @@ export class CandidateService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "1",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -1107,10 +1129,19 @@ export class CandidateService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employeeInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].scheduled), retry(2), catchError(this.handleError));
   }
 
-  // candidate interview listing api
+  public rescheduled(data: any) {
+    if (!this.interviewsReScheduled$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsReScheduled$ = timer$.pipe(
+        switchMap(_ => this.interviewsRescheduled(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsReScheduled$;
+  }
   public interviewsRescheduled(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -1119,7 +1150,7 @@ export class CandidateService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "3",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -1128,10 +1159,19 @@ export class CandidateService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employeeInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].reschedule), retry(2), catchError(this.handleError));
   }
 
-  // candidate interview listing api
+  public declined(data: any) {
+    if (!this.interviewsDeclined$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsDeclined$ = timer$.pipe(
+        switchMap(_ => this.interviewsDecline(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsDeclined$;
+  }
   public interviewsDecline(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -1140,7 +1180,7 @@ export class CandidateService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "7",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -1149,14 +1189,12 @@ export class CandidateService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employeeInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].rejected), retry(2), catchError(this.handleError));
   }
 
   public employeeInterviewsSelected = (data: any) => {
     if (!this.getListsSelected$) {
-      // Set up timer that ticks every X milliseconds
       const timer$ = timer(0, REFRESH_INTERVAL);
-      // For each tick make an http request to fetch new data
       this.getListsSelected$ = timer$.pipe(
         switchMap((_) => this.InterviewsSelected(data)),
         shareReplay(CACHE_SIZE)
@@ -1187,9 +1225,7 @@ export class CandidateService {
 
   public employeeInterviewsJobDeclined = (data: any) => {
     if (!this.getListsJobDeclinedByCandidate$) {
-      // Set up timer that ticks every X milliseconds
       const timer$ = timer(0, REFRESH_INTERVAL);
-      // For each tick make an http request to fetch new data
       this.getListsJobDeclinedByCandidate$ = timer$.pipe(
         switchMap((_) => this.interviewsJobDeclined(data)),
         shareReplay(CACHE_SIZE)
@@ -1220,9 +1256,7 @@ export class CandidateService {
 
   public employeeInterviewsRejected = (data: any) => {
     if (!this.getListsRejected$) {
-      // Set up timer that ticks every X milliseconds
       const timer$ = timer(0, REFRESH_INTERVAL);
-      // For each tick make an http request to fetch new data
       this.getListsRejected$ = timer$.pipe(
         switchMap((_) => this.interviewsRejected(data)),
         shareReplay(CACHE_SIZE)
@@ -1253,9 +1287,7 @@ export class CandidateService {
 
   public employeeInterviewsInterviewed = (data: any) => {
     if (!this.getListsInterviewed$) {
-      // Set up timer that ticks every X milliseconds
       const timer$ = timer(0, REFRESH_INTERVAL);
-      // For each tick make an http request to fetch new data
       this.getListsInterviewed$ = timer$.pipe(
         switchMap((_) => this.interviewsInterviewed(data)),
         shareReplay(CACHE_SIZE)

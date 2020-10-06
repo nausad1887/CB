@@ -58,24 +58,28 @@ export class SharedReScheduledComponent implements OnInit {
     return time[0] + '' + time[1] + '' + time[2] + ' ' + time[5]; // return adjusted time or original string
   }
 
-  public onDeclineClick = (interviewID: string, rescheduledID: string) => {
+  public onDeclineClick = (interviewID: string, rescheduledID: string, employeeID: string) => {
     const data = {
       interviewID,
       rescheduledID,
+      employeeID
     };
     this.declineRescheduled.emit(data);
   }
-  public onAcceptClick = (interviewID: string, rescheduledID: string) => {
+  public onAcceptClick = (interviewID: string, rescheduledID: string, employeeID: string) => {
     const data = {
       interviewID,
       rescheduledID,
+      employeeID
     };
     this.acceptRescheduled.emit(data);
   }
-  public onRescheduleClick = (interviewID: string, rescheduledID: string) => {
+  public onRescheduleClick = (interviewID: string, rescheduledID: string, employeeID: string, interviewmodeName: string) => {
     const data = {
       interviewID,
       rescheduledID,
+      employeeID,
+      interviewmodeName
     };
     this.reschedule.emit(data);
   }

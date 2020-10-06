@@ -17,6 +17,7 @@ export class InterviewRequestsComponent implements OnInit {
   @Input() interviewMode: string;
   @Input() companyLogo: string;
   @Input() employerID: string;
+  @Input() employeeID: string;
   @Input() interviewStatusID: string;
   public baseUrl =
     'http://betaapplication.com/candidatebazar/backend/web/uploads';
@@ -30,6 +31,7 @@ export class InterviewRequestsComponent implements OnInit {
     interviewID: '',
     employeeID: '',
     employerID: '',
+    interviewmodeName: ''
   };
   @Output() declineInterview: EventEmitter<any> = new EventEmitter();
   @Output() acceptInterview: EventEmitter<any> = new EventEmitter();
@@ -49,12 +51,10 @@ export class InterviewRequestsComponent implements OnInit {
   }
 
   public tConvert(time: any) {
-    // Check correct time format and split into components
     time = time
       .toString()
       .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
     if (time.length > 1) {
-      // If time format correct
       time = time.slice(1); // Remove full string match value
       time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
       time[0] = +time[0] % 12 || 12; // Adjust hours
@@ -97,13 +97,23 @@ export class InterviewRequestsComponent implements OnInit {
     });
   }
 
-  public onDeclineClick = (interviewID: string) => {
-    this.declineInterview.emit(interviewID);
+  public onDeclineClick = (interviewID: string, employeeID: string, employerID: string) => {
+    this.statusData.interviewID = interviewID;
+    this.statusData.employeeID = employeeID;
+    this.statusData.employerID = employerID;
+    this.declineInterview.emit(this.statusData);
   }
-  public onAcceptClick = (interviewID: string) => {
-    this.acceptInterview.emit(interviewID);
+  public onAcceptClick = (interviewID: string, employeeID: string, employerID: string) => {
+    this.statusData.interviewID = interviewID;
+    this.statusData.employeeID = employeeID;
+    this.statusData.employerID = employerID;
+    this.acceptInterview.emit(this.statusData);
   }
-  public onRescheduleClick = (interviewID: string) => {
-    this.rescheduleInterview.emit(interviewID);
+  public onRescheduleClick = (interviewID: string, employeeID: string, employerID: string, interviewmodeName: string) => {
+    this.statusData.interviewID = interviewID;
+    this.statusData.employeeID = employeeID;
+    this.statusData.employerID = employerID;
+    this.statusData.interviewmodeName = interviewmodeName;
+    this.rescheduleInterview.emit(this.statusData);
   }
 }

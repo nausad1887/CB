@@ -142,11 +142,11 @@ c0 -113 11 -142 66 -179 39 -26 129 -26 168 0 55 37 66 66 66 179 l0 102 305
         </div>
         <div class="col-md-3 text-center text-md-right">
             <div class="button-content">
-                <button type="button" (click)="onAcceptClick(interviewID)"
+                <button type="button" (click)="onAcceptClick(interviewID, employeeID, employerID)"
                     class="btn btn-them btn-sm rounded mb-2">Accept</button>
-                <button type="button" (click)="onRescheduleClick(interviewID)"
+                <button type="button" (click)="onRescheduleClick(interviewID, employeeID, employerID, interviewMode)"
                     class="btn btn-blue btn-sm rounded mb-2">Reschedule</button>
-                <button type="button" (click)="onDeclineClick(interviewID)"
+                <button type="button" (click)="onDeclineClick(interviewID, employeeID, employerID)"
                     class="btn btn-red btn-sm rounded mb-2">Decline</button>
             </div>
         </div>

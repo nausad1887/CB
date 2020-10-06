@@ -1,9 +1,9 @@
 <div class="globsearch-top">
   <form class="pb-3" action="" [formGroup]="searchInputForm" (ngSubmit)="search(searchInputForm.value)">
     <div class="d-lg-flex">
-      <div class="row no-gutters serachbox-border">
+      <div class="row no-gutters serachbox-border" style="width: 100%;">
         <div class="col-lg-6">
-          <div class="form-group mb-0 form-inline searchcontent serach-blob">
+          <div class="form-group mb-0 form-inline searchcontent serach-blob" style="width: 100%;">
             <!-- <span class="addons"><i class="icofont-search"></i></span> -->
             <ng-select
             [items]="skillslist$ | async"
@@ -41,6 +41,7 @@
             appendTo="body" 
             formControlName="location" 
             class="custom" 
+            style="width: 100%;"
             labelForId="city" 
             name="cityName">
               <ng-option *ngFor="let city of (cityLists$ | async)" [value]="city.cityID">{{city.cityName}}</ng-option>
@@ -55,6 +56,7 @@
             appearance="outline" 
             placeholder="Experience"
             appendTo="body" 
+            style="width: 100%;"
             formControlName="experiance" 
             class="custom" 
             name="empexp">
@@ -70,6 +72,7 @@
             appearance="outline" 
             placeholder="Salary"
             appendTo="body" 
+            style="width: 100%;"
             formControlName="sallary" 
             class="custom" 
             name="sallary">
@@ -91,6 +94,7 @@
             appearance="outline" 
             placeholder="Notice Period"
             appendTo="body" 
+            style="width: 100%;"
             formControlName="notice" 
             class="custom" 
             name="notice">
@@ -106,6 +110,7 @@
             appearance="outline" 
             placeholder="Language"
             appendTo="body" 
+            style="width: 100%;"
             formControlName="language" 
             class="custom" 
             name="language">

@@ -3,10 +3,9 @@
         <div class="searchby-jd">
             <div class="form-group form-inline searchcontent" *ngIf="jobJDlist.length>0">
                 <span class="addons" style="top:40px;"><i class="icofont-search"></i></span>
-                <input type="text" id="Mobile10" [(ngModel)]="searchText" class="form-control" placeholder="Search JD">
+                <input type="text" style="width: 40%;" id="Mobile10" [(ngModel)]="searchText" class="form-control" placeholder="Search JD">
                 <button type="button" class="btn btn-them btn-md">Search</button>
             </div>
-
             <br>
             <div class="title-scheduld" *ngIf="jobJDlist.length>0">
                 <h4 class="mt-2 card-title">Active JD(s) </h4>

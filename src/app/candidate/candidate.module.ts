@@ -50,6 +50,8 @@ import { SharedPersonalDetailsComponent } from './shared-personal-details/shared
 import { SharedResumeComponent } from './shared-resume/shared-resume.component';
 import { ReScheduleModalComponent } from './re-schedule-modal/re-schedule-modal.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SortByIdPipe } from './interview/sort-by-id.pipe';
+import { SortByDateTimePipe } from './interview/sort-by-date-time.pipe';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedPersonalDetailsComponent,
     SharedResumeComponent,
     ReScheduleModalComponent,
+    SortByIdPipe,
+    SortByDateTimePipe,
   ],
   exports: [
     CandidateFooterComponent,

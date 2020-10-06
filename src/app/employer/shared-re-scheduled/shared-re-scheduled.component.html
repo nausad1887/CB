@@ -156,9 +156,9 @@ c0 -113 11 -142 66 -179 39 -26 129 -26 168 0 55 37 66 66 66 179 l0 102 305
             <p class="mb-1 text-blue ml-auto" *ngIf="comment">{{rescheduleRemarks | titlecase}}</p>
         </div>
         <div class="ml-auto align-self-end btn-content">
-            <a (click)="onAcceptClick(interviewID, rescheduledID)" style="border-radius: 30px; background-color: #7fb126; color: #fff;" class="btn cursr">Accept</a>
-            <a (click)="onDeclineClick(interviewID, rescheduledID)" style="border-radius: 30px;border: 1px solid #e34040;color: #e34040;" class="btn cursr">Decline</a>
-            <a (click)="onRescheduleClick(interviewID, rescheduledID)" style="border: 1px solid #62a8ff;color: #62a8ff;border-radius: 30px;"
+            <a (click)="onAcceptClick(interviewID, rescheduledID, employeeID)" style="border-radius: 30px; background-color: #7fb126; color: #fff;" class="btn cursr">Accept</a>
+            <a (click)="onDeclineClick(interviewID, rescheduledID, employeeID)" style="border-radius: 30px;border: 1px solid #e34040;color: #e34040;" class="btn cursr">Decline</a>
+            <a (click)="onRescheduleClick(interviewID, rescheduledID, employeeID, interviewMode)" style="border: 1px solid #62a8ff;color: #62a8ff;border-radius: 30px;"
                 class="btn btn-blue btn-rounded cursr">Reschedule</a>
         </div>
     </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 import { throwError, Observable, BehaviorSubject, timer } from 'rxjs';
-import { catchError, retry, switchMap, shareReplay, map } from 'rxjs/operators';
+import { catchError, retry, shareReplay, map, switchMap } from 'rxjs/operators';
 import { Interview } from '../candidateInterface';
 
 const CACHE_SIZE = 1;
@@ -21,6 +21,10 @@ export class EmployerService {
   private plansLists$: Observable<Array<any>>;
   private purchasedPlansLists$: Observable<Array<any>>;
   private interviewModeLists$: Observable<Array<any>>;
+  private interviewsScheduled$: Observable<Array<Interview>>;
+  private interviewsProcess$: Observable<Array<Interview>>;
+  private interviewsReScheduled$: Observable<Array<Interview>>;
+  private interviewsUnavailable$: Observable<Array<Interview>>;
 
   private createJobJDurl = '/jobjd/create-jd';
   private editJobJDurl = '/jobjd/edit-jd';
@@ -34,6 +38,7 @@ export class EmployerService {
   private updateInterviewStatusListsUrl = '/interviews/change-interview-status';
   private deleteInterviewUrl = '/interviews/delete-interview';
   private acceptInterviewUrl = '/interviews/accept-interview';
+  private sendOfferUrl = '/interviews/send-offer';
   private rejectInterviewUrl = '/interviews/reject-interview';
   private employerUpdateProfileUrl = '/employer/employer-update-profile';
   private employerUpdateLogoUrl = '/employer/employer-update-profile-picture';
@@ -57,7 +62,6 @@ export class EmployerService {
   private employerUpdateNotificationUrl = '/employer/employer-update-notification-settings';
   private plansListsUrl = '/plans/plans-list';
   private purchasedPlanUrl = '/plans/purchase-plan-list';
-  private purchasePlanUrl = '/plans/purchase-plan';
   private employerHomeUrl = '/employer/employer-home';
   private interviewModeUrl = '/interviewmode/get-interviewmode-list';
   private scheduleInterviewUrl = '/interviews/schedule-interview';
@@ -711,6 +715,16 @@ export class EmployerService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  public inprocess(data: any) {
+    if (!this.interviewsProcess$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsProcess$ = timer$.pipe(
+        switchMap(_ => this.interviewsProcess(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsProcess$;
+  }
   public interviewsProcess(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -719,7 +733,7 @@ export class EmployerService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "14",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -728,9 +742,19 @@ export class EmployerService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employerInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].inprogress), retry(2), catchError(this.handleError));
   }
 
+  public scheduled(data: any) {
+    if (!this.interviewsScheduled$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsScheduled$ = timer$.pipe(
+        switchMap(_ => this.interviewsScheduled(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsScheduled$;
+  }
   public interviewsScheduled(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -739,7 +763,7 @@ export class EmployerService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "1",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -748,9 +772,19 @@ export class EmployerService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employerInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].scheduled), retry(2), catchError(this.handleError));
   }
 
+  public rescheduled(data: any) {
+    if (!this.interviewsReScheduled$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsReScheduled$ = timer$.pipe(
+        switchMap(_ => this.interviewsRescheduled(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsReScheduled$;
+  }
   public interviewsRescheduled(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -759,7 +793,7 @@ export class EmployerService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "3",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -768,9 +802,19 @@ export class EmployerService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employerInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].reschedule), retry(2), catchError(this.handleError));
   }
 
+  public unavailable(data: any) {
+    if (!this.interviewsUnavailable$) {
+      const timer$ = timer(0, REFRESH_INTERVAL);
+      this.interviewsUnavailable$ = timer$.pipe(
+        switchMap(_ => this.interviewsUnavailabe(data)),
+        shareReplay(CACHE_SIZE)
+      );
+    }
+    return this.interviewsUnavailable$;
+  }
   public interviewsUnavailabe(data: any): Observable<any> {
     const form = new FormData();
     const listingsData = `[{
@@ -779,7 +823,7 @@ export class EmployerService {
            "employeeID": "${data.employeeID}",
            "type": "${data.type}",
            "jobjdID": "${data.jobjdID}",
-           "interviewstatusID": "${data.interviewstatusID}",
+           "interviewstatusID": "4",
            "page": "0",
            "pagesize": "10",
            "apiType": "Android",
@@ -788,7 +832,7 @@ export class EmployerService {
     form.append('json', listingsData);
     return this.http
       .post<any>(this.employerInterviewsListingUrl, form, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(map((response) => response[0].data[0].unavailable), retry(2), catchError(this.handleError));
   }
 
   get getInterviewStatusLists() {
@@ -868,6 +912,29 @@ export class EmployerService {
       .post<any>(this.acceptInterviewUrl, form, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+  // send offer
+  public sendOffer(data: any): Observable<any> {
+    const form = new FormData();
+    const sendOffer = `[{
+      "languageID": "${data.languageID}",
+      "interviewID": "${data.interviewID}",
+      "employerID": "${data.employerID}",
+      "jobjdID": "${data.jobjdID}",
+      "employeeID": "${data.employeeID}",
+      "offerPosition": "${data.offerPosition}",
+      "offerSalary": "${data.offerSalary}",
+      "offerLocation": "${data.offerLocation}",
+      "offerTypeofJob": "${data.offerTypeofJob}",
+      "offerJoiningDate": "${data.offerJoiningDate}",
+      "offerDetails": "${data.offerDetails}",
+      "apiType": "Android",
+      "apiVersion": "1.0"
+    }]`;
+    form.append('json', sendOffer);
+    return this.http
+      .post<any>(this.sendOfferUrl, form, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
   // Reject Interview
   public rejectInterview(data: any): Observable<any> {
     const form = new FormData();
@@ -899,7 +966,6 @@ export class EmployerService {
       // Look for upload progress events.
       if (event.type === HttpEventType.UploadProgress) {
         // This is an upload progress event. Compute and show the % done:
-        const percentDone = Math.round((100 * event.loaded) / event.total);
         // nothing(`File is ${percentDone}% uploaded.`);
       } else if (event instanceof HttpResponse) {
         // nothing('File is completely uploaded!');

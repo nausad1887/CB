@@ -18,6 +18,7 @@ export class ScheduledInterviewsComponent implements OnInit {
   @Input() interviewMode: string;
   @Input() companyLogo: string;
   @Input() employerID: string;
+  @Input() employeeID: string;
   @Input() interviewStatusID: string;
   public baseUrl =
     'http://betaapplication.com/candidatebazar/backend/web/uploads';
@@ -28,6 +29,7 @@ export class ScheduledInterviewsComponent implements OnInit {
     interviewID: '',
     employeeID: '',
     employerID: '',
+    interviewmodeName: ''
   };
   @Output() makeReScheduledInterview: EventEmitter<any> = new EventEmitter();
   @Output() declineScheduledInterview: EventEmitter<any> = new EventEmitter();
@@ -94,10 +96,17 @@ export class ScheduledInterviewsComponent implements OnInit {
     });
   }
 
-  public onDeclineClick = (interviewID: string) => {
-    this.declineScheduledInterview.emit(interviewID);
+  public onDeclineClick = (interviewID: string, employeeID: string, employerID: string) => {
+    this.statusData.interviewID = interviewID;
+    this.statusData.employeeID = employeeID;
+    this.statusData.employerID = employerID;
+    this.declineScheduledInterview.emit(this.statusData);
   }
-  public onRescheduleClick = (interviewID: string) => {
-    this.makeReScheduledInterview.emit(interviewID);
+  public onRescheduleClick = (interviewID: string, employeeID: string, employerID: string, interviewmodeName: string) => {
+    this.statusData.interviewID = interviewID;
+    this.statusData.employeeID = employeeID;
+    this.statusData.employerID = employerID;
+    this.statusData.interviewmodeName = interviewmodeName;
+    this.makeReScheduledInterview.emit(this.statusData);
   }
 }

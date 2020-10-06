@@ -30,13 +30,11 @@
                     </ul>
                     <!-- | search:'jobjdName, jobjdType': searchText -->
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="Scheduled" role="tabpanel"
-                            aria-labelledby="Scheduled-tab">
-                            <app-shared-search (searchText)="filterScheduled($event)" *ngIf="scheduled.length>0">
-                            </app-shared-search>
-                            <div class="" *ngIf="scheduled.length>0 && interviewStatusLists.length > 0">
+                        <div class="tab-pane fade show active" id="Scheduled" role="tabpanel" aria-labelledby="Scheduled-tab">
+                            <div class="" *ngIf="interviewsScheduled$ | async as scheduled">
+                                <app-shared-search (searchText)="filterScheduled($event)" *ngIf="scheduled.length > 0"></app-shared-search>
                                 <div class="content-details pt-1"
-                                    *ngFor="let interview of scheduled | search:'employeeName':searchTexts | slice: (pageSchedule-1) * pageSize : (pageSchedule-1) * pageSize + pageSize; trackBy: scheduledTrackBy">
+                                    *ngFor="let interview of scheduled | name | search:'employeeName':searchTexts | slice: (pageSchedule-1) * pageSize : (pageSchedule-1) * pageSize + pageSize; trackBy: scheduledTrackBy">
                                     <app-shared-scheduled [employeeName]="interview.employee[0].employeeName"
                                         [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
                                         [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
@@ -50,46 +48,40 @@
                                     </app-shared-scheduled>
                                 </div>
                             </div>
-                            <ngb-pagination class="d-flex justify-content-end" *ngIf="scheduled.length>4"
-                                [collectionSize]="scheduled.length" [pageSize]="pageSize" [(page)]="pageSchedule">
+                            <ngb-pagination class="d-flex justify-content-end" *ngIf="(interviewsScheduled$ | async)?.length>4"
+                                [collectionSize]="(interviewsScheduled$ | async)?.length" [pageSize]="pageSize" [(page)]="pageSchedule">
                             </ngb-pagination>
                             <!-- margin-top -->
                             <div class="row" style="margin-top: 90px;"
-                                *ngIf="scheduled.length > 0 && scheduled.length <= 1">
+                                *ngIf="(interviewsScheduled$ | async)?.length > 0 && (interviewsScheduled$ | async)?.length <= 1">
                                 <div>
                                     <p></p>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 40px;"
-                                *ngIf="scheduled.length > 1 && scheduled.length <= 2">
+                                *ngIf="(interviewsScheduled$ | async)?.length > 1 && (interviewsScheduled$ | async)?.length <= 2">
                                 <div>
                                     <p></p>
                                 </div>
                             </div>
                             <!-- loading -->
-                            <div *ngIf="scheduled.length === 0 && loadingScheduled" style="margin-top: 30px;">
+                            <div *ngIf="(interviewsScheduled$ | async) === null" style="margin-top: 30px;">
                                 <app-interviews-skeleton></app-interviews-skeleton>
                             </div>
                             <!-- no record found -->
-                            <div class="row" *ngIf="scheduled.length === 0 && noRecordFoundScheduled">
+                            <div class="row" *ngIf="(interviewsScheduled$ | async)?.length === 0">
                                 <div class="container" style="min-height:295px; margin-top: 30px;">
                                     <p class="lead text-center">No Record Found.</p>
                                 </div>
                             </div>
-                            <!-- error occured -->
-                            <div class="row" *ngIf="scheduled.length === 0 && errorOccuredScheduled">
-                                <div class="container" style="min-height:295px; margin-top: 30px;">
-                                    <p class="lead text-center">Some Error Occured.</p>
-                                </div>
-                            </div>
                         </div>
                         <div class="tab-pane fade" id="Process" role="tabpanel" aria-labelledby="Process-tab">
-                            <div class="" *ngIf="inProcess.length>0">
+                            <div class="" *ngIf="interviewsProcess$ | async as inProcess">
                                 <app-shared-inprocess-search (searchinprocess)="filterinprocess($event)"
-                                    *ngIf="inProcess.length > 0 && interviewStatusLists.length > 0">
+                                    *ngIf="inProcess.length > 0">
                                 </app-shared-inprocess-search>
                                 <div class="content-details pt-1"
-                                    *ngFor="let interview of inProcess | search:'employeeName':searchTextProcess | slice: (pageProgress-1) * pageSize : (pageProgress-1) * pageSize + pageSize; trackBy: inProcessTrackBy">
+                                    *ngFor="let interview of inProcess | name | search:'employeeName':searchTextProcess | slice: (pageProgress-1) * pageSize : (pageProgress-1) * pageSize + pageSize; trackBy: inProcessTrackBy">
                                     <app-shared-in-process [employeeName]="interview.employee[0].employeeName"
                                         [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
                                         [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
@@ -103,40 +95,33 @@
                                     </app-shared-in-process>
                                 </div>
                             </div>
-                            <ngb-pagination class="d-flex justify-content-end" *ngIf="inProcess.length>4"
-                                [collectionSize]="inProcess.length" [pageSize]="pageSize" [(page)]="pageProgress">
+                            <ngb-pagination class="d-flex justify-content-end" *ngIf="(interviewsProcess$ | async)?.length>4"
+                                [collectionSize]="(interviewsProcess$ | async)?.length" [pageSize]="pageSize" [(page)]="pageProgress">
                             </ngb-pagination>
                             <!-- margin-top -->
                             <div class="row" style="margin-top: 50px;"
-                                *ngIf="inProcess.length > 0 && inProcess.length <= 1">
+                                *ngIf="(interviewsProcess$ | async)?.length > 0 && (interviewsProcess$ | async)?.length <= 1">
                                 <div>
                                     <p></p>
                                 </div>
                             </div>
                             <!-- loading -->
-                            <div *ngIf="inProcess.length === 0 && loadingInProcess" style="margin-top: 30px;">
+                            <div *ngIf="(interviewsProcess$ | async) === null" style="margin-top: 30px;">
                                 <app-interviews-skeleton></app-interviews-skeleton>
                             </div>
                             <!-- no record found -->
-                            <div class="row" *ngIf="inProcess.length === 0 && noRecordFoundInProcess">
+                            <div class="row" *ngIf="(interviewsProcess$ | async)?.length === 0">
                                 <div class="container" style="min-height:295px; margin-top: 30px;">
                                     <p class="lead text-center">No Record Found.</p>
                                 </div>
                             </div>
-                            <!-- error occured -->
-                            <div class="row" *ngIf="inProcess.length === 0 && errorOccuredInProcess">
-                                <div class="container" style="min-height:295px; margin-top: 30px;">
-                                    <p class="lead text-center">Some Error Occured.</p>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="tab-pane fade" id="Reschedule" role="tabpanel" aria-labelledby="Reschedule-tab">
-                            <div class="" *ngIf="reScheduled.length>0">
+                            <div class="" *ngIf="interviewsReScheduled$ | async as reScheduled">
                                 <app-shared-rescheduled-search (searchrescheduled)="filterrescheduled($event)"
                                     *ngIf="reScheduled.length > 0"></app-shared-rescheduled-search>
                                 <div class="content-details pt-1"
-                                    *ngFor="let interview of reScheduled | search:'employeeName':searchTextRescheduled | slice: (pageReschedule-1) * pageSize : (pageReschedule-1) * pageSize + pageSize; trackBy: reScheduledTrackBy">
+                                    *ngFor="let interview of reScheduled | name | search:'employeeName':searchTextRescheduled | slice: (pageReschedule-1) * pageSize : (pageReschedule-1) * pageSize + pageSize; trackBy: reScheduledTrackBy">
                                     <app-shared-re-scheduled [employeeName]="interview.employee[0].employeeName"
                                         [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
                                         [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
@@ -154,39 +139,33 @@
                                     </app-shared-re-scheduled>
                                 </div>
                             </div>
-                            <ngb-pagination class="d-flex justify-content-end" *ngIf="reScheduled.length>4"
-                                [collectionSize]="reScheduled.length" [pageSize]="pageSize" [(page)]="pageReschedule">
+                            <ngb-pagination class="d-flex justify-content-end" *ngIf="(interviewsReScheduled$ | async)?.length>4"
+                                [collectionSize]="(interviewsReScheduled$ | async)?.length" [pageSize]="pageSize" [(page)]="pageReschedule">
                             </ngb-pagination>
                             <!-- margin-top -->
                             <div class="row" style="margin-top: 30px;"
-                                *ngIf="reScheduled.length > 0 && reScheduled.length <= 1">
+                                *ngIf="(interviewsReScheduled$ | async)?.length > 0 && (interviewsReScheduled$ | async)?.length <= 1">
                                 <div>
                                     <p></p>
                                 </div>
                             </div>
                             <!-- loading -->
-                            <div *ngIf="reScheduled.length === 0 && loadingReScheduled" style="margin-top: 30px;">
+                            <div *ngIf="(interviewsReScheduled$ | async) === null" style="margin-top: 30px;">
                                 <app-interviews-skeleton></app-interviews-skeleton>
                             </div>
                             <!-- no record found -->
-                            <div class="row" *ngIf="reScheduled.length === 0 && noRecordFoundReScheduled">
+                            <div class="row" *ngIf="(interviewsReScheduled$ | async)?.length === 0">
                                 <div class="container" style="min-height:295px; margin-top: 30px;">
                                     <p class="lead text-center">No Record Found.</p>
                                 </div>
                             </div>
-                            <!-- error occured -->
-                            <div class="row" *ngIf="reScheduled.length === 0 && errorOccuredReScheduled">
-                                <div class="container" style="min-height:295px; margin-top: 30px;">
-                                    <p class="lead text-center">Some Error Occured.</p>
-                                </div>
-                            </div>
                         </div>
                         <div class="tab-pane fade" id="Unavailable" role="tabpanel" aria-labelledby="Unavailable-tab">
-                            <div class="" *ngIf="unavailable.length>0">
+                            <div class="" *ngIf="interviewsUnavailable$ | async as unavailable">
                                 <app-shared-unavailable-search (searchUnavailable)="filterUnavailable($event)"
                                     *ngIf="unavailable.length > 0"></app-shared-unavailable-search>
                                 <div class="content-details pt-1"
-                                    *ngFor="let interview of unavailable | search:'employeeName':searchTextUnavailable | slice: (pageUnavailable-1) * pageSize : (pageUnavailable-1) * pageSize + pageSize; trackBy: unAvailableTrackBy">
+                                    *ngFor="let interview of unavailable | name | search:'employeeName':searchTextUnavailable | slice: (pageUnavailable-1) * pageSize : (pageUnavailable-1) * pageSize + pageSize; trackBy: unAvailableTrackBy">
                                     <app-shared-unavailable [employeeName]="interview.employee[0].employeeName"
                                         [employeeWork]="interview.employee[0].workprofiles.length>0 ? interview.employee[0].workprofiles[0].empworkprofileName : ''"
                                         [jobJDname]="interview.jobjdName" [interviewDate]="interview.interviewDate"
@@ -198,36 +177,30 @@
                                     </app-shared-unavailable>
                                 </div>
                             </div>
-                            <ngb-pagination class="d-flex justify-content-end" *ngIf="unavailable.length>4"
-                                [collectionSize]="unavailable.length" [pageSize]="pageSize" [(page)]="pageUnavailable">
+                            <ngb-pagination class="d-flex justify-content-end" *ngIf="(interviewsUnavailable$ | async)?.length>4"
+                                [collectionSize]="(interviewsUnavailable$ | async)?.length" [pageSize]="pageSize" [(page)]="pageUnavailable">
                             </ngb-pagination>
                             <!-- margin-top -->
                             <div class="row" style="margin-top: 90px;"
-                                *ngIf="unavailable.length > 0 && unavailable.length <= 1">
+                                *ngIf="(interviewsUnavailable$ | async)?.length > 0 && (interviewsUnavailable$ | async)?.length <= 1">
                                 <div>
                                     <p></p>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 40px;"
-                                *ngIf="unavailable.length > 1 && unavailable.length <= 2">
+                                *ngIf="(interviewsUnavailable$ | async)?.length > 1 && (interviewsUnavailable$ | async)?.length <= 2">
                                 <div>
                                     <p></p>
                                 </div>
                             </div>
                             <!-- loading -->
-                            <div *ngIf="unavailable.length === 0 && loadingUnAvailable" style="margin-top: 30px;">
+                            <div *ngIf="(interviewsUnavailable$ | async) === null" style="margin-top: 30px;">
                                 <app-interviews-skeleton></app-interviews-skeleton>
                             </div>
                             <!-- no record found -->
-                            <div class="row" *ngIf="unavailable.length === 0 && noRecordFoundUnAvailable">
+                            <div class="row" *ngIf="(interviewsUnavailable$ | async)?.length === 0">
                                 <div class="container" style="min-height:295px; margin-top: 30px;">
                                     <p class="lead text-center">No Record Found.</p>
-                                </div>
-                            </div>
-                            <!-- error occured -->
-                            <div class="row" *ngIf="unavailable.length === 0 && errorOccuredUnAvailable">
-                                <div class="container" style="min-height:295px; margin-top: 30px;">
-                                    <p class="lead text-center">Some Error Occured.</p>
                                 </div>
                             </div>
                         </div>

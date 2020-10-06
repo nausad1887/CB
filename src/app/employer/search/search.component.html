@@ -14,21 +14,17 @@
             [routerLinkActiveOptions]="{ exact: true }" aria-controls="GlobalSearch" aria-selected="false">Global Search
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" routerLink="search-by-jd" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }" id="profile-tab" aria-controls="profile"
             aria-selected="false">Search by JD</a>
         </li>
       </ul>
-
       <div class="">
         <div class="tab-content" id="myTabContent">
           <router-outlet></router-outlet>
         </div>
-
       </div>
-
     </div>
   </section>
 
